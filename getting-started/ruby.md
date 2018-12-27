@@ -101,7 +101,7 @@ Now let's create the `bin/startup` file referenced on the last line of our Docke
 ```bash
 #!/usr/bin/env bash
 
-bin/rails server --port $PORT
+bin/rails server --binding 0.0.0.0 --port $PORT
 ```
 
 Then make that tile executable.
