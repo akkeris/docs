@@ -12,7 +12,7 @@ template: guide
 
 ## Introduction
 
-In this tutorial you will deploy a node.js app in minutes.
+In this tutorial you will deploy a Ruby app using the Rails web framework in minutes.
 
 Hang on after the tutorial for a few minutes to find out how Akkeris works and other information so you can make the most out of Akkeris and its dev tooling.
 
@@ -56,65 +56,74 @@ Note that after you login you may see a list of commands available.
 * [I have installed node.js, akkeris and logged in.](#create-the-app)
 
 
-## Create the app
+## Create your Rails app
 
-In this step, you will prepare a simple application that can be deployed.
+Create a simple app by following this [Getting Started with Rails guide](https://guides.rubyonrails.org/getting_started.html) at least through the end of section 4 "Hello Rails," but you can stop before section 5 "Getting Up and Running."
 
+At this point you should have a simple Rails app that you can spin up with
 ```bash
+<<<<<<< HEAD
 aka apps:create -s voltron -o test
 Creating app ⬢ digestion1077-voltron ...  ✓ 
 https://digestion1077-voltron.alamoapp.example.io/
+=======
+$ bin/rails server
+>>>>>>> da53895... Create a rails app
 ```
+and then navigate to the home page at http://localhost:3000/ to see "Hello, Rails!"
 
-This will create a new app with a randomly generated name `digestion1077` in the space`voltron`, assigned to our testing organization. You can pass a parameter to specify your own app name.
+> Note: For your app to run in the Docker container, you may need to uncomment the `gem 'mini_racer'` line in your Gemfile.
 
-> Your application name may vary, keep a note of your randomly generated app name as you'll need it later, you can also create an app with a specific name by passing it in as an arguement to the command above.
+#### Add a Dockerfile to your app
 
+<<<<<<< HEAD
 Now deploy the image `quay.example.io/developer/node-boilerplate:v1` to the app:
 
 ```bash
 aka releases:create -a digestion1077-voltron docker://quay.example.io/developer/node-boilerplate:v1
 Deploying ⬢ docker://quay.example.io/developer/node-boilerplate:v1 to digestion1077-voltron  ...  ✓ 
+=======
+To deploy to Akkeris a special file called a `Dockerfile` is needed. It is auto detected by Akkeris and tells it how to start your application, and how to build your application.
+
+Create a new file in the project root directory named `Dockerfile` (case sensitive) and copy this into it
+```Dockerfile
+FROM ruby
+WORKDIR /usr/src/app
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+COPY . .
+CMD bin/startup
+>>>>>>> da53895... Create a rails app
 ```
 
-You can watch the app logs (including its build and release) with the command below. Remember to press CTRL+C to stop watching the logs once you see the `Node app is running on port 9000`:
+Now let's create the `bin/startup` file referenced on the last line of our Dockerfile and give it the following contents.
 
 ```bash
-aka logs -t -a digestion1077-voltron
-2018-04-09T16:21:42Z digestion1077-voltron akkeris/build: 87de37a50d56: Pushed
-2018-04-09T16:21:49Z digestion1077-voltron akkeris/build: 2c40c66f7667: Pushed
-2018-04-09T16:21:54Z digestion1077-voltron akkeris/build: 4e46330a61be: Pushed
-2018-04-09T16:21:59Z digestion1077-voltron app[web.akkeris/event]: Slug compilation finished
-2018-04-09T16:22:02Z digestion1077-voltron app[web.akkeris/event]: Release v1 created (Auto-Deploy b7a27c7f)
-2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info it worked if it ends with ok
-2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info using npm@5.3.0
-2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info using node@v8.4.0
-2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info lifecycle node-js-getting-started@0.2.5~prestart: node-js-getting-started@0.2.5
-2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info lifecycle node-js-getting-started@0.2.5~start: node-js-getting-started@0.2.5
-2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: 
-2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: > node-js-getting-started@0.2.5 start /usr/src/app
-2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: > node index.js
-2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: 
-2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: Node app is running on port 9000
+#!/usr/bin/env bash
+
+bin/rails server --port $PORT
 ```
 
-You've successfully deployed your new application! Open your deployed application in the browser by running:
-
+Then make that tile executable.
 ```bash
-aka apps:open -a digestion1077-voltron
+chmod +x bin/startup
 ```
 
+<<<<<<< HEAD
 If it does not appear give it a few seconds to start up.
 
 * [I understand how to create and deploy an app with a docker image.](#attaching-your-app-to-github)
 
 
+=======
+>>>>>>> da53895... Create a rails app
 ## Attaching your App to Github
 
 Most applications are deployed via a source control repository such as GitHub. This is called an auto build.  In this section we'll learn how we can automatically attach our app to Github and deploy code as commits are made.
 
 ### Create a new github repo
 
+<<<<<<< HEAD
 In this example you'll need to create a new repo on GitHub, you can create it under your corporate account or under your personal account. You can do this at [https://github.com](https://github.com/).
 
 Now open up a terminal and we'll clone out your repo:
@@ -136,33 +145,19 @@ npm install -y express
 ```
 
 Now lets add some code to the `index.js` file:
+=======
+In this example you'll need to create a new repo on GitHub, you can create it under OC Tanner or under your personal account. You can do this at https://github.com/new. Do not initialize the repository with a README, do not add a `.gitignore`, and do not add a license.
+>>>>>>> da53895... Create a rails app
 
+In your terminal, from the directory containing your new Rails app, commit your code if you haven't already.
 ```bash
-cat > index.js <<EOF
-const express = require('express')
-const app = express()
-
-app.get('/', (req, res) => res.send('Hello World.'))
-
-app.listen(9000, () => console.log('Example app listening on 9000'))
-EOF
+$ git add .
+$ git commit -m "first commit"
 ```
-
-
-Once you've cloned out the repo populate it with an example node.js application of your choice.  To deploy to Akkeris a special file at the root of the repository called a `Dockerfile` \(case sensitive\) is needed.  It is auto detected by Akkeris and tells it how to start your application, and how to build your application.
-
-To create a Dockerfile run:
-
+Then add your new GitHub repo as the remote and push up your code.
 ```bash
-cat > Dockerfile <<EOF
-FROM node:8
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY . /usr/src/app
-RUN npm install
-EXPOSE 9000
-CMD [ "node", "index.js" ]
-EOF
+$ git remote add origin https://github.com/[org]/[repo].git
+$ git push -u origin master
 ```
 
 ### Attach Github to your app
@@ -170,46 +165,29 @@ EOF
 Next, set your app to automatically deploy anytime there's a change on the repo:
 
 ```bash
-aka repo:set https://github.com/[org]/[repo] -t [token] \
-  -u [github username] -a digestion1077-voltron
+$ aka repo:set https://github.com/[org]/[repo] --token [token] \
+  --username [github username] --app digestion1077-voltron
 ```
 
 Note, you can use the token you generated when you setup your [Github CLI](/getting-started/prerequisites-and-installing.md#setting-up-github-account-on-the-cli).
 
 ### Trigger a new deploy
 
-Now any change to your repo will create a new build. You can create a new commit by first adding your new files:
+Now any change to your repo will create a new build. So we can trigger a new build by committing our new Dockerfile and pushing it up to GitHub.
 
 ```bash
-git add package.json index.js Dockerfile
-```
-
-Then commiting them:
-
-```bash
-git commit -a -m 'Triggering deploy'
-[master d3c552b] Trigger deploy
-```
-
-Now push your changes to trigger the deploy:
-
-```bash
-git push
-Counting objects: 22, done.
-Delta compression using up to 8 threads.
-Compressing objects: 100% (16/16), done.
-Writing objects: 100% (22/22), 3.10 KiB | 0 bytes/s, done.
-Total 22 (delta 13), reused 0 (delta 0)
-remote: Resolving deltas: 100% (13/13), completed with 12 local objects.
+$ git add Dockerfile
+$ git commit -a -m 'Create Dockerfile'
+$ git push
 ```
 
 To watch your [logs](/architecture/log-drains.md), run:
 
 ```bash
-aka logs -t -a digestion1077-voltron
+aka logs --tail -a digestion1077-voltron
 ```
 
-Note the `-t` in the command above means to tail the logs, it keeps showing new logs until you press CTRL+C to stop it. Once the logs show `Example app listening 9000` its up and running, remember to press CTRL+C to stop watching the logs.
+Note the `--tail` in the command above means to tail the logs, it keeps showing new logs until you press CTRL+C to stop it. Once the logs show `Example app listening 9000` its up and running, remember to press CTRL+C to stop watching the logs.
 
 You've successfully attached and deployed your code from Github!  To see your application run:
 
@@ -364,7 +342,3 @@ Here’s some recommended reading. The first, an article, will give you a firmer
 ### Have Questions?
 
 * Join our slack channel at \#akkeris (akkeris.slack.com)
-
-
-
-
