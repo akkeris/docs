@@ -56,19 +56,67 @@ Note that after you login you may see a list of commands available.
 * [I have installed node.js, akkeris and logged in.](#create-the-app)
 
 
+## Create an app on Akkeris
+
+In this step, you will prepare a simple application that can be deployed.
+
+```bash
+aka apps:create -s voltron -o test
+Creating app ⬢ digestion1077-voltron ...  ✓ 
+https://digestion1077-voltron.alamoapp.octanner.io/
+```
+
+This will create a new app with a randomly generated name `digestion1077` in the space`voltron`, assigned to our testing organization. You can pass a parameter to specify your own app name.
+
+> Note: Your application name may vary, keep a note of your randomly generated app name as you'll need it later, you can also create an app with a specific name by passing it in as an arguement to the command above.
+
+Before we create our own Rails app and deploy it to our Akkeris app, let's try deploying an already existing Node.js app. Deploy the image `quay.octanner.io/developer/node-boilerplate:v1` to the app:
+
+```bash
+aka releases:create -a digestion1077-voltron docker://quay.octanner.io/developer/node-boilerplate:v1
+Deploying ⬢ docker://quay.octanner.io/developer/node-boilerplate:v1 to digestion1077-voltron  ...  ✓ 
+```
+
+You can watch the app logs (including its build and release) with the command below. Remember to press CTRL+C to stop watching the logs once you see the `Node app is running on port 9000`:
+
+```bash
+aka logs -t -a digestion1077-voltron
+2018-04-09T16:21:42Z digestion1077-voltron akkeris/build: 87de37a50d56: Pushed
+2018-04-09T16:21:49Z digestion1077-voltron akkeris/build: 2c40c66f7667: Pushed
+2018-04-09T16:21:54Z digestion1077-voltron akkeris/build: 4e46330a61be: Pushed
+2018-04-09T16:21:59Z digestion1077-voltron app[web.akkeris/event]: Slug compilation finished
+2018-04-09T16:22:02Z digestion1077-voltron app[web.akkeris/event]: Release v1 created (Auto-Deploy b7a27c7f)
+2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info it worked if it ends with ok
+2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info using npm@5.3.0
+2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info using node@v8.4.0
+2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info lifecycle node-js-getting-started@0.2.5~prestart: node-js-getting-started@0.2.5
+2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info lifecycle node-js-getting-started@0.2.5~start: node-js-getting-started@0.2.5
+2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: 
+2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: > node-js-getting-started@0.2.5 start /usr/src/app
+2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: > node index.js
+2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: 
+2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: Node app is running on port 9000
+```
+
+You've successfully deployed your new application! Open your deployed application in the browser by running:
+
+```bash
+aka apps:open -a digestion1077-voltron
+```
+
+If it does not appear give it a few seconds to start up.
+
+
 ## Create your Rails app
 
 Create a simple app by following this [Getting Started with Rails guide](https://guides.rubyonrails.org/getting_started.html) at least through the end of section 4 "Hello Rails," but you can stop before section 5 "Getting Up and Running."
 
 At this point you should have a simple Rails app that you can spin up with
 ```bash
-<<<<<<< HEAD
 aka apps:create -s voltron -o test
 Creating app ⬢ digestion1077-voltron ...  ✓ 
 https://digestion1077-voltron.alamoapp.example.io/
-=======
 $ bin/rails server
->>>>>>> da53895... Create a rails app
 ```
 and then navigate to the home page at http://localhost:3000/ to see "Hello, Rails!"
 
@@ -76,16 +124,10 @@ and then navigate to the home page at http://localhost:3000/ to see "Hello, Rail
 
 #### Add a Dockerfile to your app
 
-<<<<<<< HEAD
-Now deploy the image `quay.example.io/developer/node-boilerplate:v1` to the app:
-
-```bash
-aka releases:create -a digestion1077-voltron docker://quay.example.io/developer/node-boilerplate:v1
-Deploying ⬢ docker://quay.example.io/developer/node-boilerplate:v1 to digestion1077-voltron  ...  ✓ 
-=======
 To deploy to Akkeris a special file called a `Dockerfile` is needed. It is auto detected by Akkeris and tells it how to start your application, and how to build your application.
 
 Create a new file in the project root directory named `Dockerfile` (case sensitive) and copy this into it
+
 ```Dockerfile
 FROM ruby
 WORKDIR /usr/src/app
@@ -93,7 +135,6 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 COPY . .
 CMD bin/startup
->>>>>>> da53895... Create a rails app
 ```
 
 Now let's create the `bin/startup` file referenced on the last line of our Dockerfile and give it the following contents.
@@ -104,50 +145,23 @@ Now let's create the `bin/startup` file referenced on the last line of our Docke
 bin/rails server --binding 0.0.0.0 --port $PORT
 ```
 
-Then make that tile executable.
+Then make that file executable.
 ```bash
 chmod +x bin/startup
 ```
 
-<<<<<<< HEAD
 If it does not appear give it a few seconds to start up.
 
 * [I understand how to create and deploy an app with a docker image.](#attaching-your-app-to-github)
 
 
-=======
->>>>>>> da53895... Create a rails app
-## Attaching your App to Github
+## Upload your app repo to GitHub
 
 Most applications are deployed via a source control repository such as GitHub. This is called an auto build.  In this section we'll learn how we can automatically attach our app to Github and deploy code as commits are made.
 
 ### Create a new github repo
 
-<<<<<<< HEAD
-In this example you'll need to create a new repo on GitHub, you can create it under your corporate account or under your personal account. You can do this at [https://github.com](https://github.com/).
-
-Now open up a terminal and we'll clone out your repo:
-
-```bash
-git clone https://github.com/[org]/[repo]
-```
-
-Once its cloned, ensure you run `cd [repo]` as we'll write some files to your new repo. Lets first populate it with a default node.js app, to do this first run `npm init -y` and accept all the default values.
-
-```bash
-npm init -y
-```
-
-Then we'll install express:
-
-```bash
-npm install -y express
-```
-
-Now lets add some code to the `index.js` file:
-=======
 In this example you'll need to create a new repo on GitHub, you can create it under OC Tanner or under your personal account. You can do this at https://github.com/new. Do not initialize the repository with a README, do not add a `.gitignore`, and do not add a license.
->>>>>>> da53895... Create a rails app
 
 In your terminal, from the directory containing your new Rails app, commit your code if you haven't already.
 ```bash
@@ -204,10 +218,10 @@ If it does not appear give it a few seconds to start up.
 
 Right now, your app is running on a single [dyno](//architecture/dyno.md). Think of a dyno as a lightweight container \(in fact in the docker world is it a container\) that runs the specified command in your [Dockerfile](https://docs.docker.com/engine/reference/builder/).
 
-You can now check how many dynos are running us the`ps`command:
+You can now check how many dynos are running using the `ps` command:
 
 ```bash
-aka ps -a digestion1077-voltron
+$ aka ps -a digestion1077-voltron
 === web (scout): (from docker) (1)
 web.2885060676-76szt: up 10/27/2017, 2:36:42 PM
 ```
@@ -238,21 +252,7 @@ If you need to run background processes you can create a new process type using 
 
 Akkeris allows you to store configuration information outside of your code. Storing data such as encryption keys or API URL's as [config vars](/architecture/config-vars.md) allows you to have one code base and branch run on multiple environments and gives you a space where confidential information can be stored and retrieved.
 
-At runtime, config vars are exposed as environment variables to the application \(e.g., `process.env.MY_VARIABLE`\). For example, modify `index.js` so that it introduces a new route, `/times`, that repeats an action depending on the value of the `TIMES` environment variable:
-
-```js
-app.get('/times', function(request, response) {
-    var result = ''
-    var times = process.env.TIMES || 5
-    for (i=0; i < times; i++)
-      result += i + ' ';
-  response.send(result);
-});
-```
-
-Then you'll need to commit and push the changes to your github using `git commit -a -m 'Testing config vars'` and `git push`.
-
-To set the config var on Akkeris, execute the following:
+At runtime, config vars are exposed as environment variables to the application \(e.g., `process.env.MY_VARIABLE`\). For example, to set a config var `TIMES=2` on Akkeris, execute the following:
 
 ```bash
 aka config:set TIMES=2 -a digestion1077-voltron
@@ -294,7 +294,7 @@ aka services:plans akkeris-postgresql
 You can then provision addons from a service plan by running `aka addons:create [service]:[plan]`,  you can provision a small database by running:
 
 ```bash
-aka addons:create akkeris-postgresql:standard-0
+aka addons:create akkeris-postgresql:standard-0 -a digestion1077-voltron
 ```
 
 Note that the connection information for the service provisioned are added as config vars. You can view the new config vars created by the provisioned database by running `aka config -a digestion1077-voltron`.
