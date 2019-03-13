@@ -1,0 +1,562 @@
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin:0;
+  padding:0;
+}
+
+@font-face {
+    font-family: 'ProximaNova';
+    src: url("../fonts/ProximaNova-Black-webfont.woff") format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ProximaNova';
+    src: url("../fonts/ProximaNova-Bold-webfont.woff") format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ProximaNova';
+    src: url("../fonts/ProximaNova-Sbold-webfont.woff") format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ProximaNova';
+    src: url("../fonts/ProximaNova-Reg-webfont.woff") format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ProximaNova';
+    src: url("../fonts/ProximaNova-Light-webfont.woff") format('woff');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ProximaNova';
+    src: url("../fonts/ProximaNova-Thin-webfont.woff") format('woff');
+    font-weight: 100;
+    font-style: normal;
+}
+
+:root {
+  /* 
+    Highlight colors are bold and demand attention.
+  */
+  --highlight-link-color:rgb(65, 131, 196);
+  --highlight-link-dark-color:rgb(44, 83, 121);
+  --highlight-color:rgb(231, 42, 126);
+  --highlight-background-color:rgba(231, 42, 126, 0.05);
+  --highlight-text-color:white;
+  --subtle-highlight-background-color:rgb(225, 225, 225);
+  /* 
+    Call outs are more "normal" OK colors that do not 
+    actively call attention
+  */
+  --callout-color:rgb(65, 131, 196);
+  --callout-subtle-color:rgba(65, 131, 196, 0.7);
+  --callout-background-color:rgba(65, 131, 196, 0.07);
+  --body-background:linear-gradient(to right, rgb(174,58,152) 0%, rgb(206,57,98) 100%);
+  --subtle-fading-background:linear-gradient(to bottom, rgba(65, 130, 196, 0.00) 0% , rgba(65, 130, 196, 0.04) 100%);
+  --font-main-family:ProximaNova, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-main-color:rgb(51, 51, 51);
+  --font-text-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-text-color:rgb(100, 100, 100);
+  /* All fonts should be one of these */
+  --font-h1-size:35px;
+  --font-h2-size:30px;
+  --font-h3-size:25px;
+  --font-h4-size:20px;
+  --font-text-size:15px;
+  --font-text-smallest-size:12px;
+  --font-text-button-size:14px;
+  --font-text-small-size:14px;
+  --font-text-large-size:16px;
+  --font-text-line-height:1.5em;
+  --font-subtle-color:rgb(153, 153, 153);
+  --divider-highlight-color:rgb(190, 190, 190);
+  --divider-color:rgb(225, 225, 225);
+  --divider-background-color:rgb(248, 248, 248);
+  --border-radius-containers:5px;
+  --border-radius:3px;
+  --subtle-text-shadow:0 1px 0 rgba(255,255,255,.8);
+}
+
+/* Subtley highlight a tags */
+button {
+  cursor:pointer;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+  background: none;
+  border: 1px solid var(--highlight-link-color);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--highlight-link-color);
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  padding: 0.5em 0.75em;
+  font-size:var(--font-text-button-size);
+  line-height: 1em;
+}
+
+button.primary {
+  background-image:linear-gradient(to right, var(--highlight-link-color) 0%, var(--highlight-link-color) 100%);
+  /*background-image:linear-gradient(to bottom, var(--highlight-link-color) 0%, var(--highlight-link-dark-color) 100%);*/
+  color:white;
+}
+
+button.primary:hover {
+  background-image:linear-gradient(to right, var(--highlight-link-color) 0%, var(--highlight-link-color) 100%);
+  color:white;
+}
+
+button:hover {
+  background-image: linear-gradient(to right, var(--highlight-link-color) 0%, var(--highlight-link-color) 100%), linear-gradient(to bottom, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.99) 100%);
+  background-blend-mode:lighten;
+}
+
+button.inline.right {
+  float:right;
+}
+
+/* Two (or more) buttons next to each other should bind */
+button.connected + button.connected {
+  border-left: 0px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-right:0;
+  margin-left:0;
+}
+
+button.connected:first-of-type:not(:last-of-type) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-right:0;
+  margin-left:0;
+}
+
+button.inline {
+  font-size:var(--font-text-smallest-size);
+}
+
+.loading {
+  position:relative;
+  user-select: none;
+}
+
+.loading::before {
+  position: absolute;
+  content:'';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color:rgba(255,255,255,0.85);
+  z-index:2;
+}
+
+.loading::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/loading.svg);
+  background-size: 28px 14px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 3;
+}
+
+body.loading::before {
+  position:fixed;
+  background-color:rgba(255,255,255,0.90);
+}
+
+body.loading::after {
+  position:fixed;
+}
+
+.loading .loading::after {
+  display:none;
+}
+
+
+.secret {
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  display: inline-block;
+  padding-left: 7.5px;
+  text-shadow: black 0px 0px 8px;
+  color: transparent;
+}
+.secret:focus {
+  text-shadow: none;
+  color: #333;
+}
+.secret:hover::after {
+  color:var(--font-main-color);
+}
+.secret::after {
+  text-shadow: none;
+  content: "\f06e";
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: 7.5px;
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+  cursor: pointer;
+  border-left: 1px solid #dedede;
+  color: var(--font-subtle-color);
+}
+
+.bar {
+  display:flex;
+  padding-top:2rem;
+  border-bottom:1px solid var(--divider-color);
+  padding-bottom:2rem;
+}
+
+.bar header {
+  width:40%;
+  padding-right:4rem;
+  box-sizing: border-box;
+}
+
+.bar h3, .panel h3 {
+  font-weight:600;
+  color:var(--highlight-link-color);
+  border-bottom:0;
+  font-size:var(--font-text-large-size);
+  margin:0;
+  padding-bottom:0.5rem;
+}
+
+.bar p {
+  font-size:var(--font-text-small-size);
+  margin-bottom:0;
+  margin-top:0;
+}
+
+.bar i {
+  font-size:var(--font-text-large-size);
+}
+
+.bar form {
+  width:60%;
+}
+
+.bar form h4, .panel h4 {
+  font-size:var(--font-text-size);
+  font-weight:600;
+  border-bottom:0;
+  color:var(--font-text-color);
+  margin:0;
+  padding-bottom:0.5rem;
+}
+
+.bar form aside {
+  padding:0.5rem 0 1rem 0;
+  font-size:var(--font-text-small-size);
+  color:var(--font-subtle-color);
+}
+
+.bar form input[type="text"], .panel input[type="text"] {
+  -webkit-appearance:none;
+  border:0;
+  width:100%;
+  padding:0.5rem 0;
+  margin:0 0 1px 0;
+  font-size:var(--font-text-large-size);
+  align-self: center;
+  outline:0;
+}
+
+.bar form input[type="text"]::hover {
+  outline:0;
+}
+
+.bar form label.icon, .panel label.icon {
+  margin:0.75rem 0;
+  border-radius:var(--border-radius);
+  border:1px solid var(--divider-color);
+  display:flex;
+}
+
+.bar form label.icon i, .panel label.icon i {
+  padding:0 0.5rem;
+  align-self: center;
+  font-size:var(--font-text-large-size);
+  margin-top:1px;
+}
+
+.bar button.primary {
+  margin-top:0.25rem;
+}
+
+.panel {
+  margin: 1rem 0 0 0;
+  width:100%;
+  display:inline-block;
+  box-sizing: border-box;
+  padding:0.75rem 1rem;
+  box-shadow: 0 0 0 1px rgba(89,105,128,.1), 0 1px 3px 0 rgba(89,105,128,.1), 0 1px 2px 0 rgba(0,0,0,.05);
+  border-radius:var(--border-radius);
+  font-size:var(--font-text-small-size);
+}
+
+.panel.left {
+  width:calc(50% - 1rem + 4px);
+  margin-right:1rem;
+  vertical-align: top;
+}
+
+.panel.right {
+  width:calc(50% - 0.5rem);
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+.panel h4 {
+  line-height:1.75rem;
+  margin-bottom:0;
+}
+
+.panel > label.icon {
+  margin:0.25rem 0;
+}
+
+ul.panel h4 {
+  padding-bottom:0;
+}
+
+ul.panel {
+  list-style: none;
+  padding:0;
+}
+
+ul.panel > li {
+  margin-left:0;
+  padding: 0.75rem 1rem;
+  border-bottom:1px solid rgba(89,105,128,.1); 
+}
+
+@media only screen and (max-width: 768px) {
+  .panel.left, .panel.right, .panel {
+    width:calc(100% - 2rem - 2px);
+    display:block;
+    margin:1rem;
+  }
+}
+body {
+  background-image:linear-gradient(to right, rgb(220, 142, 32) 0%, rgb(231, 42, 126) 100%);
+  background-image:var(--body-background);
+}
+
+appkit-content a, appkit-content a:visited {
+  text-decoration:none;
+  color:var(--callout-color);
+  font-weight:500;
+}
+
+appkit-content {
+  display: block;
+  border-radius: var(--border-radius-containers);
+  box-shadow: 0 1px 4px rgba(51,51,51,0.30);
+  background-color: white;
+  box-sizing: border-box;
+  max-width: 1024px;
+  margin: 2em auto 0 auto;
+  min-height: 500px;
+  font-family: var(--font-text-family);
+}
+
+appkit-content > * {
+  line-height:var(--font-text-line-height);
+  font-size: var(--font-text-size);
+  color: var(--font-text-color);
+}
+
+appkit-content > h1, 
+appkit-content > h2, 
+appkit-content > h3, 
+appkit-content > h4, 
+appkit-content > p,
+appkit-content > ol, 
+appkit-content > ul,
+appkit-content > div > h1, 
+appkit-content > div > h2, 
+appkit-content > div > h3, 
+appkit-content > div > h4, 
+appkit-content > div > p,
+appkit-content > div > ol, 
+appkit-content > div > ul
+{
+  margin-right: 3rem;
+  margin-left: 3rem;
+}
+
+appkit-content > hr {
+  margin:2em 3rem;
+}
+
+appkit-content hr {
+  border-bottom: 0;
+  border-top: 1px solid lightgrey;
+}
+
+appkit-content h1 {
+  font-size: var(--font-h1-size);
+}
+appkit-content h2 {
+  font-size: var(--font-h2-size);
+}
+appkit-content h3 {
+  font-size: var(--font-h3-size);
+}
+appkit-content h4 {
+  font-size: var(--font-h4-size);
+}
+appkit-content h3,
+appkit-content h4 {
+  padding-bottom:0.333em;
+  border-bottom:1px solid var(--divider-color);
+}
+
+appkit-content h1, 
+appkit-content h2, 
+appkit-content h3, 
+appkit-content h4 {
+  font-family: var(--font-main-family);
+  font-weight: 300;
+  color: var(--font-main-color);
+  margin-top: 1em;
+  margin-bottom: 0.333em
+}
+
+appkit-content p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+appkit-content > p:last-child,
+appkit-content > ol:last-child, 
+appkit-content > ul:last-child {
+  padding-bottom: 3rem;
+}
+
+/* Alert, Warning and Tip Boxes */
+
+appkit-content p.alert,
+appkit-content p.tip {
+  padding:1rem;
+  text-shadow:var(--subtle-text-shadow);
+}
+
+appkit-content p.alert {
+  border:1px solid var(--highlight-color);
+  background-color:var(--highlight-background-color);
+  font-size:var(--font-text-small-size);
+  color:var(--font-main-color);
+  border-radius:var(--border-radius);
+}
+
+appkit-content p.alert::before {
+  content:"Alert:";
+  font-weight:bold;
+}
+
+appkit-content p.tip {
+  border:1px solid var(--callout-color);
+  background-color:var(--callout-background-color);
+  font-size:var(--font-text-small-size);
+  color:var(--font-main-color);
+  border-radius:var(--border-radius);
+}
+
+appkit-content p.tip::before {
+  content:"Tip:";
+  font-weight:bold;
+}
+
+appkit-content ol {
+  counter-reset: li;
+  list-style: none;
+  padding-left: 0;
+}
+
+appkit-content ol > li {
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 15px;    
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+appkit-content ol > li::before {
+  content: counter(li);
+  counter-increment: li;
+  color:var(--font-text-color);
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 15px 0 0;
+  border-right: 2px solid var(--divider-color);
+  height: 100%;
+  width: 8px;
+  font-weight:500;
+}
+
+appkit-content pre.command-line {
+  font-family: Monaco,"DejaVu Sans Mono","Courier New",monospace;
+  background-color:#333;
+  color:white;
+  font-weight:bold;
+  padding:var(--font-text-small-size);
+  font-size:var(--font-text-small-size);
+  overflow-x:scroll;
+}
+
+appkit-content pre.command-line::before {
+  content:"$";
+  color:rgba(255,255,255,0.6);
+  padding-right:0.5rem;
+}
+
+@media only screen and (max-width: 1024px) {
+  appkit-content {
+    border-radius:0px;
+  }
+}
+
+
+
+/* Overrides for gitbook */
+body .book .book-body .page-wrapper .page-inner section.normal pre {
+  font-size: 1.15em;
+  border-radius: 0.25em;
+}
+
+body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-string, .book .book-body .page-wrapper .page-inner section.normal code .hljs-string, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-value, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-value, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-inheritance, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-inheritance, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-header, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-header, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-addition, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-addition, body .book .book-body .page-wrapper .page-inner section.normal pre .ruby .hljs-symbol, body .book .book-body .page-wrapper .page-inner section.normal code .ruby .hljs-symbol, body .book .book-body .page-wrapper .page-inner section.normal pre .xml .hljs-cdata, body .book .book-body .page-wrapper .page-inner section.normal code .xml .hljs-cdata {
+  color:var(--highlight-color);
+}
+body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-number, .book .book-body .page-wrapper .page-inner section.normal code .hljs-number, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-preprocessor, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-preprocessor, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-pragma, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-pragma, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-built_in, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-built_in, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-literal, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-literal, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-params, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-params, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-constant, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-constant {
+  color:var(--callout-color);
+}
+body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-keyword, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-keyword, body .book .book-body .page-wrapper .page-inner section.normal pre .javascript .hljs-function, body .book .book-body .page-wrapper .page-inner section.normal code .javascript .hljs-function {
+  color:var(--highlight-link-color);
+}

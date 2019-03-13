@@ -1,0 +1,20 @@
+{
+  "title":"Akkeris",
+  "plugins": [
+    "styled-blockquotes",
+    "term",
+    "simple-page-toc",
+    "anchorjs",
+    "last-modified"
+  ],
+  "pluginsConfig": {
+    "term": {
+      "copyButtons": false,
+      "fade": false,
+      "style": "black"
+    },
+    "simple-page-toc":{
+      "skipFirstH1":true
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{% extends template.self %}
+
+{% block style %}
+	<style>
+		.book .book-body .page-wrapper .page-inner section.normal pre {
+			background-color: #333;
+		    color: white;
+		    font-size: 0.90em;
+		    line-height: 1.35em;
+		}
+	</style>
+	<script src="/assets/js/nav-bar.js"></script>
+	<script src="/assets/js/nav-avatar.js"></script>
+	<link rel="stylesheet" href="/assets/css/theme.css">
+    {{ super() }}
+{% endblock %}
+{% block body %}
+	<nav-bar>
+		<nav-avatar user-api="/user" direction="right" />
+	</nav-bar>
+    {{ super() }}
+{% endblock %}
