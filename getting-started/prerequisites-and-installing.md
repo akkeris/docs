@@ -18,7 +18,11 @@ You'll also need to ensure you have:
 
 ```bash
 brew install docker
+```
+```bash
 brew install node
+```
+```bash
 brew install git
 ```
 
