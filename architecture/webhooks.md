@@ -27,8 +27,7 @@ The use cases for webhooks includes:
 
 To get started as quickly as possible, follow the [app webhook tutoral](/getting-started/webhooks.md)
 
-> **info**  
-> Webhook delivery is suspended for five minutes if the response to a webhook is a HTTP status code other than a 2XX or 3XX more than twice in a five minute period.
+> **info** Webhook delivery is suspended for five minutes if the response to a webhook is a HTTP status code other than a 2XX or 3XX more than twice in a five minute period.
 
 ### Step 1. Determine which events to subsribe to.
 

@@ -8,7 +8,7 @@ Creating plugins allows you to add functionality to appkit (our developer toolki
 2. At the root of the repo create an "index.js" file
 3. Within the index.js file paste this:
 
-```javascript
+```js
 "use strict"
 
 function some_action(appkit, args) {

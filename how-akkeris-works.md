@@ -195,7 +195,7 @@ Dyno types named web are different than other process types - they will receive 
 
 So scaling your application to handle web traffic becomes fairly trivial:
 
-```
+```bash
 aka ps:scale web=5 -a appname-space
 ```
 
@@ -211,7 +211,7 @@ Often its necessary for multiple different apps with different responsibilities 
 
 A default site is created for each application when its created allowing that application to be immediately reachable, however an application can exist in more than one site.  Creating a site is as easy as:
 
-```
+```bash
 aka sites:create www.siteyouwant.com
 ```
 

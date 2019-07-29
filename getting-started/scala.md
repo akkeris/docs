@@ -4,7 +4,7 @@ template: guide
 
 # Getting Started on Akkeris with Scala/Play
 
-> Note this guide is not finished for this language!
+> **danger** Note this guide is not finished for this language!
 
 ## Table of Contents
 

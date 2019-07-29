@@ -8,7 +8,7 @@ By the end of this tutorial you should be able to:
 2. Authenticate with the API.
 2. Explore the [Apps API](/architecture/apps-api.md) reference.
 
-## Prerequisetes
+## Prerequisites
 
 1. In order to get started you'll need to understand the basics of Command Line Interfaces (CLI's) and URLs and HTTP. If you feel uncomfortable with these subjects start by learning about [CLI's](https://www.codecademy.com/learn/learn-the-command-line), then move on to learning about [URLs and HTTP methods using curl](https://curl.haxx.se/docs/httpscripting.html).
 2. It is assumed you'll be working on a OSX or Linux based system (although Windows would work as well, but may require some translation).
@@ -19,9 +19,13 @@ If you do not have curl or jq installed, continue on to the "Opening Your Termin
 
 Run the following command in your terminal:
 
-```
+```bash
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+```bash
 brew install curl
+```
+```bash
 brew install jq
 ```
 
@@ -50,7 +54,7 @@ Type `aka token`. This will return a special series of numbers and letters that 
 
 To save your token, run: 
 
-```
+```bash
 export AKKERIS_TOKEN=`aka token` 
 ``` 
 
@@ -83,7 +87,7 @@ You can confirm it was successful by running `ecoh $AKKERIS_HOST` where it shoul
 
 To make your first request we'll need to construct a `curl` CLI command.  CURL will make an http request for us and return the results of the request back to the Terminal.
 
-```
+```bash
 curl https://$AKKERIS_HOST/apps
 ```
 
@@ -96,13 +100,13 @@ Unauthorized%
 This implies we did not pass in our token, we can see more information by running `curl` in verbose mode:
 
 
-```
+```bash
 curl https://$AKKERIS_HOST/account -v
 ```
 
 You should receive a response, similar to:
 
-```
+```http
 *   Trying 1.2.3.4...
 * TCP_NODELAY set
 * Connected to apps.akkeris.io (1.2.3.4) port 443 (#0)
@@ -154,14 +158,29 @@ The response code following the `< HTTP/1.1` text (`401`) is called a status cod
 To add an authorization, we'll add in the `$AKKERIS_TOKEN` to the request to let Akkeris know who we are and that we're authorized:
 
 
-```
+```bash
 curl https://$AKKERIS_HOST/account -H "Authorization: Bearer $AKKERIS_TOKEN"
 ```
 
 Should now return your account details:
 
-```
-{"allow_tracking":true,"beta":false,"created_at":"2015-01-12T16:28:48.000Z","elevated_access":true,"email":"your.name@example.com","id":"869793c6-0452-c3ce-81cc-6812fc04bb21","last_login":"2019-07-19T00:16:07.007Z","name":"Your Name","sms_number":"+1 555 555 5555","suspended_at":null,"delinquent_at":null,"two_factor_authentication":false,"updated_at":"2019-07-09T20:38:36.000Z","verified":true}
+```json
+{
+	"allow_tracking":true,
+	"beta":false,
+	"created_at":"2015-01-12T16:28:48.000Z",
+	"elevated_access":true,
+	"email":"your.name@example.com",
+	"id":"869793c6-0452-c3ce-81cc-6812fc04bb21",
+	"last_login":"2019-07-19T00:16:07.007Z",
+	"name":"Your Name",
+	"sms_number":"+1 555 555 5555",
+	"suspended_at":null,
+	"delinquent_at":null,
+	"two_factor_authentication":false,
+	"updated_at":"2019-07-09T20:38:36.000Z",
+	"verified":true
+}
 ```
 
 You may notice the text coming back is in a popular JSON (JavaScript Object Notation) format. This format can be parsed by any language and used to exchange information to and from Akkeris.
@@ -178,7 +197,7 @@ To create a new app, you'll need to make a new request to Akkeris via a http met
 
 In this example we'll create an app called `monty` in space `nice` with the org `testorg`.  You can choose your own app name if you'd like, it must be less than 24 characters and can only contain letters and numbers (and must begin with a letter). You cannot use dashes, or underscores in app names.  Replace `nice` with the space you selected, and likewise `testorg` with your org. 
 
-```
+```bash
 curl https://$AKKERIS_HOST/account -H "Authorization: Bearer $AKKERIS_TOKEN" \
 	-X POST \
 	-d '{"org":"testorg", "name":"monty", "space":"nice", "description":"my app"}' \
@@ -187,8 +206,57 @@ curl https://$AKKERIS_HOST/account -H "Authorization: Bearer $AKKERIS_TOKEN" \
 
 You should see the response:
 
-```
-{"archived_at":"2019-07-28T23:22:40.071Z","buildpack_provided_description":"default","build_stack":{"id":"ffa8cf57-768e-5214-82fe-fda3f19353f3","name":"ds1"},"created_at":"2019-07-28T23:22:40.071Z","description":"my app","git_url":null,"git_branch":null,"id":"f5a45fd8-0b46-4ed5-99d6-ba0005282bf7","labels":"","maintenance":false,"name":"monty-nice","simple_name":"monty","key":"monty-nice","owner":{"email":"","id":"a3bf4f1b-2b0b-822c-d15d-6c15b0f00a08"},"organization":{"id":"8c125719-ae31-4365-a863-42627190732b","name":"testorg"},"formation":{"size":null,"quantity":null,"port":null},"preview":null,"region":{"id":"f5f1d4d9-aa4a-12aa-bec3-d44af53b59e3","name":"us-seattle"},"released_at":null,"repo_size":0,"slug_size":0,"space":{"id":"ee6d506c-a2b3-4384-9998-0f092e33eb71","name":"nice","compliance":""},"stack":{"id":"ffa8cf57-768e-5214-82fe-fda3f19353f3","name":"ds1"},"updated_at":"2019-07-28T23:22:40.071Z","web_url":"https://monty-nice.ds1.akkeris.io/"}
+```json
+{
+	"archived_at":"2019-07-28T23:22:40.071Z",
+	"buildpack_provided_description":"default",
+	"build_stack":{
+		"id":"ffa8cf57-768e-5214-82fe-fda3f19353f3",
+		"name":"ds1"
+	},
+	"created_at":"2019-07-28T23:22:40.071Z",
+	"description":"my app",
+	"git_url":null,
+	"git_branch":null,
+	"id":"f5a45fd8-0b46-4ed5-99d6-ba0005282bf7",
+	"labels":"",
+	"maintenance":false,
+	"name":"monty-nice",
+	"simple_name":"monty",
+	"key":"monty-nice",
+	"owner":{
+		"email":"",
+		"id":"a3bf4f1b-2b0b-822c-d15d-6c15b0f00a08"
+	},
+	"organization":{
+		"id":"8c125719-ae31-4365-a863-42627190732b",
+		"name":"testorg"
+	},
+	"formation":{
+		"size":null,
+		"quantity":null,
+		"port":null
+	},
+	"preview":null,
+	"region":{
+		"id":"f5f1d4d9-aa4a-12aa-bec3-d44af53b59e3",
+		"name":"us-seattle"
+	},
+	"released_at":null,
+	"repo_size":0,
+	"slug_size":0,
+	"space":{
+		"id":"ee6d506c-a2b3-4384-9998-0f092e33eb71",
+		"name":"nice",
+		"compliance":""
+	},
+	"stack":{
+		"id":"ffa8cf57-768e-5214-82fe-fda3f19353f3",
+		"name":"ds1"
+	},
+	"updated_at":"2019-07-28T23:22:40.071Z",
+	"web_url":"https://monty-nice.ds1.akkeris.io/"
+}
 ```
 
 You'll notice a few new options we added to curl, `-X POST` tells curl to make send a http method `POST` or to create.  The `-d` followed by the JSON contents are the optional (additional) information we send to Akkeris to complete the request. The new header we added with `-H 'content-type: application/json'` tells Akkeris the additional information is encoded with JSON. The key and values inside this JSON content are documented in the [Apps API](/architecture/apps-api.md) and vary depending on the request. 
@@ -201,7 +269,7 @@ You'll notice a few new options we added to curl, `-X POST` tells curl to make s
 
 To remove an app, we change the `POST` method to a `DELETE` method. To remove your app (in our situation called `monty-nice`) run the following command, remember to replace the app name with the name you used.
 
-```
+```bash
 curl https://$AKKERIS_HOST/apps/monty-nice -X DELETE -H "Authorization: Bearer $AKKERIS_TOKEN"
 ```
 

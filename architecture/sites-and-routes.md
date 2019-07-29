@@ -125,26 +125,28 @@ First step is to ensure you have the domain name available, any `*.example.io` d
 
 The second step to creating a site is to ensure it has a ssl/tls certificate issued and installed.  Any company domain already has a wildcard ssl/tls certificate.  If you need to provision a new ssl certificate you can order one by running on the command line:
 
-```
+```bash
 aka plugins:install certs
+```
+```bash
 aka certs:create short_name www.website.com -m "Comments as to why you need it" -o [organization]
 ```
 
 The certificate will then go under an infosec review and once approved (generally in a day or two) will be issued, you can check the status of an ssl certificate using:
 
-```
+```bash
 aka certs:orders:status short_name
 ```
 
 Once the certificate has the "issued" status you can install it using:
 
-```
+```bash
 aka certs:orders:install short_name
 ```
 
 Finally, the last step to creating a site is to actually create it in our F5 using the command:
 
-```
+```bash
 aka sites:create www.website.com
 ```
 

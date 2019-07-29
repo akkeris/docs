@@ -7,7 +7,7 @@ Akkeris treats these add-ons as attached resources: provisioning an add-on is a 
 For example, here's how to add an Akkeris Redis to an application:
 
 ```bash
-aka addons:create alamo-redis:small -a appname-space
+aka addons:create akkeris-redis:small -a appname-space
 ```
 
 Dynos do not share file state, and so add-ons that provide some kind of storage are typically used as a means of communication between dynos in an application. For example, Redis or RabbitMQ could be used as the backing mechanism in a queue; then dynos of the web process type can push job requests onto the queue, and dynos of the queue process type can pull jobs requests from the queue.

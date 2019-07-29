@@ -63,49 +63,12 @@ In this step, you will prepare a simple application that can be deployed.
 ```bash
 aka apps:create -s voltron -o test
 Creating app ⬢ digestion1077-voltron ...  ✓ 
-https://digestion1077-voltron.alamoapp.octanner.io/
+https://digestion1077-voltron.alamoapp.akkeris.io/
 ```
 
 This will create a new app with a randomly generated name `digestion1077` in the space`voltron`, assigned to our testing organization. You can pass a parameter to specify your own app name.
 
 > Note: Your application name may vary, keep a note of your randomly generated app name as you'll need it later, you can also create an app with a specific name by passing it in as an arguement to the command above.
-
-Before we create our own Rails app and deploy it to our Akkeris app, let's try deploying an already existing Node.js app. Deploy the image `quay.octanner.io/developer/node-boilerplate:v1` to the app:
-
-```bash
-aka releases:create -a digestion1077-voltron docker://quay.octanner.io/developer/node-boilerplate:v1
-Deploying ⬢ docker://quay.octanner.io/developer/node-boilerplate:v1 to digestion1077-voltron  ...  ✓ 
-```
-
-You can watch the app logs (including its build and release) with the command below. Remember to press CTRL+C to stop watching the logs once you see the `Node app is running on port 9000`:
-
-```bash
-aka logs -t -a digestion1077-voltron
-2018-04-09T16:21:42Z digestion1077-voltron akkeris/build: 87de37a50d56: Pushed
-2018-04-09T16:21:49Z digestion1077-voltron akkeris/build: 2c40c66f7667: Pushed
-2018-04-09T16:21:54Z digestion1077-voltron akkeris/build: 4e46330a61be: Pushed
-2018-04-09T16:21:59Z digestion1077-voltron app[web.akkeris/event]: Slug compilation finished
-2018-04-09T16:22:02Z digestion1077-voltron app[web.akkeris/event]: Release v1 created (Auto-Deploy b7a27c7f)
-2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info it worked if it ends with ok
-2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info using npm@5.3.0
-2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info using node@v8.4.0
-2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info lifecycle node-js-getting-started@0.2.5~prestart: node-js-getting-started@0.2.5
-2018-04-09T16:22:07Z digestion1077-voltron app[web.2453604099-0lcnh]: npm info lifecycle node-js-getting-started@0.2.5~start: node-js-getting-started@0.2.5
-2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: 
-2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: > node-js-getting-started@0.2.5 start /usr/src/app
-2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: > node index.js
-2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: 
-2018-04-09T16:22:08Z digestion1077-voltron app[web.2453604099-0lcnh]: Node app is running on port 9000
-```
-
-You've successfully deployed your new application! Open your deployed application in the browser by running:
-
-```bash
-aka apps:open -a digestion1077-voltron
-```
-
-If it does not appear give it a few seconds to start up.
-
 
 ## Create your Rails app
 
@@ -116,7 +79,9 @@ At this point you should have a simple Rails app that you can spin up with
 aka apps:create -s voltron -o test
 Creating app ⬢ digestion1077-voltron ...  ✓ 
 https://digestion1077-voltron.alamoapp.example.io/
-$ bin/rails server
+```
+```bash
+bin/rails server
 ```
 and then navigate to the home page at http://localhost:3000/ to see "Hello, Rails!"
 
@@ -139,9 +104,8 @@ CMD bin/startup
 
 Now let's create the `bin/startup` file referenced on the last line of our Dockerfile and give it the following contents.
 
-```bash
+```
 #!/usr/bin/env bash
-
 bin/rails server --binding 0.0.0.0 --port $PORT
 ```
 
@@ -165,13 +129,16 @@ In this example you'll need to create a new repo on GitHub, you can create it un
 
 In your terminal, from the directory containing your new Rails app, commit your code if you haven't already.
 ```bash
-$ git add .
-$ git commit -m "first commit"
+git add .
+```
+```bash
+git commit -m "first commit"
 ```
 Then add your new GitHub repo as the remote and push up your code.
 ```bash
-$ git remote add origin https://github.com/[org]/[repo].git
-$ git push -u origin master
+git remote add origin https://github.com/[org]/[repo].git
+```bash
+git push -u origin master
 ```
 
 ### Attach Github to your app
@@ -179,7 +146,7 @@ $ git push -u origin master
 Next, set your app to automatically deploy anytime there's a change on the repo:
 
 ```bash
-$ aka repo:set https://github.com/[org]/[repo] --token [token] \
+aka repo:set https://github.com/[org]/[repo] --token [token] \
   --username [github username] --app digestion1077-voltron
 ```
 
@@ -190,9 +157,13 @@ Note, you can use the token you generated when you setup your [Github CLI](/gett
 Now any change to your repo will create a new build. So we can trigger a new build by committing our new Dockerfile and pushing it up to GitHub.
 
 ```bash
-$ git add Dockerfile
-$ git commit -a -m 'Create Dockerfile'
-$ git push
+git add Dockerfile
+```
+```bash
+git commit -a -m 'Create Dockerfile'
+```
+```bash
+git push
 ```
 
 To watch your [logs](/architecture/log-drains.md), run:
@@ -221,7 +192,7 @@ Right now, your app is running on a single [dyno](//architecture/dyno.md). Think
 You can now check how many dynos are running using the `ps` command:
 
 ```bash
-$ aka ps -a digestion1077-voltron
+aka ps -a digestion1077-voltron
 === web (scout): (from docker) (1)
 web.2885060676-76szt: up 10/27/2017, 2:36:42 PM
 ```
