@@ -2,9 +2,7 @@
 
 ## Features
 
-All postgresql plans are maintained and backed up automatically, to provision a new postgresql instace use the service `akkeris-postgresql`.
-
-The postgres plans are spread across different tiers: hobby, standard and premium. To choose a plan you may
+All postgresql plans are maintained and backed up automatically, to provision a new postgresql instace use the service `akkeris-postgresql`. The postgres plans are spread across different tiers: hobby, standard and premium. To choose a plan you may
 want to consider the following:
 
 1. How much planned downtime is acceptable? Hobby instances may have up to 4 hours a month, which may be acceptable, even in production depending on your workload.
@@ -31,11 +29,13 @@ want to consider the following:
 | Encrypted  | No          | No         | Yes          | Yes          | No        | No        | Yes       |
 
 
-### Provisioning 
+## Provisioning 
 
 ```shell
 aka addons:create akkeris-postgresql:[hobby|standard-0|standard-1|standard-2|premium-0|premium-1|premium-2] -a [app-space]
 ```
+
+Once provisioned, the postgres database url in the format of `postgres://user:pass@host.com:5432/dbname` is added as the config var `DATABASE_URL` to the app.
 
 ### Hobby and Standard Tier
 

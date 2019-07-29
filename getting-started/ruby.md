@@ -4,8 +4,6 @@ template: guide
 
 # Getting Started on Akkeris with Ruby
 
-> Note this guide is not finished for this language!
-
 ## Table of Contents
 
 <!-- toc -->

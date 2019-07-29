@@ -29,7 +29,7 @@ In this step you will install the Akkeris Command Line Interface \(CLI\), or App
 Install Akkeris:
 
 ```shell
-$ npm -g install akkeris
+npm -g install akkeris
 ```
 
 _Note, if you receive an error about insufficient permissions you may need to run _`sudo npm -g install akkeris`_ instead._
@@ -37,7 +37,7 @@ _Note, if you receive an error about insufficient permissions you may need to ru
 Then type:
 
 ```shell
-$ aka
+aka
 
 Hi! It looks like you might be new here. Lets take a second
 to get started, you'll need your akkeris auth and apps host

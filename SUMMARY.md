@@ -62,7 +62,7 @@
 ## Addons
 
 * [Amazon S3](/addons/amazon-s3.md)
-* [Elastic Cache](/addons/elastic-cache.md)
+* [ElasticSearch](/addons/elastic-search.md)
 * [Memcached](/addons/memcached.md)
 * [MongoDB](/addons/mongodb.md)
 * [MySQL](/addons/mysql.md)

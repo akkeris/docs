@@ -56,7 +56,7 @@ aka addons:attach securekey-noun-12345 -a newapp-space
 
 Periodically you may wish to rotate keys, or if one of the keys becomes compromised you can rotate them by using the CLI plugin and executing:
 
-```
+```shell
 aka securekey:rotate -a [appname-space]
 ```
 
