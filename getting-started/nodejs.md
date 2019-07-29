@@ -38,7 +38,7 @@ Then type:
 $ aka
 
 Hi! It looks like you might be new here. Lets take a second
-to get started, you'll need your akkeris auth and apps host
+to get started, you will need your akkeris auth and apps host
 in addition to your login and password.
 
 Akkeris Auth Host (auth.example.io): auth.example.io

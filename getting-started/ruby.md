@@ -29,7 +29,7 @@ In this step you will install the Akkeris Command Line Interface \(CLI\), or App
 Install Akkeris:
 
 ```bash
-$ npm -g install akkeris
+npm -g install akkeris
 ```
 
 _Note, if you receive an error about insufficient permissions you may need to run _`sudo npm -g install akkeris`_ instead._
@@ -37,10 +37,10 @@ _Note, if you receive an error about insufficient permissions you may need to ru
 Then type:
 
 ```bash
-$ aka
+aka
 
 Hi! It looks like you might be new here. Lets take a second
-to get started, you'll need your akkeris auth and apps host
+to get started, you will need your akkeris auth and apps host
 in addition to your login and password.
 
 Akkeris Auth Host (auth.example.io): auth.example.io
@@ -332,7 +332,7 @@ In this step we'll provision an addon that will add a log drain to your app, Pap
 Provision the papertrail logging add-on:
 
 ```bash
-$ aka addons:create papertrail:basic -a digestion1077-voltron
+aka addons:create papertrail:basic -a digestion1077-voltron
 
 === Addon papertrail-camera-5168 Provisioned
 === papertrail-camera-5168 (f5a86fae-b54f-481f-a8c8-006942541ee8)
@@ -343,7 +343,7 @@ $ aka addons:create papertrail:basic -a digestion1077-voltron
 The add-on is now deployed and configured for your application. You can list add-ons that are installed for your app using:
 
 ```bash
-$ aka addons -a digestion1077-voltron
+aka addons -a digestion1077-voltron
 ```
 
 If you visit [https://papertrailapp.com/systems/digestion1077-voltron/events](https://papertrailapp.com/systems/digestion1077-voltron/events) you can see the logs from your application, it may take a second or two for them to appear. The interface also allows you to setup searches and alerts.

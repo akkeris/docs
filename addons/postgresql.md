@@ -37,7 +37,7 @@ want to consider the following:
 aka addons:create akkeris-postgresql:[hobby|standard-0|standard-1|standard-2|premium-0|premium-1|premium-2] -a [app-space]
 ```
 
-### Hobby and Stadard Tier
+### Hobby and Standard Tier
 
 The hobby and standard tier runs on a shared-tenant server with a dedicated database. It does not permit adding new databases or adding new extensions. In addition, limitations on the amount of connections are imposed. The hobby tier is great for systems like blogs and tooling apps (such as a header dump) and light-weight apps. Standard tier is great for some smaller production applications and development systems.
 
@@ -46,4 +46,6 @@ The hobby and standard tier runs on a shared-tenant server with a dedicated data
 If your app's requirements eventually outgrow the resources provided by the initial plan you select, you can upgrade your database as well (note, this may result in a small amount of downtime). To upgrade your database retrieve the ID of the addon from `aka addons -a [app-space]`.  Then run the upgrade with the new plan as the option `aka addons:upgrade -a [app-space] a3bf4f1b-2b0b-822c-d15d-6c15b0f00a08 akkeris-postgresql:premium-0`.  If the addon `a3bf4f1b-2b0b-822c-d15d-6c15b0f00a08` in the example before was a standard-0 it would be upgraded to a dedicated premium-0.
 
 Apps are placed into maintence mode while the applications database is upgraded.
+
+In addition to upgrading you can downgrade a plan using `aka addons:downgrade`, note if their is insufficient space to downgrade your plan the operation will fail and revert back to the existing plan.
 
