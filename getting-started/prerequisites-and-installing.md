@@ -16,13 +16,13 @@ You'll also need to ensure you have:
 
 ### Using Brew
 
-```bash
+```shell
 brew install docker
 ```
-```bash
+```shell
 brew install node
 ```
-```bash
+```shell
 brew install git
 ```
 
@@ -37,7 +37,7 @@ In this step you will install the Akkeris Command Line Interface \(CLI\), or App
 
 Install Akkeris:
 
-```bash
+```shell
 npm -g install akkeris
 ```
 
@@ -45,7 +45,7 @@ _Note, if you receive an error about insufficient permissions you may need to ru
 
 Then type:
 
-```bash
+```shell
 aka
 
 Hi! It looks like you might be new here. Lets take a second

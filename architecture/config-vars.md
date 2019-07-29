@@ -6,7 +6,7 @@ Akkeris lets you run your application with a customizable configuration - the co
 
 The configuration for an application is stored in config vars. For example, here’s how to configure an encryption key for an application:
 
-```bash
+```shell
 aka config:set ENCRYPTION_KEY=my_secret_launch_codes -a appname-space
 Adding config vars and restarting demoapp... done, v14
 ENCRYPTION_KEY=my_secret_launch_codes
@@ -44,7 +44,7 @@ Any time Akkeris finds a sensitve peice of information in a `socs` \(and sometim
 
 To help ease the burden of local development, in compliant spaces you can pull down the configuration of an app to your local machine and run an application with it. This allows users to quickly boot up an application locally with the exact same config an app is using in an environment.  Change to the directory of your local app and run:
 
-```bash
+```shell
 aka config -a appname-space -s > .env ; source .env 
 ```
 

@@ -19,13 +19,13 @@ If you do not have curl or jq installed, continue on to the "Opening Your Termin
 
 Run the following command in your terminal:
 
-```bash
+```shell
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-```bash
+```shell
 brew install curl
 ```
-```bash
+```shell
 brew install jq
 ```
 
@@ -54,7 +54,7 @@ Type `aka token`. This will return a special series of numbers and letters that 
 
 To save your token, run: 
 
-```bash
+```shell
 export AKKERIS_TOKEN=`aka token` 
 ``` 
 
@@ -67,7 +67,7 @@ You can confirm thhe token is saved by running `echo $AKKERIS_TOKEN`, you should
 
 Each Akkeris instance has its own unique host. This is the server that we will make requests to. Typically this is stored in a configuration file within your home directory (`~/.akkeris/config.json`). To find out your Akkeris host the following command in your terminal:
 
-```bash
+```shell
 cat ~/.akkeris/config.json | jq '.apps' -r
 ```
 
@@ -77,7 +77,7 @@ cat ~/.akkeris/config.json | jq '.apps' -r
 
 Run the following command:
 
-```bash
+```shell
 export AKKERIS_HOST=`cat ~/.akkeris/config.json | jq '.apps' -r`
 ```
 
@@ -87,7 +87,7 @@ You can confirm it was successful by running `ecoh $AKKERIS_HOST` where it shoul
 
 To make your first request we'll need to construct a `curl` CLI command.  CURL will make an http request for us and return the results of the request back to the Terminal.
 
-```bash
+```shell
 curl https://$AKKERIS_HOST/apps
 ```
 
@@ -100,7 +100,7 @@ Unauthorized%
 This implies we did not pass in our token, we can see more information by running `curl` in verbose mode:
 
 
-```bash
+```shell
 curl https://$AKKERIS_HOST/account -v
 ```
 
@@ -158,7 +158,7 @@ The response code following the `< HTTP/1.1` text (`401`) is called a status cod
 To add an authorization, we'll add in the `$AKKERIS_TOKEN` to the request to let Akkeris know who we are and that we're authorized:
 
 
-```bash
+```shell
 curl https://$AKKERIS_HOST/account -H "Authorization: Bearer $AKKERIS_TOKEN"
 ```
 
@@ -197,7 +197,7 @@ To create a new app, you'll need to make a new request to Akkeris via a http met
 
 In this example we'll create an app called `monty` in space `nice` with the org `testorg`.  You can choose your own app name if you'd like, it must be less than 24 characters and can only contain letters and numbers (and must begin with a letter). You cannot use dashes, or underscores in app names.  Replace `nice` with the space you selected, and likewise `testorg` with your org. 
 
-```bash
+```shell
 curl https://$AKKERIS_HOST/account -H "Authorization: Bearer $AKKERIS_TOKEN" \
 	-X POST \
 	-d '{"org":"testorg", "name":"monty", "space":"nice", "description":"my app"}' \
@@ -269,7 +269,7 @@ You'll notice a few new options we added to curl, `-X POST` tells curl to make s
 
 To remove an app, we change the `POST` method to a `DELETE` method. To remove your app (in our situation called `monty-nice`) run the following command, remember to replace the app name with the name you used.
 
-```bash
+```shell
 curl https://$AKKERIS_HOST/apps/monty-nice -X DELETE -H "Authorization: Bearer $AKKERIS_TOKEN"
 ```
 

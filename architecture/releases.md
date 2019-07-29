@@ -6,14 +6,14 @@ Whenever you deploy code, or change a config var, or remove (or add) an add-on r
 
 Releases are named `vNNN` where the `NNN` indicates the release id.  The release's are sequential and unique to the application.  One way to create a release is by manually providing a set of sources to build.
 
-```bash
+```shell
 aka releases:create https://example.com/source_code.zip -a myapp-myspace
 Deploying https://example.com/source_code.zip to myapp-myspace ... ✓
 ```
 
 You can also trigger a new release by commiting into a branch on a source control repository Akkeris is watching.  
 
-```bash
+```shell
 git commit -a -m 'My commit message' ; git push
 remote: Counting objects: 75, done.
 remote: Compressing objects: 100% (53/53), done.
@@ -21,7 +21,7 @@ remote: Total 62 (delta 27), reused 44 (delta 9)
 Unpacking objects: 100% (62/62), done.
 ```
 
-```bash
+```shell
 aka releases -a myapp-myspace
 • v1	1 minute ago	Auto-Deploy 6d58b1ce - User (username) - My commit message - ef5c71a
 ```
@@ -30,7 +30,7 @@ aka releases -a myapp-myspace
 
 If you'd like your application to build on a commit, you can do so by telling Akkeris to watch a repository for your application. 
 
-```bash
+```shell
 aka repo:set -a myapp-myspace https://github.com/org/repo the_branch_to_watch -u github_username -t github_token
 ```
 
@@ -55,7 +55,7 @@ You can generate a personal access token on Github by going to https://github.co
 
 To see the history of releases for an app:
 
-```bash
+```shell
 aka releases -a myapp-myspace
 • v1	16 days ago	Auto-Deploy 6d58b1ce - GithubUser2 (Github User 1) - Another commit - ef5c71a
 • v2	14 days ago	Auto-Deploy e08c02cb - GithubUser3 (Github User 2) - Some merge commit  - 3ad31be
@@ -67,14 +67,14 @@ aka releases -a myapp-myspace
 
 Use the rollback command to revert to the previous release:
 
-```bash
+```shell
 aka rollback -a myapp-myspace
 Rolling back to v3 on myapp-myspace
 ```
 
 You may choose to specify another release to target:
 
-```bash
+```shell
 aka rollback v1 -a myapp-myspace
 Rolling back to v1 on myapp-myspace
 ```

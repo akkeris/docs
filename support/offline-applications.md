@@ -10,7 +10,7 @@ Your application may be experiencing downtime for a number of reasons. This arti
 
 The first step is to check your [application logs](/architecture/log-drains.md). Many common application errors as well as Akkeris errors are printed to your application logs. To view your logs, run:
 
-```bash
+```shell
 aka logs -t -a [appname-space]
 ```
 
@@ -22,7 +22,7 @@ If your logs show one or more Akkeris error codes, you should investigate the ca
 
 You may check on the current status of an application (and its processes) by running:
 
-```bash
+```shell
 aka ps -a [appname-space]
 ```
 

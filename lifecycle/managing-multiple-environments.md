@@ -32,7 +32,7 @@ Note that the intent of this compliance is not to prevent users from accessing t
 
 For instance, on postgresql databases the postgres plugin will allow you to generate a unique credential that you may use to connect to the database by running:
 
-```bash
+```shell
 aka pg:credentials:create -a [appname-space]
 ```
 

@@ -43,7 +43,7 @@ For example say we have `myapp-space-dev` and `myapp-space-qa` we could create a
 
 Then we can add both apps to the pipeline
 
-```bash
+```shell
 aka pipelines:add myapp -a myapp-space-dev -s development
 app                                  id=d3dd5715-66a8-435b-b5a5-2252a56b6c8e, name=myapp-space-dev
 id                                   c21b5e30-ef20-4685-b472-4c59fcce086e
@@ -52,7 +52,7 @@ updated_at                           2017-05-16T18:52:03.467Z
 stage                                development
 pipeline                             id=13a3e3c3-a375-4623-bc6c-2a1405910733, name=myapp
 ```
-```bash
+```shell
 aka pipelines:add myapp -a myapp-space-qa -s staging
 app                                  id=d3dd5715-66a8-435b-b5a5-2252a56b6c8e, name=myapp-space-qa
 id                                   c21b5e30-ef20-4685-b472-4c59fcce086e
@@ -61,7 +61,7 @@ updated_at                           2017-05-16T18:52:03.467Z
 stage                                development
 pipeline                             id=13a3e3c3-a375-4623-bc6c-2a1405910733, name=myapp
 ```
-```bash
+```shell
 aka pipelines:add myapp -a myapp-space-stg -s staging
 app                                  id=d3dd5715-66a8-435b-b5a5-2252a56b6c83, name=myapp-space-stg
 id                                   c21b5e30-ef20-4685-b472-4c59fcce0863
@@ -75,7 +75,7 @@ pipeline                             id=13a3e3c3-a375-4623-bc6c-2a1405910733, na
 
 Now that we have both apps in our pipeline we can promote the code on myapp-space-dev to myapp-space-qa and myapp-space-stg.
 
-```bash
+```shell
 aka pipelines:promote -a myapp-space-dev
 Promoting app ⬢ myapp-space-dev ...  ✓ 
 
@@ -88,7 +88,7 @@ Promoted: ⬢ myapp-space-dev (Release: e06899ed-48c3-456e-b2e9-2536e1ae4973)
 
 We can now see the release on the `myapp-space-qa` of the build from `myapp-space-dev`, note that `myapp-space-dev` and `myapp-space-qa` retain completely separate config vars and environments (which are not promoted or changed).
 
-```bash
+```shell
 aka releases -a myapp-space-qa
 • v1 (13616620-2cc5-4a61-851b-819c01734dad) - current
   Build: d4128fa1-ac32-4ae5-ba25-c16dd7415184

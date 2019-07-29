@@ -6,7 +6,7 @@ One click applications are definitions of applications that can be created quick
 
 If there's an existing app that can be used for the blue print and does not require and changes to the blue print you can create a one click url by running:
 
-```bash
+```shell
 aka apps:blueprint -a [appname-space] -u 
 ```
 
@@ -14,7 +14,7 @@ aka apps:blueprint -a [appname-space] -u
 
 You can create one click apps by first creating a blueprint.  Generally the best way to go about this is by manually creating the application on Alamo, once you're finished run:
 
-```bash
+```shell
 aka apps:blueprint -a [appname-space] > blueprint.json
 ```
 You can then modify the blueprint.json file and change any of the parameters as needed.  A reference for the app setups blue print can be found in the [App Setups](/architecture/apps-api.md#app-setup) section of the Platform Apps API.
@@ -23,7 +23,7 @@ Once your blueprint is to your liking you can optionally add the "name", "descri
 
 To create your blue print one-click url run:
 
-```bash
+```shell
 aka apps:one-click -f blueprint.json
 ```
 

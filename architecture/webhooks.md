@@ -54,7 +54,7 @@ See [Webhook API Reference](/architecture/apps-api.md#webhook-event-payloads) fo
 
 Using the [Apps API](/architecture/apps-api.md) or through the CLI \(`aka hooks:create`\) you can subscribe to one or more selected events on an application.  For example, if you wanted to listen to build and release events:
 
-```bash
+```shell
 aka hooks:create --events "build release released" \
   https://www.example.com/my/hook --secret abc123
 ```

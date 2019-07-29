@@ -18,7 +18,7 @@ Akkeris executes applications by running the commands specified in your formatio
 
 You have control over the formation that's running via the UI, CLI or [Platform Apps API](/architecture/apps-api.md) \(the `PATCH /apps/{app}/formation` end point\). You can start new dynos or change the amount running with the `aka ps:create` and `aka ps:update` command. For example, to change the quantity of web dynos that are automatically created on the first deployment, run:
 
-```bash
+```shell
 aka ps:update -q 3 -a appname-space
 ```
 
@@ -26,7 +26,7 @@ When any portion of the definition of an application changes \(whether its the c
 
 You can see what dynos are running by executing via the CLI:
 
-```bash
+```shell
 aka ps -a appname-space
 ```
 

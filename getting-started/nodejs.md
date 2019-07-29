@@ -26,7 +26,7 @@ In this step you will install the Akkeris Command Line Interface \(CLI\), or App
 
 Install Akkeris:
 
-```bash
+```shell
 npm -g install akkeris
 ```
 
@@ -34,7 +34,7 @@ _Note, if you receive an error about insufficient permissions you may need to ru
 
 Then type:
 
-```bash
+```shell
 aka
 
 Hi! It looks like you might be new here. Lets take a second
@@ -58,7 +58,7 @@ Note that after you login you may see a list of commands available.
 
 In this step, you will prepare a simple application that can be deployed.
 
-```bash
+```shell
 aka apps:create -s voltron -o test
 Creating app ⬢ digestion1077-voltron ...  ✓ 
 https://digestion1077-voltron.alamoapp.example.io/
@@ -70,14 +70,14 @@ This will create a new app with a randomly generated name `digestion1077` in the
 
 Now deploy the image `quay.example.io/developer/node-boilerplate:v1` to the app:
 
-```bash
+```shell
 aka releases:create -a digestion1077-voltron docker://quay.example.io/developer/node-boilerplate:v1
 Deploying ⬢ docker://quay.example.io/developer/node-boilerplate:v1 to digestion1077-voltron  ...  ✓ 
 ```
 
 You can watch the app logs (including its build and release) with the command below. Remember to press CTRL+C to stop watching the logs once you see the `Node app is running on port 9000`:
 
-```bash
+```shell
 aka logs -t -a digestion1077-voltron
 2018-04-09T16:21:42Z digestion1077-voltron akkeris/build: 87de37a50d56: Pushed
 2018-04-09T16:21:49Z digestion1077-voltron akkeris/build: 2c40c66f7667: Pushed
@@ -98,7 +98,7 @@ aka logs -t -a digestion1077-voltron
 
 You've successfully deployed your new application! Open your deployed application in the browser by running:
 
-```bash
+```shell
 aka apps:open -a digestion1077-voltron
 ```
 
@@ -117,41 +117,38 @@ In this example you'll need to create a new repo on GitHub, you can create it un
 
 Now open up a terminal and we'll clone out your repo:
 
-```bash
+```shell
 git clone https://github.com/[org]/[repo]
 ```
 
 Once its cloned, ensure you run `cd [repo]` as we'll write some files to your new repo. Lets first populate it with a default node.js app, to do this first run `npm init -y` and accept all the default values.
 
-```bash
+```shell
 npm init -y
 ```
 
 Then we'll install express:
 
-```bash
+```shell
 npm install -y express
 ```
 
 Now lets add some code to the `index.js` file:
 
-```bash
-cat > index.js <<EOF
+```js
 const express = require('express')
 const app = express()
 
 app.get('/', (req, res) => res.send('Hello World.'))
 
 app.listen(9000, () => console.log('Example app listening on 9000'))
-EOF
 ```
 
 To deploy to Akkeris a special file at the root of the repository called a `Dockerfile` \(case sensitive\) is needed.  It is auto detected by Akkeris and tells it how to start your application, and how to build your application.
 
-To create a Dockerfile run:
+Add the following to a file called `Dockerfile`:
 
-```bash
-cat > Dockerfile <<EOF
+```dockerfile
 FROM node:8
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -159,14 +156,13 @@ COPY . /usr/src/app
 RUN npm install
 EXPOSE 9000
 CMD [ "node", "index.js" ]
-EOF
 ```
 
 ### Attach Github to your app
 
 Next, set your app to automatically deploy anytime there's a change on the repo:
 
-```bash
+```shell
 aka repo:set https://github.com/[org]/[repo] -t [token] \
   -u [github username] -a digestion1077-voltron
 ```
@@ -177,20 +173,20 @@ Note, you can use the token you generated when you setup your [Github CLI](/gett
 
 Now any change to your repo will create a new build. You can create a new commit by first adding your new files:
 
-```bash
+```shell
 git add package.json index.js Dockerfile
 ```
 
 Then commiting them:
 
-```bash
+```shell
 git commit -a -m 'Triggering deploy'
 [master d3c552b] Trigger deploy
 ```
 
 Now push your changes to trigger the deploy:
 
-```bash
+```shell
 git push
 Counting objects: 22, done.
 Delta compression using up to 8 threads.
@@ -202,7 +198,7 @@ remote: Resolving deltas: 100% (13/13), completed with 12 local objects.
 
 To watch your [logs](/architecture/log-drains.md), run:
 
-```bash
+```shell
 aka logs -t -a digestion1077-voltron
 ```
 
@@ -210,7 +206,7 @@ Note the `-t` in the command above means to tail the logs, it keeps showing new 
 
 You've successfully attached and deployed your code from Github!  To see your application run:
 
-```bash
+```shell
 aka apps:open -a digestion1077-voltron
 ```
 
@@ -225,7 +221,7 @@ Right now, your app is running on a single [dyno](//architecture/dyno.md). Think
 
 You can now check how many dynos are running us the`ps`command:
 
-```bash
+```shell
 aka ps -a digestion1077-voltron
 === web (scout): (from docker) (1)
 web.2885060676-76szt: up 10/27/2017, 2:36:42 PM
@@ -235,7 +231,7 @@ By default, your app is deployed on a small dyno \(a scout size\). And only one 
 
 You can also create new dyno types or scale existing dyno types using `aka ps:update`. For example, you can change the amount of servers your application is running on to zero by doing:
 
-```bash
+```shell
 aka ps:update -q 0 -a digestion1077-voltron
 ...
 ```
@@ -244,7 +240,7 @@ If you then open up your app using `aka apps:open -a digestion1077-voltron` you 
 
 You can scale it back up again by running:
 
-```bash
+```shell
 aka ps:update -q 1 -a digestion1077-voltron
 ```
 
@@ -260,12 +256,13 @@ Akkeris allows you to store configuration information outside of your code. Stor
 At runtime, config vars are exposed as environment variables to the application \(e.g., `process.env.MY_VARIABLE`\). For example, modify `index.js` so that it introduces a new route, `/times`, that repeats an action depending on the value of the `TIMES` environment variable:
 
 ```js
-app.get('/times', function(request, response) {
-    var result = ''
-    var times = process.env.TIMES || 5
-    for (i=0; i < times; i++)
+app.get('/times', (request, response) => {
+    let result = ''
+    let times = process.env.TIMES || 5
+    for (let i=0; i < times; i++) {
       result += i + ' ';
-  response.send(result);
+    }
+	response.send(result);
 });
 ```
 
@@ -273,7 +270,7 @@ Then you'll need to commit and push the changes to your github using `git commit
 
 To set the config var on Akkeris, execute the following:
 
-```bash
+```shell
 aka config:set TIMES=2 -a digestion1077-voltron
 
 === digestion1077-voltron Config Vars
@@ -283,7 +280,7 @@ aka config:set TIMES=2 -a digestion1077-voltron
 
 View the config vars that are set using `aka config`:
 
-```bash
+```shell
 aka config -a digestion1077-voltron
 
 === digestion1077-voltron Config Vars
@@ -300,19 +297,19 @@ Now that the config var is added open your app using `aka open -a digestion1077-
 
 [Add-ons](/architecture/addons.md) are third-party [services](/architecture/addons.md) or shared credentials that provide out of the box additional functionality for your application, from databases, persistence, s3 buckets through logging to monitoring and more. You can view a list of all of the services you can attach to your application as an addon using:
 
-```bash
+```shell
 aka services
 ```
 
 You can then view plans for each service by running `aka services:plan`.  For example, to view all of the plans for a postgresql database you can run:
 
-```bash
+```shell
 aka services:plans akkeris-postgresql
 ```
 
 You can then provision addons from a service plan by running `aka addons:create [service]:[plan]`,  you can provision a small database by running:
 
-```bash
+```shell
 aka addons:create akkeris-postgresql:standard-0
 ```
 
@@ -328,7 +325,7 @@ In this step we'll provision an addon that will add a log drain to your app, Pap
 
 Provision the papertrail logging add-on:
 
-```bash
+```shell
 aka addons:create papertrail:basic -a digestion1077-voltron
 
 === Addon papertrail-camera-5168 Provisioned
@@ -339,7 +336,7 @@ aka addons:create papertrail:basic -a digestion1077-voltron
 
 The add-on is now deployed and configured for your application. You can list add-ons that are installed for your app using:
 
-```bash
+```shell
 aka addons -a digestion1077-voltron
 ```
 

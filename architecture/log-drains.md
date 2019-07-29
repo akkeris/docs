@@ -4,7 +4,7 @@ Akkeris treats logs as streams of time-stamped events, and collates the stream o
 
 It’s easy to examine the logs across all the platform components and dynos:
 
-```bash
+```shell
 aka logs -t -a appname-space
 2018-03-24T01:07:18Z appname-space akkeris/router: host=appname-space.stack.domain.io fwd=1.1.1.1 method=GET path=/theme request_id=24FB1BE9-D54C-4BF8-AE0C-DCAEC5CD2BE1 status=200 service=1077 connect=10 total=1089 bytes=448 
 2018-03-24T01:07:20Z appname-space app[web.1562910588-cg82f]: Entering api.getTheme for user 339910

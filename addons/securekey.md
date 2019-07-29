@@ -15,7 +15,7 @@ Secure Key is especially perfect for encrypting cookies or databases as it provi
 
 Before we get started, ensure you have the secure key plugin installed on your command line.
 
-```bash
+```shell
 aka plugins:install securekey
 ```
 
@@ -23,19 +23,19 @@ aka plugins:install securekey
 
 Seucre Key can be attached to an application using the CLI, UI or Platform Apps API:
 
-```bash
+```shell
 aka addons:create securekey:fortnightly -a [appname-spacename]
 ```
 Once Secure Key has been added, `SECURE_KEY` will be available in the apps config-vars and environment.  This contains two 32 byte hexadecimal (string encoded) securely generated keys seperated by a comma. You can view the value of this in your app (so long as its not in a `prod` or `socs` space) via:
 
-```bash
+```shell
 aka config -a [appname-space]
 SECURE_KEY		2fi9ugflsiscwcdv3g2aq2v2c2nwam2elripnkjbn1s6n5m6c4,6c7r6pz375bhltbvt57slj5waqj3fw1t7hc0u8bqwda0sqdth5
 ```
 
 The key is formatted as `<CURRENT_KEY>,<OLD_KEY>`.  After the appropriate amount of time (or anytime the secure key is rotated) `CURRENT_KEY` will be moved after the comma becoming the old key, and a fresh key will be put before the comma.
 
-```bash
+```shell
 aka securekey:rotate -a [appname-space] ; aka config -a [appname-space]
 SECURE_KEY		5ea4dgflsiscwcdv3g2aq2v2c2n3112elripnkjbn1s6n5m655,2fi9ugflsiscwcdv3g2aq2v2c2nwam2elripnkjbn1s6n5m6c4
 ```
@@ -48,7 +48,7 @@ Before attaching, we need to know the add-on name, it will look something like `
 
 To attach the addon to a new app named `newapp-space` run:
 
-```bash
+```shell
 aka addons:attach securekey-noun-12345 -a newapp-space
 ```
 

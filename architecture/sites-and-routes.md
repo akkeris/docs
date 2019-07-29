@@ -33,14 +33,14 @@ Certificates provide encryption for your system, websites require a TLS certific
 
 You can order and install a common certificate using:
 
-```bash
+```shell
 aka certs:create yourdomain www.yourdomain.com \
   -m 'I need this for my site' -o myorg --region us-seattle
 ```
 
 To order a SANS certificate specify the common name first, then the alternatives in the -s option, like:
 
-```bash
+```shell
 aka certs:create yourdomain www.yourdomain.com \
   -s www-qa.yourdomain.com -s www-dev.yourdomain.com \
   -m 'I need this for my site' -o myorg --region us-seattle
@@ -48,7 +48,7 @@ aka certs:create yourdomain www.yourdomain.com \
 
 Or to order a wildcard certificate:
 
-```bash
+```shell
 aka certs:create yourdomain \*.yourdomain.com \
   -m 'I need this for my site' -o myorg --region us-seattle
 ```
@@ -79,7 +79,7 @@ aka certs:install yourdomain
 
 To create a site run:
 
-```bash
+```shell
 aka sites:create www.yourdomain.com
 ```
 
@@ -89,13 +89,13 @@ This will provision a new site, you should double check that the domain name (in
 
 A site by itself does not do much of anything, traffic coming into the site does not yet have a destination, to add one, use routes.  Routes take all or a portion of a site and direct to an application you choose.  You can direct all of the traffic to one application using:
 
-```bash
+```shell
 aka routes:create -s www.yourdomain.com -a yourapp-yourdomain / /
 ```
 
 This may be all that's needed for most use cases, but in some it may be useful to partition out traffic to different apps based on the URL path, for example, you may want traffic on /api to go to your Ruby API application being developed by team A, then traffic on /dashboard to go to your React UI app being developed by team B.  To do this we can create multiple routes to direct traffic to a specific app based on the path:
 
-```bash
+```shell
 aka routes:create -s www.yourdomain.com -a rubyapiapp-yourdomain /api /
 ```
 
@@ -104,7 +104,7 @@ This will direct all traffic on https://www.yourdomain.com/api to the app `rubya
 You can then add the second route by running:
 
 
-```bash
+```shell
 aka routes:create -s www.yourdomain.com -a reactdashapp-yourdomain /dashboard /dashboard
 ```
 
@@ -125,28 +125,28 @@ First step is to ensure you have the domain name available, any `*.example.io` d
 
 The second step to creating a site is to ensure it has a ssl/tls certificate issued and installed.  Any company domain already has a wildcard ssl/tls certificate.  If you need to provision a new ssl certificate you can order one by running on the command line:
 
-```bash
+```shell
 aka plugins:install certs
 ```
-```bash
+```shell
 aka certs:create short_name www.website.com -m "Comments as to why you need it" -o [organization]
 ```
 
 The certificate will then go under an infosec review and once approved (generally in a day or two) will be issued, you can check the status of an ssl certificate using:
 
-```bash
+```shell
 aka certs:orders:status short_name
 ```
 
 Once the certificate has the "issued" status you can install it using:
 
-```bash
+```shell
 aka certs:orders:install short_name
 ```
 
 Finally, the last step to creating a site is to actually create it in our F5 using the command:
 
-```bash
+```shell
 aka sites:create www.website.com
 ```
 

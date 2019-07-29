@@ -33,7 +33,7 @@ want to consider the following:
 
 ### Provisioning 
 
-```bash
+```shell
 aka addons:create akkeris-postgresql:[hobby|standard-0|standard-1|standard-2|premium-0|premium-1|premium-2] -a [app-space]
 ```
 

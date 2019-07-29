@@ -28,7 +28,7 @@ In this step you will install the Akkeris Command Line Interface \(CLI\), or App
 
 Install Akkeris:
 
-```bash
+```shell
 npm -g install akkeris
 ```
 
@@ -36,7 +36,7 @@ _Note, if you receive an error about insufficient permissions you may need to ru
 
 Then type:
 
-```bash
+```shell
 aka
 
 Hi! It looks like you might be new here. Lets take a second
@@ -60,7 +60,7 @@ Note that after you login you may see a list of commands available.
 
 In this step, you will prepare a simple application that can be deployed.
 
-```bash
+```shell
 aka apps:create -s voltron -o test
 Creating app ⬢ digestion1077-voltron ...  ✓ 
 https://digestion1077-voltron.alamoapp.akkeris.io/
@@ -75,12 +75,12 @@ This will create a new app with a randomly generated name `digestion1077` in the
 Create a simple app by following this [Getting Started with Rails guide](https://guides.rubyonrails.org/getting_started.html) at least through the end of section 4 "Hello Rails," but you can stop before section 5 "Getting Up and Running."
 
 At this point you should have a simple Rails app that you can spin up with
-```bash
+```shell
 aka apps:create -s voltron -o test
 Creating app ⬢ digestion1077-voltron ...  ✓ 
 https://digestion1077-voltron.alamoapp.example.io/
 ```
-```bash
+```shell
 bin/rails server
 ```
 and then navigate to the home page at http://localhost:3000/ to see "Hello, Rails!"
@@ -104,13 +104,13 @@ CMD bin/startup
 
 Now let's create the `bin/startup` file referenced on the last line of our Dockerfile and give it the following contents.
 
-```
+```bash
 #!/usr/bin/env bash
 bin/rails server --binding 0.0.0.0 --port $PORT
 ```
 
 Then make that file executable.
-```bash
+```shell
 chmod +x bin/startup
 ```
 
@@ -128,16 +128,16 @@ Most applications are deployed via a source control repository such as GitHub. T
 In this example you'll need to create a new repo on GitHub, you can create it under OC Tanner or under your personal account. You can do this at https://github.com/new. Do not initialize the repository with a README, do not add a `.gitignore`, and do not add a license.
 
 In your terminal, from the directory containing your new Rails app, commit your code if you haven't already.
-```bash
+```shell
 git add .
 ```
-```bash
+```shell
 git commit -m "first commit"
 ```
 Then add your new GitHub repo as the remote and push up your code.
-```bash
+```shell
 git remote add origin https://github.com/[org]/[repo].git
-```bash
+```shell
 git push -u origin master
 ```
 
@@ -145,7 +145,7 @@ git push -u origin master
 
 Next, set your app to automatically deploy anytime there's a change on the repo:
 
-```bash
+```shell
 aka repo:set https://github.com/[org]/[repo] --token [token] \
   --username [github username] --app digestion1077-voltron
 ```
@@ -156,19 +156,19 @@ Note, you can use the token you generated when you setup your [Github CLI](/gett
 
 Now any change to your repo will create a new build. So we can trigger a new build by committing our new Dockerfile and pushing it up to GitHub.
 
-```bash
+```shell
 git add Dockerfile
 ```
-```bash
+```shell
 git commit -a -m 'Create Dockerfile'
 ```
-```bash
+```shell
 git push
 ```
 
 To watch your [logs](/architecture/log-drains.md), run:
 
-```bash
+```shell
 aka logs --tail -a digestion1077-voltron
 ```
 
@@ -176,7 +176,7 @@ Note the `--tail` in the command above means to tail the logs, it keeps showing 
 
 You've successfully attached and deployed your code from Github!  To see your application run:
 
-```bash
+```shell
 aka apps:open -a digestion1077-voltron
 ```
 
@@ -191,7 +191,7 @@ Right now, your app is running on a single [dyno](//architecture/dyno.md). Think
 
 You can now check how many dynos are running using the `ps` command:
 
-```bash
+```shell
 aka ps -a digestion1077-voltron
 === web (scout): (from docker) (1)
 web.2885060676-76szt: up 10/27/2017, 2:36:42 PM
@@ -201,7 +201,7 @@ By default, your app is deployed on a small dyno \(a scout size\). And only one 
 
 You can also create new dyno types or scale existing dyno types using `aka ps:update`. For example, you can change the amount of servers your application is running on to zero by doing:
 
-```bash
+```shell
 aka ps:update -q 0 -a digestion1077-voltron
 ...
 ```
@@ -210,7 +210,7 @@ If you then open up your app using `aka apps:open -a digestion1077-voltron` you 
 
 You can scale it back up again by running:
 
-```bash
+```shell
 aka ps:update -q 1 -a digestion1077-voltron
 ```
 
@@ -225,7 +225,7 @@ Akkeris allows you to store configuration information outside of your code. Stor
 
 At runtime, config vars are exposed as environment variables to the application \(e.g., `process.env.MY_VARIABLE`\). For example, to set a config var `TIMES=2` on Akkeris, execute the following:
 
-```bash
+```shell
 aka config:set TIMES=2 -a digestion1077-voltron
 
 === digestion1077-voltron Config Vars
@@ -235,7 +235,7 @@ aka config:set TIMES=2 -a digestion1077-voltron
 
 View the config vars that are set using `aka config`:
 
-```bash
+```shell
 aka config -a digestion1077-voltron
 
 === digestion1077-voltron Config Vars
@@ -252,19 +252,19 @@ Now that the config var is added open your app using `aka open -a digestion1077-
 
 [Add-ons](/architecture/addons.md) are third-party [services](/architecture/addons.md) or shared credentials that provide out of the box additional functionality for your application, from databases, persistence, s3 buckets through logging to monitoring and more. You can view a list of all of the services you can attach to your application as an addon using:
 
-```bash
+```shell
 aka services
 ```
 
 You can then view plans for each service by running `aka services:plan`.  For example, to view all of the plans for a postgresql database you can run:
 
-```bash
+```shell
 aka services:plans akkeris-postgresql
 ```
 
 You can then provision addons from a service plan by running `aka addons:create [service]:[plan]`,  you can provision a small database by running:
 
-```bash
+```shell
 aka addons:create akkeris-postgresql:standard-0 -a digestion1077-voltron
 ```
 
@@ -280,7 +280,7 @@ In this step we'll provision an addon that will add a log drain to your app, Pap
 
 Provision the papertrail logging add-on:
 
-```bash
+```shell
 aka addons:create papertrail:basic -a digestion1077-voltron
 
 === Addon papertrail-camera-5168 Provisioned
@@ -291,7 +291,7 @@ aka addons:create papertrail:basic -a digestion1077-voltron
 
 The add-on is now deployed and configured for your application. You can list add-ons that are installed for your app using:
 
-```bash
+```shell
 aka addons -a digestion1077-voltron
 ```
 

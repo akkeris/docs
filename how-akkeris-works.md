@@ -54,7 +54,7 @@ Akkeris executes applications by running the commands specified in your formatio
 
 You have control over the formation that's running via the UI, CLI or [Platform Apps API](/architecture/apps-api.md) \(the `PATCH /apps/{app}/formation` end point\). You can start new dynos or change the amount running with the `aka ps:create` and `aka ps:update` command. For example, to change the quantity of web dynos that are automatically created on the first deployment, run:
 
-```bash
+```shell
 aka ps:update -q 3 -a appname-space
 ```
 
@@ -62,7 +62,7 @@ When any portion of the definition of an application changes \(whether its the c
 
 You can see what dynos are running by executing via the CLI:
 
-```bash
+```shell
 aka ps -a appname-space
 === web (constellation-prod): (from docker) (1)
  web.1380490387-gv2r3:	running 4/4/2018, 1:29:40 PM
@@ -129,7 +129,7 @@ Akkeris lets you run your application with a customizable configuration - the co
 
 The configuration for an application is stored in [config vars](/architecture/config-vars.md). For example, here’s how to configure an encryption key for an application:
 
-```bash
+```shell
 aka config:set ENCRYPTION_KEY=my_secret_launch_codes -a appname-space
 Adding config vars and restarting demoapp... done, v14
 ENCRYPTION_KEY=my_secret_launch_codes
@@ -151,7 +151,7 @@ Akkeris treats these add-ons as attached resources: provisioning an add-on is a 
 
 For example, here's how to add an Akkeris Redis to an application:
 
-```bash
+```shell
 aka addons:create alamo-redis:small -a appname-space
 ```
 
@@ -172,7 +172,7 @@ Akkeris treats logs as streams of time-stamped events, and collates the stream o
 
 It’s easy to examine the logs across all the platform components and dynos:
 
-```bash
+```shell
 aka logs -t -a appname-space
 2018-03-24T01:07:18Z appname-space akkeris/router: host=appname-space.stack.domain.io fwd=1.1.1.1 method=GET path=/theme request_id=24FB1BE9-D54C-4BF8-AE0C-DCAEC5CD2BE1 status=200 service=1077 connect=10 total=1089 bytes=448 
 2018-03-24T01:07:20Z appname-space app[web.1562910588-cg82f]: Entering api.getTheme for user 339910
@@ -195,7 +195,7 @@ Dyno types named web are different than other process types - they will receive 
 
 So scaling your application to handle web traffic becomes fairly trivial:
 
-```bash
+```shell
 aka ps:scale web=5 -a appname-space
 ```
 
@@ -211,7 +211,7 @@ Often its necessary for multiple different apps with different responsibilities 
 
 A default site is created for each application when its created allowing that application to be immediately reachable, however an application can exist in more than one site.  Creating a site is as easy as:
 
-```bash
+```shell
 aka sites:create www.siteyouwant.com
 ```
 

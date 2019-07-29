@@ -6,7 +6,7 @@ Akkeris treats these add-ons as attached resources: provisioning an add-on is a 
 
 For example, here's how to add an Akkeris Redis to an application:
 
-```bash
+```shell
 aka addons:create akkeris-redis:small -a appname-space
 ```
 

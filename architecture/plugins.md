@@ -6,13 +6,13 @@ Plugins provide a mechanism for extending functionality of the CLI.
 
 To install the memcahed plugin use
 
-```bash
+```shell
 aka plugins:install memcached
 ```
 
 ### Getting Statistics from Memcached Addons
 
-```bash
+```shell
 aka memcached -a [appname-space] [addonname]
 ┌───────────────────────┬───────────────┐
 │ key                   │ value         │
@@ -93,7 +93,7 @@ aka memcached -a [appname-space] [addonname]
 
 ### Flushing Cache
 
-```bash
+```shell
 aka memcached:flush -a [appname-space] [addon]
 ```
 
@@ -101,7 +101,7 @@ aka memcached:flush -a [appname-space] [addon]
 
 The certificate and TLS plugin allows you to purchase and use TLS/SSL certificates, to install it run:
 
-```bash
+```shell
 aka plugins:install certs
 ```
 
@@ -112,7 +112,7 @@ aka plugins:install certs
 
 The postgresql plugin allows users to create auditable read-only credentials, perform backups, pull logs and perform other maintenance tasks, to install it run:
 
-```bash
+```shell
 aka plugins:install pg
 ```
 

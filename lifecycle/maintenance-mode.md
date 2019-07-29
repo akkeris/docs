@@ -20,25 +20,25 @@ Visitors arriving to your app will be shown:
 
 You can turn maintenance mode on or off using the CLI or [Platform Apps API](/architecture/apps-api.md).  To enable maintenance mode, run:
 
-```bash
+```shell
 aka maintenance:on -a [appname-space]
 ```
 
 To disable maintenance mode:
 
-```bash
+```shell
 aka maintenance:off -a [appname-space]
 ```
 
 At any point you may check whether maintenance mode is turned on or off by running:
 
-```bash
+```shell
 aka maintenance -a [appname-space]
 ```
 
 In addition, if you wish to completely shut down your application during this you can scale your applications dynos to zero by running:
 
-```bash
+```shell
 aka ps:update -q 0 -a [appname-space]
 ```
 
