@@ -2,9 +2,7 @@
 
 ## Features
 
-All postgresql plans are maintained and backed up automatically for you. In addition, database minor patches are done during maintenance windows. There are two primary types of postgres database to choose from, cloud `akkeris-postgresql` or on premises `akkeris-postgresqlonprem`.  On premises databases should be used if there are compliance concerns such as the database stores sensitive information such as personality identfiable information or data that for legal reasons must remain at a specific location.
-
-## Cloud Plans
+All postgresql plans are maintained and backed up automatically, to provision a new postgresql instace use the service `akkeris-postgresql`.
 
 The postgres plans are spread across different tiers: hobby, standard and premium. To choose a plan you may
 want to consider the following:
@@ -14,6 +12,7 @@ want to consider the following:
 3. What storage requirements do you have? Applications with large amounts of data should consider picking a standard (1 or 2) plan.
 4. Does your data have compliance requirements (e.g., does it contain PII)? If your application has special compliance needs see the on-premises plans.
 
+## Plans
 
 |            | Hobby       | Std-0 | Std-1   | Std-2   | Prem-0 | Prem-1 | Prem-2 |
 |------------|-------------|------------|--------------|--------------|-----------|-----------|-----------|
@@ -32,28 +31,19 @@ want to consider the following:
 | Encrypted  | No          | No         | Yes          | Yes          | No        | No        | Yes       |
 
 
-### Provisioning a Cloud Database
+### Provisioning 
 
 ```bash
 aka addons:create akkeris-postgresql:[hobby|standard-0|standard-1|standard-2|premium-0|premium-1|premium-2] -a [app-space]
 ```
 
+### Hobby and Stadard Tier
 
-### Cloud Hobby Tier
-
-The hobby tier runs on a shared-tenant server with a dedicated database. It does not permit adding new databases or adding new extensions. In addition, it does not support more than twenty connections a time.  The hobby tier is great for systems like blogs and tooling apps (such as a header dump) and light-weight apps.
-
-## On Premesis Plans
-
-On premises plans are placed on a clustered shared tenant server with a dedicated database. It does not permit adding new databases or adding new extensions. The on-premises plans are bustable in CPU and memory usage but have a hard limit of 2GB.  
-
-### Provisioning an On-Premsis Database
-
-```bash
-aka addons:create akkeris-postgresqlonprem:shared -a [app-space]
-```
+The hobby and standard tier runs on a shared-tenant server with a dedicated database. It does not permit adding new databases or adding new extensions. In addition, limitations on the amount of connections are imposed. The hobby tier is great for systems like blogs and tooling apps (such as a header dump) and light-weight apps. Standard tier is great for some smaller production applications and development systems.
 
 ## Upgrading
 
-If your app's requirements eventually outgrow the resources provided by the initial plan you select, you can upgrade your database as well (note, this may result in a small amount of downtime).
+If your app's requirements eventually outgrow the resources provided by the initial plan you select, you can upgrade your database as well (note, this may result in a small amount of downtime). To upgrade your database retrieve the ID of the addon from `aka addons -a [app-space]`.  Then run the upgrade with the new plan as the option `aka addons:upgrade -a [app-space] a3bf4f1b-2b0b-822c-d15d-6c15b0f00a08 akkeris-postgresql:premium-0`.  If the addon `a3bf4f1b-2b0b-822c-d15d-6c15b0f00a08` in the example before was a standard-0 it would be upgraded to a dedicated premium-0.
+
+Apps are placed into maintence mode while the applications database is upgraded.
 

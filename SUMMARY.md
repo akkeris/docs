@@ -34,7 +34,7 @@
   * [Maintenance Mode](/lifecycle/maintenance-mode.md)
 * Troubleshooting &amp; Support
   * [Akkeris Error Codes](/support/akkeris-error-codes.md)
-  * [R14 - Out of Memory and Java](/support/r14-out-of-memory-and-java.md)
+    * [R14 - Out of Memory and Java](/support/r14-out-of-memory-and-java.md)
   * [Offline Applications](/support/offline-applications.md)
 * [Best Practices and Guidelines](best-practices-and-guidelines.md)
 

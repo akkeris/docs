@@ -5,7 +5,7 @@
     "term",
     "simple-page-toc",
     "anchorjs",
-    "last-modified"
+    "-highlight"
   ],
   "pluginsConfig": {
     "term": {
@@ -15,6 +15,11 @@
     },
     "simple-page-toc":{
       "skipFirstH1":true
+    },
+    "fontsettings":{
+      "theme":"night",
+      "family":"sans",
+      "size":2
     }
   }
 }

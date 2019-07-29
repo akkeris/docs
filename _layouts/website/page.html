@@ -1,22 +1,31 @@
 {% extends template.self %}
 
 {% block style %}
+	<script src="/assets/js/nav-bar.js"></script>
+	<script src="/assets/js/nav-avatar.js"></script>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/default.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<link rel="stylesheet" href="/assets/css/theme.css">
+    {{ super() }}
+
 	<style>
 		.book .book-body .page-wrapper .page-inner section.normal pre {
-			background-color: #333;
-		    color: white;
+			color: white;
 		    font-size: 0.90em;
 		    line-height: 1.35em;
 		}
+		.color-theme-2 #book-search-input {
+		    background: rgba(255,255,255,0.1);
+		}
+		.color-theme-2 #book-search-results .search-results .has-results .search-results-item {
+			color: white;
+		}
 	</style>
-	<script src="/assets/js/nav-bar.js"></script>
-	<script src="/assets/js/nav-avatar.js"></script>
-	<link rel="stylesheet" href="/assets/css/theme.css">
-    {{ super() }}
 {% endblock %}
 {% block body %}
-	<nav-bar>
+	<!--<nav-bar>
 		<nav-avatar user-api="/user" direction="right" />
-	</nav-bar>
+	</nav-bar>-->
     {{ super() }}
 {% endblock %}

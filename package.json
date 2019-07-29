@@ -4,16 +4,7 @@
   "description": "docs",
   "main": "index.js",
   "dependencies": {
-    "connect-redis": "^3.3.0",
-    "express": "^4.15.4",
-    "express-http-proxy": "^1.0.6",
-    "express-session": "^1.15.5",
-    "gitbook": "^3.2.3",
-    "gitbook-plugin-styled-blockquotes": "^1.1.4",
-    "gitbook-plugin-term": "^0.5.1",
-    "gitbook-plugin-theme-api": "^1.1.2",
-    "netrc": "^0.1.4",
-    "request": "^2.81.0"
+    "express": "^4.17.1"
   },
   "devDependencies": {},
   "scripts": {

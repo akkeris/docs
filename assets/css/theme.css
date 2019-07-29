@@ -7,48 +7,6 @@ body {
   padding:0;
 }
 
-@font-face {
-    font-family: 'ProximaNova';
-    src: url("../fonts/ProximaNova-Black-webfont.woff") format('woff');
-    font-weight: 900;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'ProximaNova';
-    src: url("../fonts/ProximaNova-Bold-webfont.woff") format('woff');
-    font-weight: 800;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'ProximaNova';
-    src: url("../fonts/ProximaNova-Sbold-webfont.woff") format('woff');
-    font-weight: 600;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'ProximaNova';
-    src: url("../fonts/ProximaNova-Reg-webfont.woff") format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'ProximaNova';
-    src: url("../fonts/ProximaNova-Light-webfont.woff") format('woff');
-    font-weight: 200;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'ProximaNova';
-    src: url("../fonts/ProximaNova-Thin-webfont.woff") format('woff');
-    font-weight: 100;
-    font-style: normal;
-}
-
 :root {
   /* 
     Highlight colors are bold and demand attention.
@@ -550,7 +508,7 @@ body .book .book-body .page-wrapper .page-inner section.normal pre {
   font-size: 1.15em;
   border-radius: 0.25em;
 }
-
+/*
 body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-string, .book .book-body .page-wrapper .page-inner section.normal code .hljs-string, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-value, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-value, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-inheritance, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-inheritance, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-header, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-header, body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-addition, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-addition, body .book .book-body .page-wrapper .page-inner section.normal pre .ruby .hljs-symbol, body .book .book-body .page-wrapper .page-inner section.normal code .ruby .hljs-symbol, body .book .book-body .page-wrapper .page-inner section.normal pre .xml .hljs-cdata, body .book .book-body .page-wrapper .page-inner section.normal code .xml .hljs-cdata {
   color:var(--highlight-color);
 }
@@ -560,3 +518,4 @@ body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-number,
 body .book .book-body .page-wrapper .page-inner section.normal pre .hljs-keyword, body .book .book-body .page-wrapper .page-inner section.normal code .hljs-keyword, body .book .book-body .page-wrapper .page-inner section.normal pre .javascript .hljs-function, body .book .book-body .page-wrapper .page-inner section.normal code .javascript .hljs-function {
   color:var(--highlight-link-color);
 }
+*/
