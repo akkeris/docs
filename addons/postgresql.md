@@ -12,7 +12,7 @@ want to consider the following:
 
 ## Plans
 
-### Standard &amp; Hobby
+### Standard &amp; Hobby Instances
 
 The hobby tier is great for systems like blogs and tooling apps (such as a header dump) and light-weight apps. Standard tier is great for some smaller production applications and development systems. Hobby databases are not encrypted, however all standard instances are both are highly available and burstable. You should not use hobby or standard instances if you require creating extensions, access as a postgres super user or the ability to create read replicas, and access database logs.
 
@@ -34,7 +34,7 @@ The hobby tier is great for systems like blogs and tooling apps (such as a heade
 
 
 
-### Premium
+### Premium Instances
 
 Premium instances are dedicated postgres servers, they provide superuser access in addition to more control over the database. Premium instances are great for production apps that require extensions or super user database access. They're also great for systems that consistently use a high amount of database CPU and I/O. Premium instances include the ability to restart the database, fetch logs, create extensions and create read replicas. While premium's are always dedicated instances, premium instances are not burstable (unlike standard instances). 
 
