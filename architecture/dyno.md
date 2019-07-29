@@ -8,7 +8,7 @@ All apps must have one or more "dyno types". A dyno type is a description of how
 
 When Akkeris receives its first image \(after its first deploy\), it creates a "generic" web dyno type, that routes http traffic to a network port it automatically opens, and uses the start command specified in the Dockerfile, and finally uses the network port as a health check \(note the network port is provided as convention `$PORT` environment variable\).  It attempts to always keep one of these processes running for you.
 
-While this may suite most users, via the command line, user interface or API's a user may request to change the "formation" of the application.  The formation of an application is the collection of dyno types and their definitions. A user may add a new dyno type, change the start commad of an existing dyno type, or change the quantity of dynos running \(to scale the application\).
+While this may suit most users, via the command line, user interface or API's a user may request to change the "formation" of the application.  The formation of an application is the collection of dyno types and their definitions. A user may add a new dyno type, change the start command of an existing dyno type, or change the quantity of dynos running \(to scale the application\).
 
 Every dyno type \(and dyno\) in an application receives the exact same configuration, environment, image and runtime. With only the execution context changing \(e.g., the startup command, when its executed, how to check its health, and what network ports are open\).
 

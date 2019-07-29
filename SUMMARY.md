@@ -4,21 +4,28 @@
 ## Getting Started
 
   * [Installing](/getting-started/prerequisites-and-installing.md)
-  * [Node.js](/getting-started/nodejs.md)
-  * [Java](/getting-started/java.md)
-  * [Go](/getting-started/go.md)
-  * [Ruby](/getting-started/ruby.md)
-  * [Scala](/getting-started/scala.md)
-  * [Other Languages](/getting-started/other-languages.md)
+  * By Language
+    * [Node.js](/getting-started/nodejs.md)
+    * [Java](/getting-started/java.md)
+    * [Go](/getting-started/go.md)
+    * [Ruby](/getting-started/ruby.md)
+    * [Scala](/getting-started/scala.md)
+    * [Other Languages](/getting-started/other-languages.md)
 
 ----
 ## Documentation
 
 * [How Akkeris Works](/how-akkeris-works.md)
+  * [What Defines an Application](how-akkeris-works.md#introduction)
+  * [How Applications Build](/how-akkeris-works.md#knowing-how-to-build-it)
+  * [How Applications Run](/how-akkeris-works.md#running-applications)
+  * [How Addons Work](/how-akkeris-works.md#managing-resources)
+  * [How Sites Work](/how-akkeris-works.md#getting-users-to-apps)
 * [Extending Akkeris](/how-to-extend-akkeris.md)
   * [About Webhooks](/architecture/webhooks.md)
   * [Creating Plugins](/extending-akkeris/creating-plugins.md)
   * [Creating One-Click Apps](/one-click/creating.md)
+  * [Learning The Akkeris Apps API](/extending-akkeris/akkeris-apps-api-tutorial.md)
 * [Application Lifecycle](/lifecycle/application.md)
   * [Releases](/architecture/releases.md)
   * [Preview Apps](/architecture/preview-apps.md)
@@ -29,7 +36,6 @@
   * [Akkeris Error Codes](/support/akkeris-error-codes.md)
   * [R14 - Out of Memory and Java](/support/r14-out-of-memory-and-java.md)
   * [Offline Applications](/support/offline-applications.md)
-* [One-Click Apps](/one-click/apps.md)
 * [Best Practices and Guidelines](best-practices-and-guidelines.md)
 
 ---
@@ -45,6 +51,7 @@
 * [Pipelines](/architecture/pipelines.md)
 * [Plugins](/architecture/plugins.md)
 * [Webhooks](/architecture/webhooks.md)
+* [One-Click Apps](/one-click/apps.md)
 
 ----
 ## Reference

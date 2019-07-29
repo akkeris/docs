@@ -39,7 +39,7 @@ You can extend Akkeris in a variety of ways to add custom functionality you may 
 
 ## Apps API
 
-* Using the Apps API Tutorial
+* [Using the Akkeris Apps API Tutorial](/extending-akkeris/akkeris-apps-api-tutorial.md)
 * [Apps API Reference](/architecture/apps-api.md)
 
 ## Creating CI/CD Checks

@@ -32,7 +32,7 @@ Applications can explicitly be created via the management UI, via the CLI \(`aka
 
 Once a set of sources are received for an application \(either from a source control system it's watching or from a zipped/tar.gz URL\), Akkeris inspects the source code for a file at the root \(e.g., very top level directory\) called a `Dockerfile.` A Dockerfile is an open source standard description of how to build and run an image.  You can learn more about docker files [here](https://docs.docker.com/engine/reference/builder/).  This file also provides a description of what the operating system should have installed, its dependent software and what system level characteristics the image will have to ensure a near bit-by-bit replication of the underlying operating system.
 
-Builds can be created through the CLI \(`aka builds:create`\) or through the API end point `POST /apps/{app}/builds`\) on the [Platform Apps API](/architecture/apps-api.md).
+Builds can be created through the CLI \(`aka releases:create` and in previous Akkeris versions `aka builds:create`\) or through the API end point `POST /apps/{app}/builds`\) on the [Platform Apps API](/architecture/apps-api.md).
 
 The generated slug \(or image, also known as a docker image\) is stored on a registry so that both Akkeris and users can inspect the exact bit-by-bit image running on systems.
 
