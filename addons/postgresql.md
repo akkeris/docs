@@ -128,11 +128,15 @@ aka pg:restart -a app-space
 
 ### PG Plugin - Read Only Credentials
 
+**Create Read Only Credentials**
+
 Create read only credentials for a postgres database (even for `socs` or `prod` spaces). This is available on all database plans.
 
 ```bash
 aka pg:credentials:create -a app-space
 ```
+
+**Remove Read Only Credentials**
 
 Once your finished you can remove them by running. This is available on all database instance types.
 
