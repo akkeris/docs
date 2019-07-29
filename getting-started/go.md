@@ -166,7 +166,7 @@ Once its cloned, ensure you run `cd [repo]` as we'll write some files to your ne
 cat > main.go <<EOF
 package main
 
-import "strconv"
+import "os"
 import "github.com/go-martini/martini"
 
 func main() {
@@ -292,6 +292,8 @@ Akkeris allows you to store configuration information outside of your code. Stor
 At runtime, config vars are exposed as environment variables to the application \(e.g., `os.Getenv("MY_VARIABLE")`\). For example, modify `main.go` so that it introduces a new route, `/times`, that repeats an action depending on the value of the `TIMES` environment variable:
 
 ```golang
+    // IMPORTANT: add this to the top, in your imports!
+    import "strconv"
 
 	m.Get("/times", func() string {
     	var result string = ""
