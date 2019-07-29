@@ -26,7 +26,7 @@ aka releases -a myapp-myspace
 • v1	1 minute ago	Auto-Deploy 6d58b1ce - User (username) - My commit message - ef5c71a
 ```
 
-### Attaching your app to a source control repository
+### Attaching your app to a repository
 
 If you'd like your application to build on a commit, you can do so by telling Akkeris to watch a repository for your application. 
 
