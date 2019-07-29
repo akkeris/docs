@@ -107,7 +107,8 @@ curl https://$AKKERIS_HOST/account -v
 You should receive a response, similar to:
 
 ```http
-*   Trying 1.2.3.4...
+
+* Trying 1.2.3.4...
 * TCP_NODELAY set
 * Connected to apps.akkeris.io (1.2.3.4) port 443 (#0)
 * ALPN, offering h2
