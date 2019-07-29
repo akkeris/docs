@@ -35,7 +35,7 @@ In addition the pipeline workflow tool can be quite useful when managing multipl
 
 For example say we have `myapp-space-dev` and `myapp-space-qa` we could create a new pipeline using:
 
-```
+```shell
  $ aka pipelines:create myapp
 ```
 
