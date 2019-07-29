@@ -44,6 +44,7 @@
 * [Addons](architecture/addons.md)
 * [Config Vars](architecture/config-vars.md)
 * [Dyno](/architecture/dyno.md)
+* [Filters](/architecture/filters.md) `beta`
 * [Log Drains](architecture/log-drains.md)
 * [Releases](/architecture/releases.md)
 * [Sites and Routes](/architecture/sites-and-routes.md)
