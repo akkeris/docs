@@ -59,7 +59,7 @@ Premium instances are dedicated postgres servers, they provide superuser access 
 
 Different postgres database engine versions are available with plans that have the version as a suffix, such as `-v11` or `-v9` depending on the current default version.
 
-## Provisioning 
+## Provisioning the Addon
 
 ```shell
 aka addons:create akkeris-postgresql:[hobby|standard-0|standard-1|standard-2|premium-0|premium-1|premium-2] -a [app-space]
@@ -74,4 +74,70 @@ If your app's requirements eventually outgrow the resources provided by the init
 Apps are placed into maintence mode while the applications database is upgraded.
 
 In addition to upgrading you can downgrade a plan using `aka addons:downgrade`, note if their is insufficient space to downgrade your plan the operation will fail and revert back to the existing plan.
+
+## Advanced Postgres with PG Plugin
+
+The `pg` plugin allows users to perform advanced analysis and admninistration of postgres databases. Before starting ensure you have the postgres database plugin installed by running:
+
+```bash
+aka plugins:install pg
+```
+
+This is not an exhaustive list of commands, but the popular ones. There are dozens of commands to inspect statistics and metrics from queries as well. See the pg plugin help via `aka --help` for more information.
+
+### PG Plugin - Backups
+
+Take backups (in addition to restoring from a backup) for premium instances.  This feature is not available for standard or hobby instances.
+
+
+**Listing Backups**
+
+```bash
+aka pg:backups -a app-space
+```
+
+**Creating a Backup**
+
+```bash
+aka pg:backups:capture -a app-space
+```
+
+**Restoring a Backup**
+
+Note: You can get the `[backup id]` below from the `aka pg:backups` command.
+
+```bash
+aka pg:backups:restore [backup id] -a app-space
+```
+
+### PG Plugin - Logs
+
+Pull the last day of logs from a postgres premium instance. Note that this feature is not available on hobby or standard instances.
+
+```bash
+aka pg:logs -a app-space
+```
+
+### PG Plugin - Restart Database
+
+Restart a database. Note this feature is not available on hobby or standard instances.
+
+```bash
+aka pg:restart -a app-space
+```
+
+### PG Plugin - Read Only Credentials
+
+Create read only credentials for a postgres database (even for `socs` or `prod` spaces). This is available on all database plans.
+
+```bash
+aka pg:credentials:create -a app-space
+```
+
+Once your finished you can remove them by running. This is available on all database instance types.
+
+```bash
+aka pg:credentials:destroy -a app-space [credential name]
+```
+
 
