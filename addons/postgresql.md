@@ -16,21 +16,21 @@ want to consider the following:
 
 The hobby tier is great for systems like blogs and tooling apps (such as a header dump) and light-weight apps. Standard tier is great for some smaller production applications and development systems. Hobby databases are not encrypted, however all standard instances are both are highly available and burstable. You should not use hobby or standard instances if you require creating extensions, access as a postgres super user or the ability to create read replicas, and access database logs.
 
-|            | Hobby       | Standard-0 | Standard-1   | Standard-2   |
-|------------|-------------|------------|--------------|--------------|
-| Price      | $0/mon      | $5/mon     | $15/mon      | $45/mon      |
-| Storage    | 512MB       | 4GB        | 16GB         | 32GB         |
-| RAM        | 1GB         | 2GB        | 2GB          | 4GB          |
-| High Avail | No          | No         | Yes          | Yes          |
-| Burstable  | No          | No         | Yes          | Yes          |
-| Dedicated  | No          | No         | No           | No           |
-| Direct SQL | Yes         | Yes        | Yes          | Yes          |
-| Extensions | No          | No         | No           | No           |
-| Data Clips | Yes         | Yes        | Yes          | Yes          |
-| Row Limit  | 1mill       | None       | None         | None         |
-| Conn. Lim  | 20          | 120        | 120          | 480          |
-| Rollback   | None        | 1 Day      | 4 Days       | 4 Days       |
-| Encrypted  | No          | No         | Yes          | Yes          |
+|                    | Hobby       | Standard-0 | Standard-1   | Standard-2   |
+|--------------------|-------------|------------|--------------|--------------|
+| Price              | $0/mon      | $5/mon     | $15/mon      | $45/mon      |
+| Storage            | 512MB       | 4GB        | 16GB         | 32GB         |
+| RAM                | 1GB         | 2GB        | 2GB          | 4GB          |
+| High Availablity   | No          | No         | Yes          | Yes          |
+| Burstable          | No          | No         | Yes          | Yes          |
+| Dedicated          | No          | No         | No           | No           |
+| Direct SQL         | Yes         | Yes        | Yes          | Yes          |
+| Extensions         | No          | No         | No           | No           |
+| Data Clips         | Yes         | Yes        | Yes          | Yes          |
+| Row Limit          | 1mill       | None       | None         | None         |
+| Connection Limit   | 20          | 120        | 120          | 480          |
+| Rollback           | None        | 1 Day      | 4 Days       | 4 Days       |
+| Encrypted          | No          | No         | Yes          | Yes          |
 
 
 
@@ -38,21 +38,21 @@ The hobby tier is great for systems like blogs and tooling apps (such as a heade
 
 Premium instances are dedicated postgres servers, they provide superuser access in addition to more control over the database. Premium instances are great for production apps that require extensions or super user database access. They're also great for systems that consistently use a high amount of database CPU and I/O. Premium instances include the ability to restart the database, fetch logs, create extensions and create read replicas. While premium's are always dedicated instances, premium instances are not burstable (unlike standard instances). 
 
-|            | Premium-0 | Premium-1 | Premium-2 |
-|------------|-----------|-----------|-----------|
-| Price      | $60/mon   | $135/mon  | $720/mon  |
-| Storage    | 20GB      | 50GB      | 100GB     |
-| RAM        | 4GB       | 8GB       | 16GB      |
-| High Avail | No        | No        | Yes       |
-| Burstable  | No        | No        | No        |
-| Dedicated  | Yes       | Yes       | Yes       |
-| Direct SQL | Yes       | Yes       | Yes       |
-| Extensions | Yes       | Yes       | Yes       |
-| Data Clips | Yes       | Yes       | Yes       |
-| Row Limit  | None      | None      | None      |
-| Conn. Lim  | 120       | 120       | 5000      |
-| Rollback   | 1 Day     | 4 Days    | 4 Days    |
-| Encrypted  | Yes       | Yes       | Yes       |
+|                    | Premium-0 | Premium-1 | Premium-2 |
+|--------------------|-----------|-----------|-----------|
+| Price              | $60/mon   | $135/mon  | $720/mon  |
+| Storage            | 20GB      | 50GB      | 100GB     |
+| RAM                | 4GB       | 8GB       | 16GB      |
+| High Availability  | No        | No        | Yes       |
+| Burstable          | No        | No        | No        |
+| Dedicated          | Yes       | Yes       | Yes       |
+| Direct SQL         | Yes       | Yes       | Yes       |
+| Extensions         | Yes       | Yes       | Yes       |
+| Data Clips         | Yes       | Yes       | Yes       |
+| Row Limit          | None      | None      | None      |
+| Connnection Limit  | 120       | 120       | 5000      |
+| Rollback           | 1 Day     | 4 Days    | 4 Days    |
+| Encrypted          | Yes       | Yes       | Yes       |
 
 
 ### Postgres V9, V10 and V11
