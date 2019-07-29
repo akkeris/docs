@@ -85,12 +85,9 @@ aka plugins:install pg
 
 This is not an exhaustive list of commands, but the popular ones. There are dozens of commands to inspect statistics and metrics from queries as well. See the pg plugin help via `aka --help` for more information.
 
-### PG Plugin - Backups
-
-Take backups (in addition to restoring from a backup) for premium instances.  This feature is not available for standard or hobby instances.
-
-
 **Listing Backups**
+
+List available backups (amount depends on your database plan). This feature is not available on standard or hobby instances.
 
 ```bash
 aka pg:backups -a app-space
@@ -98,19 +95,21 @@ aka pg:backups -a app-space
 
 **Creating a Backup**
 
+Immediately capture a database backup. This feature is not available on standard or hobby instances.  This may cause passive database table locks during the backup.
+
 ```bash
 aka pg:backups:capture -a app-space
 ```
 
 **Restoring a Backup**
 
-Note: You can get the `[backup id]` below from the `aka pg:backups` command.
+Note: You can get the `[backup id]` below from the `aka pg:backups` command. This command is only available on premium instances.
 
 ```bash
 aka pg:backups:restore [backup id] -a app-space
 ```
 
-### PG Plugin - Logs
+**Get Database Logs**
 
 Pull the last day of logs from a postgres premium instance. Note that this feature is not available on hobby or standard instances.
 
@@ -118,15 +117,13 @@ Pull the last day of logs from a postgres premium instance. Note that this featu
 aka pg:logs -a app-space
 ```
 
-### PG Plugin - Restart Database
+**Restart Databases**
 
 Restart a database. Note this feature is not available on hobby or standard instances.
 
 ```bash
 aka pg:restart -a app-space
 ```
-
-### PG Plugin - Read Only Credentials
 
 **Create Read Only Credentials**
 
