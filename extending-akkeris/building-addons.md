@@ -11,7 +11,7 @@ Once a plan is provisioned to an application on each deployment the service rece
 
 ## Installing New Addon Services
 
->**danger** Danger Zone: This requires administrative privileges in Akkeris to install new addon services.** 
+>**danger** Danger Zone: This requires administrative privileges in Akkeris to install new addon services.
 
 Each region (via the Akkeris region-api deployment) contains a list of services from its `SERVICES` environment variable. The `SERVICES` environment variable contains a comma delimited list URLS for all of the addon services. Adding the http/https URL to your addon service to this list will expose it as an offering to users in akkeris for that region (note this may take 10-15 mintues for caches to reset and become available). 
 
