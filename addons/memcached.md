@@ -1,5 +1,7 @@
 # ![Memcached Logo](../assets/memcached-small.png "Memcached") Memcached
 
+<!-- toc -->
+
 Enterprise-Class Memcached for Developers
 
 ## Features

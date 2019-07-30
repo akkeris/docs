@@ -1,5 +1,7 @@
 # ![Redis Logo](../assets/redis-small.png "Redis")  Redis
 
+<!-- toc -->
+
 Reliable and powerful Redis as a service.
 
 ## Features

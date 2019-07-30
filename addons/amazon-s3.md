@@ -1,5 +1,7 @@
 # ![Amazon S3 Logo](../assets/s3-small.png "Amazon S3") Amazon S3
 
+<!-- toc -->
+
 ## Features
 
 Amazon S3 buckets provide a object storage system that can hold large (to nearly unlimited) amount of data. S3 buckets can be versioned so that the history of changes and copies of old resources are kept and accessible if needed, all 'Versioned' plans are capable of this. S3 buckets can also be encrypted, all 'shield' plans automatically encrypt the underlying S3 hardware storage with KMS keys. 

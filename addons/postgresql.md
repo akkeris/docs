@@ -1,5 +1,7 @@
 # ![PostgreSQL Logo](../assets/postgres-small.png "PostgreSQL") PostgreSQL
 
+<!-- toc -->
+
 ## Features
 
 All postgresql plans are maintained and backed up automatically, to provision a new postgresql instace use the service `akkeris-postgresql`. The postgres plans are spread across different tiers: hobby, standard and premium. To choose a plan you may

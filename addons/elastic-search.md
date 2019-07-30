@@ -1,5 +1,7 @@
 # ![ElasticSearch Logo](../assets/elasticsearch-small.png "ElasticSearch") ElasticSearch
- 
+
+<!-- toc -->
+
 ## Features
 
 Managed ElasticSearch plans for Akkeris have encrypted instances and a variety of CPU and memory systems. For high availability and high-load production environments the `premium-4` plan includes a 4 clustered instance of ElasticSearch.
