@@ -26,6 +26,7 @@
   * [Creating Plugins](/extending-akkeris/creating-plugins.md)
   * [Creating One-Click Apps](/one-click/creating.md)
   * [Learning The Akkeris Apps API](/extending-akkeris/akkeris-apps-api-tutorial.md)
+  * [Creating Addons](/extending-akkeris/building-addons.md)
 * [Application Lifecycle](/lifecycle/application.md)
   * [Releases](/architecture/releases.md)
   * [Preview Apps](/architecture/preview-apps.md)

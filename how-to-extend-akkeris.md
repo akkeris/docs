@@ -30,7 +30,7 @@ You can extend Akkeris in a variety of ways to add custom functionality you may 
 ## Building Add-ons
 
 * [About Add-ons](/architecture/addons.md)
-* Building an Add-on
+* [Building an Add-on](/extending-akkeris/building-addons.md)
 
 ## Creating Plugins
 
