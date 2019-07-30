@@ -15,13 +15,13 @@ Once a plan is provisioned to an application on each deployment the service rece
 
 Each region (via the Akkeris region-api deployment) contains a list of services from its `SERVICES` environment variable. The `SERVICES` environment variable contains a comma delimited list URLS for all of the addon services. Adding the http/https URL to your addon service to this list will expose it as an offering to users in akkeris for that region (note this may take 10-15 mintues for caches to reset and become available). 
 
-To support multiple regions, simply add multiple services (or the same service) to all region-apis. For more information about administrating regions and the region-api see the Akkeris administrator guide or contact your Akkeris administrator to install your addon service.
+To support multiple regions add multiple services (or the same service) to all region-apis. For more information about administrating regions and the region-api see the Akkeris administrator guide or contact your Akkeris administrator to install your addon service.
 
 ## Programming New Addon Services 
 
 All addon services must adhere to (at least) the [Open Service Broker API Specification v2.13](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md). There are various clients, libraries and services that help implement the specification that can be used. For an example of an addon service see the [Akkeris Database Broker](https://github.com/akkeris/database-broker). Basic authentication can be used to check credentials for incoming requests.
 
-Akkeris will make standard OSB requests to `/v2/catalog` to retrieve a list of plans (and service information). In addition, `/v2/service_instances/` will be called. Note that asyncronous provisioning is not only support but preferred, syncronous provisioning is discouraged as it provides a poor user experience for end users as the call to completely provision must succeed before the UI or CLI (or the Apps API) can complete (thus causing the UX to stop temporarily). 
+Akkeris will make standard OSB requests to `/v2/catalog` to retrieve a list of plans (and service information). In addition, `/v2/service_instances/` will be called. Note that asyncronous provisioning is not only supported but preferred, syncronous provisioning is discouraged as it provides a poor user experience for end users as the call to completely provision must succeed before the UI or CLI (or the Apps API) can complete (thus causing the UX to stop temporarily). 
 
 The `last_operation` is called to retrieve the status of the addon until its available (interval polling is done every 30 seconds with a timeout after 25 minutes). This requires that all provisioned resources become availble in 25 minutes otherwise the addon is orphaned (from Akkeris' perspective it does not exist anymore).
 
@@ -46,7 +46,7 @@ Akkeris supports additional metadata for plans and services that you can take ad
 1. Provide more plans than you intend to initial expect people to use.  Since addons are not pre-provisioned you might as well give users options.
 2. For shared tenant systems still give different various quotas (even if they are not enforced) to give users expectations of what resources they are guaranteed. If the actual resources ends up being larger than expected treat it as "burstable" or "elastic".
 3. Name plans based on use cases (such as hobby, dev, production).  If there's multi-dimensions or two primary factors to an addon consider using the nomenclature `standard-X`, `premium-X` or `shield-X` as these are commonly used across Akkeris.
-4. Use pricing models rather than strict cost pass-through with addon pricing.  For instance, on databases creating a read replica may considerably increase the cost of a database, however Akkeris does not support post-humorously changing the price of an addon service because a user created a read replica. When creating an addon service such as this either A) build the cost of the possibility of a replica into the overal cost, or B) create a plan that includes a read replica that includes the cost and read replica up front.
+4. Use pricing models rather than strict cost pass-through with addon pricing.  For instance, on databases creating a read replica may considerably increase the cost of a database, however Akkeris does not support post-provision price changes, to support this the cost of read replicas are blended with the general price. When creating an addon service such as this either A) build the cost of the possibility of a replica into the overal cost, or B) create a plan that includes a read replica that includes the cost and read replica up front.
 
 **DONT**
 
