@@ -542,14 +542,12 @@ Having a good guideline for creating commits and sticking to it makes working wi
 
     _Why:_
     >When you break down a config file for different purposes (database, API and so on); putting them in a folder with a very recognizable name such as `config` makes sense. Just remember not to make different config files for different environments. It doesn't scale cleanly, as more deploys of the app are created, new environment names are necessary. [read more...](https://medium.com/@fedorHK/no-config-b3f1171eecd5)
-    
 
 * Put your scripts in a `./scripts` folder. This includes setup, build or other `bash` scripts.
 
     _Why:_
     > It's very likely you may end up with more than one script, builds, database feeders, database synchronization and so on.
     
-
 * Place your build output in a `./build` folder. Add `build/` to `.gitignore`.
 
     _Why:_
