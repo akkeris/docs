@@ -688,7 +688,7 @@ Having a good guideline for creating commits and sticking to it makes working wi
     > URL's can be case insensitive (e.g., helloWorld and helloworld are the same thing) on broken proxy services, or due to browser bugs, this makes using camelCase somewhat risky, using natural case (e.g, spaces "hello world") is not recommended as issues arise with clients not URI encoding correctly. Finally underscores are not supported on older http 1.0 clients.
 
 
-* Use a plural nouns to indicate something is a REST collection: `/users`.
+* Use plural nouns to indicate something is a REST collection: `/users`.
 
     _Why:_
     > As a convention the plurality and that its a noun (`users`) indicates a REST (non-RPC api) that's a resource and a collection.  RPC end points as you might imagine should be a VERB like `create` and plurality can vary. [read more...](https://apigee.com/about/blog/technology/restful-api-design-plural-nouns-and-concrete-names)
@@ -701,8 +701,8 @@ Having a good guideline for creating commits and sticking to it makes working wi
 * For CRUD or REST, always use a singular concept that starts with a collection and ends to an identifier:
 
     ```
-    /students/245743
-    /airports/kjfk
+    /students/john-smith
+    /airports/JFK
     ```
 * For CRUD or REST, avoid URLs like this: 
     ```
@@ -937,11 +937,6 @@ For each endpoint explain:
 <a name="resources"></a>
 ## 11. Resources
 ![Resources](images/licensing.png)
-
-* Never put personally identifiable data of our customers on non-on-prem data stores. 
-
-    _Why:_
-    > We (for the time) have agreed with our customers and clients and from SOCS to never store their email address, name, phone number or address on anything but hardware we own. 
 
 * Resources should use a URI format
 
