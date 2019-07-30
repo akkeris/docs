@@ -37,7 +37,6 @@
   * [Akkeris Error Codes](/support/akkeris-error-codes.md)
     * [R14 - Out of Memory and Java](/support/r14-out-of-memory-and-java.md)
   * [Offline Applications](/support/offline-applications.md)
-* [Best Practices and Guidelines](best-practices-and-guidelines.md)
 
 ---
 ## Concepts
@@ -74,3 +73,10 @@
 * [Redis](/addons/redis.md)
 * [Secure Key](/addons/securekey.md)
 * [Twilio](/addons/twilio.md)
+
+---
+## For Contributors
+
+* [Best Practices and Guidelines](best-practices-and-guidelines.md)
+* [Apps API](/architecture/apps-api.md)]
+* [Creating Addons](/extending-akkeris/building-addons.md)
