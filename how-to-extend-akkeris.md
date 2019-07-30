@@ -11,14 +11,10 @@ You can extend Akkeris in a variety of ways to add custom functionality you may 
 * Create **application features** to enhance application functionality `beta`
 * Add **documentation** to clarify functionality and help others get started.
 
-## Authorizing Users
-
-* [About OAuth2](/architecture/auth-api.md)
-
 ## Web hooks
 
 * [About Webhooks](/architecture/webhooks.md)
-* [Webhook Tutorial](/getting-started/webhooks.md)
+* [Webhook Tutorial](/architecture/webhooks.md#getting-started)
 * [App API Webhook Reference](/architecture/apps-api.md#webhooks)
 
 ## Creating a One-click App
