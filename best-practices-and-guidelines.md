@@ -499,12 +499,10 @@ Having a good guideline for creating commits and sticking to it makes working wi
 
 * **Follow default conventions of your language or framework first, all other rules below are secondary**.
 
-
     _Why:_
     > Some languages and frameworks use conventions so that engineers can expect to find specific types of code in specific places, changing these defaults often leads to headaches for others picking up your project that are used to a standard expectation. 
 
 * Organize your files around product features / pages / components, not roles.
-
 
     **Bad**
 
