@@ -1,4 +1,4 @@
-# Building Services &amp Addons
+# Building Services & Addons
 
 
 ## Introduction
