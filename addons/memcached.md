@@ -10,9 +10,7 @@ Managed memcached plans for Akkeris provide reliable and fast caching in memory-
 
 ### Standard instances
 
-Standard and hobby instances are great for development and tooling apps or production apps where only one app is using the cache or for shared session storage where the session values are small. 
-
-Standard and hobby instances are not great for shared caches among multiple apps with large amounts of data stored for each key.
+Standard and hobby instances are great for development and tooling apps or production apps where only one app is using the cache or for shared session storage where the session values are small. Standard and hobby instances are not great for shared caches among multiple apps with large amounts of data stored for each key.
 
 |                  | Hobby-Dev   | Standard-0 | Standard-1   |
 |------------------|-------------|------------|--------------|
@@ -46,7 +44,9 @@ Once provisioned the memcached hostname and port are added as the config var `ME
 
 ## Upgrading
 
-Memcached plans can be upgraded or downgraded on-demand. During the upgrade the memcached instance and any attached applications will be placed in maintenace mode.
+Memcached plans can be upgraded or downgraded on-demand. During the upgrade the memcached instance and any attached applications will be placed in maintenace mode. 
+
+>**danger** Data is not retained while upgrading or downgrading (as memcached is a volatile storage!)
 
 ## Advanced Memcached with Memcached Plugin
 
