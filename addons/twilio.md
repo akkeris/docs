@@ -25,7 +25,7 @@ Twilio also offers services such as programmable wireless, a service where SIM c
 
 ### Provisioning the add-on
 
-```
+```bash
 aka addons:create twilio:small -a [app-space]
 ```
 
