@@ -20,3 +20,21 @@ For more information related to this see:
 
 * [Java SE support for Docker CPU and memory limits](https://blogs.oracle.com/java-platform-group/java-se-support-for-docker-cpu-and-memory-limits)
 * [Swapping, memory limits and cgroups](https://jvns.ca/blog/2017/02/17/mystery-swap/)
+
+## New for Java 11
+If you are using java 11 this becomes simpler. Starting with Java 10 the JVM is aware of container memory settings by default, so you should no longer need the XX:+UnlockExperimentalVMOptions and -XX:UseCGroupMemoryLimitForHeap flags. All you should need to do to tell your Java 11 app to use 80% of available container memory is add this one JVM parameter
+
+```
+-XX:MaxRAMPercentage=80
+```
+
+As of Java 10, the [Initial|Min|Max]RAMFraction parameters are deprecated in favor of the [Initial|Min|Max]RAMPercentage parameters
+
+### References
+
+* [Java SE support for Docker CPU and memory limits](https://blogs.oracle.com/java-platform-group/java-se-support-for-docker-cpu-and-memory-limits)
+* [Java inside docker: What you must know to not FAIL](https://developers.redhat.com/blog/2017/03/14/java-inside-docker/)
+* [Running a JVM in a Container Without Getting Killed](https://blog.csanchez.org/2017/05/31/running-a-jvm-in-a-container-without-getting-killed/)
+* [Running a JVM in a Container Without Getting Killed II](https://blog.csanchez.org/2018/06/21/running-a-jvm-in-a-container-without-getting-killed-ii/)
+* [JVM memory settings in a container environment](https://medium.com/adorsys/jvm-memory-settings-in-a-container-environment-64b0840e1d9e)
+* [Oracle JDK 10 release notes](https://www.oracle.com/technetwork/java/javase/10-relnote-issues-4108729.html)
