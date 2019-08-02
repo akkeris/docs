@@ -30,7 +30,7 @@ This will tell you the current state of each dyno type (and each dyno within the
 
 If your dyno's are crashing, you can attempt to restart the app with:
 
-```
+```shell
 aka ps:restart -a [appname-space]
 ```
 
@@ -40,7 +40,7 @@ It may be useful to keep a tail of the logs running while you restart it to ensu
 
 If you've assigned an application health check try checking it first to ensure it returns between 200-399 http status code.  You can do this by running a curl command:
 
-```
+```shell
 curl -v https://yourapp.com/health
 ```
 
