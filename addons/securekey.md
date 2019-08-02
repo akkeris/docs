@@ -21,7 +21,7 @@ aka plugins:install securekey
 
 ### Provisioning the add-on
 
-Seucre Key can be attached to an application using the CLI, UI or Platform Apps API:
+Secure Key can be attached to an application using the CLI, UI or Platform Apps API:
 
 ```shell
 aka addons:create securekey:fortnightly -a [appname-spacename]
