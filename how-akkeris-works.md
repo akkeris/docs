@@ -109,15 +109,15 @@ One or more applications can be added to any stage, however each stage is a dire
 
 Pipeline promotions are an important concept, they in affect are simply a deployment of the image within one stage to all the apps in the next stage.  This allows for apps which have passed a specific stage to have its exact image deployed to the next stage in the process.
 
-Each pipeline may also contain extra checks or be configured to perform special duties upon promotion. For example a paranoid promote is a feature of Akkeris that prior to promotion will ensure that all the config vars that exist in the app being promtoed exist in all of the apps in the next stage, otherwise do not promote. The same checks are also done for addons.  Paranoid promotes can be enabled for any stage as a "status check".
+Each pipeline may also contain extra checks or be configured to perform special duties upon promotion. Paranoid or "safe" promote is a feature of Akkeris that prior to promotion will ensure all the config-vars that exist source app exist in all of the apps in the next stage. If it finds irregularities it blocks the promotion. The same checks are also done for addons.  Paranoid or safe promotes can be enabled for any stage as a "status check".
 
 Status checks happen during a promotion before the promotion happens.  All status checks must return a result of "ok" in order for a promotion to occur.  Any application or system can add itself as a status check and use this primitive and subsequently hooks to wire in CI/CD notificatoins and perform automated checks.  Once all systems report back "ok" a pipeline promotion occurs and the app is released.
 
 ### Previewing Apps `beta`
 
-Finally, two of the stages have special meanings, `review` and `canary`.  Preview apps can be automatically created by enabling the feature on an app. If a pull request in the source repository is created that is destined for the branch that would normally cause a build on the `development` stage of the pipeline a new application forked from the development application is created and placed in the `review` stage.  Note that only the `web` dyno types are re-created with a quantity of 1, and any addons are attached unless they do not support sharing \(such as a log drain addon such as papertrail\).  The new preview app will contain the built image for the new code being reviewed, and if the pull request is reviewed the code is automatically updated on the preview app as well.
+Finally, two of the stages have special meanings, `review` and `canary`.  Preview apps can be automatically created by enabling the feature on an app. If a pull request in the source repository is created that is destined for the branch that would normally cause a build on the `development` stage of the pipeline a new application forked from the development application is created and placed in the `review` stage.  Note that only the `web` dyno types are re-created with a quantity of 1, and any addons are attached unless they do not support sharing \(such as a log drain addon such as papertrail\).  The new preview app will contain the built image for the new code being reviewed, and if the pull request is updated the code is automatically updated on the preview app as well. Once the pull request is closed the preview app is automatically removed.
 
-When the feature is enabled on a production application, any new release will trigger an entirely new app to be created with the same limitations applied to it as review apps \(only the web dyno, sharing its addons, etc\). This app is placed in the `canary` stage and a small portion of production traffic destined for the old version is routed to this new version prior to being fully released \(note this happens after all status checks have occured\). If the app begins experiencing a statistically larger amount of server or client error messages \(500/400 status codes\) the release is automatically aborted and the preview app is removed.
+When the feature is enabled on a production application, any new release will trigger an entirely new app to be created with the same limitations applied to it as review apps \(only the web dyno, sharing its addons, etc\). This app is placed in the `canary` stage and a small portion of production traffic destined for the current `production` application is routed to the new version prior to being released. If the app begins experiencing a statistically larger amount of server or client error messages \(500/400 status codes\) the release is automatically aborted and the canary app is removed.
 
 This helps ensure app deployments minimize their production impact on release.
 
@@ -145,7 +145,7 @@ Config vars can be set through the CLI \(`aka config:set`\), the UI or through t
 
 ## Managing Resources
 
-Applications typically make use of [addons](/architecture/addons.md) to provide backing services such as databases, queueing & caching systems, storage, email services and more. Add-ons are provided as services by that may be managed by anyone \(e.g., it could be an external service that's managed by a vendor such as AWS or an internal services managed by a team member\).
+Applications typically make use of [addons](/architecture/addons.md) to provide backing services such as databases, queueing & caching systems, storage, email services and more. Add-ons are provided as services that could be managed by anyone \(e.g., it could be an external service that's managed by a vendor such as AWS or an internal services managed by a team member\).
 
 Akkeris treats these add-ons as attached resources: provisioning an add-on is a matter of choosing one from the list of addon services and plans, and creating it.  In addition addons may be attached if they already exist on another application and can be shared.
 
@@ -207,19 +207,27 @@ Web dyno types can listen to incoming http traffic by attaching their listener t
 
 ### Creating a website
 
-Often its necessary for multiple different apps with different responsibilities to exist under one domain for security, and simplicity reasons.  Akkeris supports the ability to create any website and dedicate traffic on a specific path \(and its subpaths\) to go to a specific app, while other apps receive traffic on a different path. This is called HTTP reverse proxying, or HTTP routing.
+Often its necessary for multiple different apps with different responsibilities to exist under one domain for security, and simplicity reasons.  Akkeris supports the ability to create a website and route traffic on a specific path on the website \(and its subpaths\) to go to a specific app, while other apps receive traffic on a different path. This is called HTTP reverse proxying, or HTTP routing.
 
-A default site is created for each application when its created allowing that application to be immediately reachable, however an application can exist in more than one site.  Creating a site is as easy as:
+An app can exist in more than one site.  To create a site run:
 
 ```shell
 aka sites:create www.siteyouwant.com
 ```
 
-Note that if a TLS certificate does not exist yet it, it will automatically be requested through the certs system. The domain record is automatically created as well. If domain has not been purchased, it must be manually purchased and added to Akkeris \(this must be manually done by administrators\).  If the domain name is not managed by Akkeris it must be manually pointed to Akkeris' http router.
+Creating a site does not implicitly begin routing traffic to any app, to route the traffic run:
+
+```shell
+aka routes:create -s www.siteyouwant.com -a myapp-space / /
+```
+
+This will route all traffic on `www.siteyouwant.com` to the app `myapp-space`.  Optionally you can specificy specific sub-paths you want to route and route traffic to specific sub paths on your app.
+
+
 
 ## Going Global
 
-Each application may be placed within a specific region.  Any site or application must exist in the same region. While apps can be managed from one interface a region does impose some geographic limitations; all applications in a space must be in the same region, all applications in the same site must be in the same region, and finally addons are only available in specific regions, and a addon in a specific region may only be shared with other apps in the same region.
+Each application must be placed within a specific region.  Any site or application must exist in the same region. While apps can be managed from one interface a region does impose some geographic limitations; all applications in a space must be in the same region, all applications in the same site must be in the same region, and finally addons are only available in specific regions, and a addon in a specific region may only be shared with other apps in the same region.
 
 Regions provide boundaries for ensuring performance of applications is maintained, and that regionally considerations such as where data physically lies is clearer, in addition sites must take into consideration how they will geographically distribute themselves with different domains.
 
@@ -227,7 +235,7 @@ While regions impose limitations other workloads and tooling may operate across 
 
 ### Tying it all together
 
-The concepts explained here can be though of as those related to creating, building and launching an application \(or site\), and those that involve the runtime maintenance and operation of applications \(or sites\).
+The concepts explained here can be thought of as creating, building and launching an application \(or site\), and those that involve the runtime maintenance and operation of applications \(or sites\).
 
-From creating an application, to creating a site, to launching applications Akkeris provides first-class automated mechanisms for building, scaling and maintaining applications in a globalized way.
+From creating an application, to creating a site, to launching applications, Akkeris provides first-class automated mechanisms for building, scaling and maintaining applications in a globalized way.
 
