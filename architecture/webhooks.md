@@ -303,7 +303,7 @@ To add the opsgenie alert to a webhook add the URL:
 https://api.opsgenie.com/v2/alerts?access_token=ffffffff-aaaa-4444-5555-987654321000
 ```
 
-Or, if you're in Europe use add the URL:
+Or, if in Europe, use the URL:
 
 
 ```
