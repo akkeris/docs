@@ -153,43 +153,53 @@ Webhooks can be removed via the CLI \(`aka hooks:destroy ID`\) or via the Platfo
 
 ## Integrations
 
-Some webhook destinations Akkeris will identify and integrate with.  This is a special use case of webhooks called Third-Party Integrations. To add, remove or manage them use the hooks command as in previous sections but use a URL specific the service you want to integrate with.
+Akkeris will automatically identify and integrate with certain webhook destinations. This is a special use case for webhooks called Third-Party Integrations. To add, remove, or manage integrations, use the hooks command as in previous sections, but use a URL specific to the third-party service you wish to integrate with.
 
 ### ![CircleCI Logo](../assets/circleci-small.png "CircleCI") CircleCI
 
-Akkeris has the ability to integrate and kick off any existing job on Circle CI.
+Akkeris has the ability to integrate with and kick off any existing job on Circle CI.
 
-To kick off a new job provide the url:
+To kick off a new job, provide the following as the destination URL for your webhook:
 
 ```
 https://circleci.com/api/v1.1/project/<vcs-type>/<org>/<repo>?circle-token=<token>
 ```
 
-To kick off a new build on a specific branch provide the url:
+To kick off a new build on a specific branch, provide the following as the destination URL for your webhook:
 
 ```
 https://circleci.com/api/v1.1/project/<vcs-type>/<org>/<repo>/tree/<branch>?circle-token=<token>
 ```
 
-Ensure you replace `<vcs-type>` with `github` or `bitbucket`, `<org>` with your organization name on CircleCI, `<repo>` should be replaced with the name of repository. A CircleCI token is needed, replace `<token>` with the token you receive from CircleCI. Finally, if you plan to kick off a job on a specific branch replace `<branch>` with the appropriate branch on the repo. For more information on triggering builds see [CircleCI Documentation](https://circleci.com/docs/api/#trigger-a-new-job). When using CircleCI with webhooks the secret for calculating the SHA1 is not used.
+Be sure to replace the placeholders in the URL with values specific to your job:
+
+| Placeholder   | Description                                           |
+| ------------- | ----------------------------------------------------- |
+| `<vcs-type>`  | `github` or `bitbucket`                               |
+| `<org>`       | Your CircleCI organization name                       |
+| `<repo>`      | Your CircleCI repository                              |
+| `<token>`     | The authorization token recieved from CircleCI        |
+| `<branch>`    | (Optional) The branch you wish to kick the job off on |
+
+For more information on triggering builds, see the [CircleCI Documentation](https://circleci.com/docs/api/#trigger-a-new-job). Note: When using CircleCI with webhooks, the secret for calculating the SHA1 is not used.
 
 The invoked CircleCI job will contain a few extra parameters that are exposed as environment variables:
 
 * `AKKERIS_EVENT` - The name of the event that triggered the job.
-* `AKKERIS_APP` - The app on akkeris that triggered the event.
+* `AKKERIS_APP` - The app on Akkeris that triggered the event.
 * `AKKERIS_EVENT_PAYLOAD` - A JSON string containing the full webhook payload for the event. 
 
 For more information on event payloads, see the [Webhook API Reference](/architecture/apps-api.md#webhook-event-payloads).
 
 ***Example: Kicking off a Test on CircleCI***
 
-For example, lets say we want to kick off a test on CircleCI when an app (`testhooks-default`) is released.
+Let's say we want to kick off a test on CircleCI when an app (`testhooks-default`) is released.
 
 1. Go to [CircleCI Personal API Tokens](https://circleci.com/account/api)
 2. Click "Create New Token"
 3. Name it "Akkeris testhooks-default token"
 4. Copy the token that's generated.
-5. Add the hook to your app (make sure to replace the token `1632345674aab11132130fffff1a4444daaa000b` with the token you received from CircleCI as well as the organization `org` and repository `repo` with your own values.
+5. Add the hook to your app (make sure to replace the token `1632345674aab11132130fffff1a4444daaa000b` with the token you received from CircleCI as well as the organization `org` and repository `repo` with your own values)
 
 ```shell
 aka hooks:create -a testhooks-default -e released -s circleci 'https://circleci.com/api/v1.1/project/github/org/repo?circle-token=1632345674aab11132130fffff1a4444daaa000b'
@@ -204,7 +214,7 @@ Creating webhook ɧ https://circleci.com/api/v1.1/project/github/org/repo?circle
 
 When a new release is successful and the old release has been shut down, the job `repo` on the organization `org` in CircleCI will be kicked off.
 
-You can view the hooks by running:
+You can view the hooks associated with an app by running:
 
 ```shell
 aka hooks -a testhooks-default
@@ -215,7 +225,9 @@ aka hooks -a testhooks-default
 
 ```
 
-Notice that the sensitive data in webhooks is automatically redacted to protect private information. Once a hook has been triggered view the results by running:
+Notice that the sensitive data in webhooks are automatically redacted to protect private information. 
+
+Once a hook has been triggered, you can view the results by running:
 
 ```shell
 aka hooks:deliveries 2f14f1eb-a614-4917-9bf2-811ee97fd4ff -a testhooks-default
@@ -254,19 +266,19 @@ aka hooks:deliveries 2f14f1eb-a614-4917-9bf2-811ee97fd4ff -a testhooks-default
 
 ### ![Microsoft Teams Logo](../assets/msteams-small.png "Microsoft Teams") Microsoft Teams
 
-You can add webhooks to notify a MS Teams channel when specific events happen. This lets you stay in your workflow while being notified of important events. To be notified of an event via Teams, create a [Office 365 Connector](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/connectors/connectors-using). 
+You can use webhooks to notify a MS Teams channel when specific Akkeris events happen. This allows you to stay in your workflow while being notified of important events. To be notified of an event via Teams, first create an [Office 365 Connector](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/connectors/connectors-using). 
 
-Once created for a channel, the URL should look similar to:
+Once created for a channel, the URL for the connector should look similar to the following:
 
 ```
 https://outlook.office365.com/webhook/01234567-abcd-4444-abcd-1234567890ab@98765432-dddd-5555-8888-777777777777/IncomingWebhook/1234567890abcdefedcba09876544321/ffffffff-3333-4444-5555-bbbbbbbbbbbb
 ```
 
-Add this incoming webhook on any app, for any event and a notification will be sent to the channel. Note that when adding the hook, the secret used to calculate the sha1 hmac is not used by slack and can be any value.
+Add this URL as a hook on any app, for any event, and a notification will be sent to the channel specified in the connector. Note: When adding the hook, the secret used to calculate the sha1 hmac is not used by MS Teams and can be any value.
 
 ***Example: Microsot Teams Notification when App Crashes***
 
-For example, lets say we want to be notified in Slack when an app crashes.
+Let's say we want to be notified in Slack when an app crashes.
 
 1. Create a new [Office 365 Connector](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/connectors/connectors-using). 
 2. Enable Incoming Webhooks and pick a channel to send notifications to.
@@ -283,13 +295,17 @@ Creating webhook ɧ https://outlook.office365.com/webhook/01234567-abcd-4444-abc
  url                                  https://outlook.office365.com/webhook/01234567-abcd-4444-abcd-1234567890ab@98765432-dddd-5555-8888-777777777777/IncomingWebhook/1234567890abcdefedcba09876544321/ffffffff-3333-4444-5555-bbbbbbbbbbbb
 ```
 
-If your app crashes you'll be notified in the Microsoft Teams channel you selected. By selecting other events you can create notifications specific to your use case.  You can be notified when a `release` happens on an app. Or when a preview app is created with `preview`.  For more information on what types of events are available see the [Getting Started](/architecture/webhooks.md#getting-started) section above.
+If your app crashes, you'll be notified in the Microsoft Teams channel that you selected when creating the connector. 
+
+By selecting other events, you can create notifications specific to your use case. For example, you can be notified when a release happens on an app with the `release` event, or when a preview app is created with the `preview` event.  
+
+For more information on what types of events are available, see the [Getting Started](/architecture/webhooks.md#getting-started) section above.
 
 ### ![Opsgenie Logo](../assets/opsgenie-small.png "Opsgenie") Opsgenie
 
-Opsgenie allows you to be notified via various escalation paths when important event occurs, such as an application crashing.  Akkeris has the ability to report any event to Opsgenie as an alert. 
+Opsgenie allows you to be notified via various escalation paths when important event occurs, such as an application crashing. Akkeris has the ability to report any event to Opsgenie as an alert. 
 
-To create a new alert in Opsgenie, create a new [API integration](https://docs.opsgenie.com/docs/api-integration#section-using-api-integration).  Once created, you should receive a token that looks similar to:
+To use Akkeris Opsgenie integration, create a new [API integration](https://docs.opsgenie.com/docs/api-integration#section-using-api-integration) in Opsgenie. Once created, you should receive a token that looks similar to the following:
 
 ```
 ffffffff-aaaa-4444-5555-987654321000
@@ -297,7 +313,7 @@ ffffffff-aaaa-4444-5555-987654321000
 
 It's highly recommended to assign a team when you create a new API integration, otherwise new alerts from the webhook will not be assigned. Ensure `Create and Update Access` and `Enabled` are selected when creating a new integration.
 
-To add the opsgenie alert to a webhook add the URL:
+To add the Opsgenie alert to a webhook, use the following URL:
 
 ```
 https://api.opsgenie.com/v2/alerts?access_token=ffffffff-aaaa-4444-5555-987654321000
@@ -305,16 +321,17 @@ https://api.opsgenie.com/v2/alerts?access_token=ffffffff-aaaa-4444-5555-98765432
 
 Or, if in Europe, use the URL:
 
-
 ```
 https://api.eu.opsgenie.com/v2/alerts?access_token=ffffffff-aaaa-4444-5555-987654321000
 ```
 
-Remember to replace the token `ffffffff-aaaa-4444-5555-987654321000` with the one created. When creating a webhook using Opsgenie the secret to calculate the sha1 hmac is unnecessary and can be set to any value. An alert can be triggered for any event.  For more information on what types of events are available see the [Getting Started](/architecture/webhooks.md#getting-started) section above.
+Remember to replace the token `ffffffff-aaaa-4444-5555-987654321000` with the one created. When creating a webhook using Opsgenie the secret to calculate the sha1 hmac is unnecessary and can be set to any value. 
+
+An alert can be triggered for any event. For more information on what types of events are available, see the [Getting Started](/architecture/webhooks.md#getting-started) section above.
 
 ***Example: Creating an Alert in Opsgenie When an App Crashes***
 
-In this example we'll show how to create a new Opsgenie alert when an app called `testhooks-default` crashes. 
+In this example, we'll show how to create a new Opsgenie alert when an app called `testhooks-default` crashes. 
 
 1. Create a new [API integration](https://docs.opsgenie.com/docs/api-integration#section-using-api-integration).
 2. Name it "Akkeris Apps Crashed"
@@ -332,29 +349,29 @@ Creating webhook ɧ https://api.opsgenie.com/v2/alerts?access_token=ffffffff-aaa
  url                                  https://api.opsgenie.com/v2/alerts?access_token=ffffffff-aaaa-4444-5555-987654321000
 ```
 
-The next time the app `testhooks-default` crashes a new alert will be created in Opsgenie and will be assigned to the team specified when the API Integration was created.
+The next time the app `testhooks-default` crashes, a new alert will be created in Opsgenie and will be assigned to the team specified when the API Integration was created.
 
-To review when a webhook fires run:
+To review when a webhook fires, run:
 
 ```shell
 aka hooks:deliverables -a testhooks-default 027aecfe-072f-49d7-927d-d8baca87e27b
 ```
 
-Where `027aecfe-072f-49d7-927d-d8baca87e27b` is the ID of the webhook.
+where `027aecfe-072f-49d7-927d-d8baca87e27b` is the ID of the webhook.
 
 ### ![Rollbar Logo](../assets/rollbar-small.png "Rollbar") Rollbar
 
-Rollbar can be notified of new deployments with Akkeris. This can be helpful to know if a recent deployment has caused a disruption in service. To create a new Rollbar integration an access token needs to be created. Once created you'll add a URL similar to this:
+Rollbar can be notified of new deployments with Akkeris. This can be helpful to know if a recent deployment has caused a disruption in service. To create a new Rollbar integration, an access token needs to be created. Once created, you can create a hook with a URL similar to this:
 
 ```
 https://api.rollbar.com/api/1/deploy/?access_token=0066611044411888888122359668208d
 ```
 
-Add this incoming webhook on any app for the event `release` and `released`. Note that other events will have a negative affect on your reported deployments. The secret used to calculate the sha1 hmac is not used by Rollbar and can be set to any value.
+Add this webhook on any app for the events `release` and `released`. Note that other events will have a negative affect on your reported deployments. The secret used to calculate the sha1 hmac is not used by Rollbar and can be set to any value.
 
 ***Example: Reporting Deployments to Rollbar***
 
-In this example we'll show how to add an integration to rollbar so it knows about recent deployments for a hypothetical app `testhooks-default`.  
+In this example, we'll show how to add an integration to Rollbar so it knows about recent deployments for a hypothetical app `testhooks-default`.  
 
 1. Login to Rollbar.
 2. Select the project associated with your app from the `Projects` drop down.
@@ -374,29 +391,31 @@ Creating webhook ɧ https://api.rollbar.com/api/1/deploy/?access_token=006661104
  url                                  https://api.rollbar.com/api/1/deploy/?access_token=0066611044411888888122359668208d
 ```
 
-On the next release a new deployment will be added to Rollbar. To review when the webhook fires run:
+On the next release, a new deployment will be added to Rollbar. To review when the webhook fires, run:
 
 ```shell
 aka hooks:deliverables -a testhooks-default 027aecfe-072f-49d7-927d-d8baca87e27e
 ```
 
-Where `027aecfe-072f-49d7-927d-d8baca87e27e` is the ID of the webhook. Note that sending webhooks for any event other than release or released will have no effect.
+where `027aecfe-072f-49d7-927d-d8baca87e27e` is the ID of the webhook. 
+
+Note: Sending webhooks for any event other than `release` or `released` will have no effect.
 
 ### ![Slack Logo](../assets/slack-small.png "Slack") Slack
 
-You can add webhooks to notify slack when specific events happen. This lets you stay in your workflow while being notified of important events.
+You can use webhooks to notify a Slack channel when specific events happen. This lets you stay in your workflow while being notified of important events.
 
-To be notified of an event via Slack, create an incoming [webhook integration](https://api.slack.com/incoming-webhooks). Once created, you should have a URL that looks similar to:
+To be notified of an event via Slack, create an incoming [webhook integration](https://api.slack.com/incoming-webhooks). Once created, you should have a URL that looks similar to the following:
 
 ```
 https://hooks.slack.com/services/X02AFNZAF/BB112GFNM/aaMlM55HHSVVNNwswIE7nnI2
 ```
 
-Add this incoming webhook on any app, for any event and a notification will be sent to the channel. Note that when adding the hook, the secret used to calculate the sha1 hmac is not used by slack and can be any value.
+Add this URL as a webhook on any app, for any event, and a notification will be sent to the channel specified in the Slack integration. Note that when adding the hook, the secret used to calculate the sha1 hmac is not used by Slack and can be any value.
 
 ***Example: Slack Notification when App Crashes***
 
-In this example we'll show how to add notifications to any slack channel when an application crashes.
+In this example, we'll show how to add notifications to any Slack channel when an application crashes.
 
 1. Create a new [Slack App](https://api.slack.com/apps/new). 
 2. Enable Incoming Webhooks and pick a channel to send notifications to.
@@ -413,11 +432,8 @@ Creating webhook ɧ https://hooks.slack.com/services/X02AFNZAF/BB112GFNM/aaMlM55
  url                                  https://hooks.slack.com/services/X02AFNZAF/BB112GFNM/aaMlM55HHSVVNNwswIE7nnI2
 ```
 
-If your app crashes you'll be notified in the slack channel you selected. By selecting other events you can create notifications specific to your use case.  You can be notified when a `release` happens on an app. Or when a preview app is created with `preview`.  For more information on what types of events are available see the [Getting Started](/architecture/webhooks.md#getting-started) section above.
+If your app crashes, you'll be notified in the Slack channel you previously selected.
 
+By selecting other events, you can create notifications specific to your use case. For example, you can be notified when a release happens on an app with the `release` event, or when a preview app is created with the `preview` event.  
 
-
-
-
-
-
+For more information on what types of events are available, see the [Getting Started](/architecture/webhooks.md#getting-started) section above.
