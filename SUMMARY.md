@@ -23,6 +23,7 @@
   * [How Sites Work](/how-akkeris-works.md#getting-users-to-apps)
 * [Extending Akkeris](/how-to-extend-akkeris.md)
   * [About Webhooks](/architecture/webhooks.md)
+  * [Third Party Integrations](/architecture/webhooks.md#integrations)
   * [Creating Plugins](/extending-akkeris/creating-plugins.md)
   * [Creating One-Click Apps](/one-click/creating.md)
   * [Learning The Akkeris Apps API](/extending-akkeris/akkeris-apps-api-tutorial.md)
