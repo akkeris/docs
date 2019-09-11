@@ -8,13 +8,14 @@ Some database drivers want the connection url in a different
 format than what the database-broker returns in the DATABASE_URL 
 environment variable.
 
-EX: DATABASE_URL="postgres://fakeuser:fakepass@dbhost.somewherein.aws.com:5432/dbname?sslmode=disable"
+EX: DATABASE_URL="postgres://fakeuser:fakepass@dbhost.somewherein.aws.com:5432/fakename?sslmode=disable"
 
+* scheme: postgres
 * username: fakeuser
 * password: fakepass
 * hostname: dbhost.somewherein.aws.com
 * port: 5432
-* database name: dbname
+* database name: fakename
 * options: ?sslmode=disable
 
 ## Parsing examples by language
@@ -25,8 +26,7 @@ Npm Module [connection-string-parser](https://www.npmjs.com/package/connection-s
 
 ### Javascript
 
-This was copied from [stackoverflow.com](https://stackoverflow.com/questions/45073320/regex-for-a-url-connection-string)
-
+Example from [stackoverflow.com](https://stackoverflow.com/questions/45073320/regex-for-a-url-connection-string)
 
 ``` javascript
 function url2obj(url) {
@@ -48,7 +48,7 @@ function url2obj(url) {
         hostname: matches[3] != undefined ? matches[3].split(/:(?=\d+$)/)[0] : undefined,
         port: matches[3] != undefined ? matches[3].split(/:(?=\d+$)/)[1] : undefined,
         segments : matches[4] != undefined ? matches[4].split('/') : undefined,
-        params: params 
+        params: params
     };
 }
 
@@ -61,20 +61,96 @@ console.log(url2obj("ftp://usr:pwd@[FFF::12]:345/testIP6"));
 
 ### Java/Scala
 
-Example from stackoverflow.com
+#### Example from stackoverflow.com
 
 ```java
 URI uri = new URI("postgres://fakeuser:fakepass@dbhost.somewherein.aws.com:5432/dbname?sslmode=disable");
-System.out.println(“Port = ” + uri.getPort());
 System.out.println(“Host = ” + uri.getHost());
+System.out.println(“Port = ” + uri.getPort());
 System.out.println(“Path = ” + uri.getPath());
+```
+
+#### Example from spring app
+
+```java
+package com.example.config;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
+
+@Profile({"deploy"})
+@Configuration
+public class DatabaseConfig {
+
+  @Value("${app.datasource.url}")
+  String localUrl;
+
+  public static String[] extractUserNameAndPassword(String url) {
+    Pattern regex = Pattern.compile("postgres:\\/\\/(.*):(.*)@(.*)");
+    Matcher m = regex.matcher(url);
+    if (m.matches()) {
+      return new String[] {m.group(1), m.group(2), m.group(3)};
+    } else {
+      throw new IllegalStateException("Was unable to parse given postgres URL " + url);
+    }
+  }
+
+  @Bean
+  @Primary
+  public DataSource localDatasource() {
+    String[] urlParts = extractUserNameAndPassword(localUrl);
+    return DataSourceBuilder.create()
+        .url("jdbc:postgresql://" + urlParts[2])
+        .username(urlParts[0])
+        .password(urlParts[1])
+        .build();
+  }
+}
 ```
 
 ### Go Language
 
+```go
+package main
+
+import  (
+  "fmt"
+  "os"
+  "net/url"
+)
+
+func main() {
+  u, _ := url.Parse(os.Getenv("DATABASE_URL"))
+
+  fmt.Printf("DATABASE_URL: %s\n", os.Getenv("DATABASE_URL"))
+  fmt.Printf("   scheme: %s\n", u.Scheme)
+  fmt.Printf("     user: %s\n", u.User)
+  fmt.Printf("host:port: %s\n", u.Host)
+  fmt.Printf("     path: %s\n", u.Path)
+  fmt.Printf("    query: %s\n", u.RawQuery)
+}
+```
+
 ### Ruby
 
-### Shell (bsh,zsh,sh)
+```ruby
+require 'uri'
 
-## Example RegEx
+uri = URI.parse(ENV["DATABASE_URL"])
+p uri.scheme # postgres
+p uri.user
+p uri.host
+p uri.port
+p uri.query
+
+```
+
+### Shell (bsh,zsh,sh)
 
