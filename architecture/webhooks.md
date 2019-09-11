@@ -310,7 +310,7 @@ Or, if you're in Europe use add the URL:
 https://api.eu.opsgenie.com/v2/alerts?access_token=ffffffff-aaaa-4444-5555-987654321000
 ```
 
-Remember to replace the token `ffffffff-aaaa-4444-5555-987654321000` with the one created. When creating a webhook using Opsgenie the secret to calculate the sha1 hmac is unnecessary and can be set to any value.
+Remember to replace the token `ffffffff-aaaa-4444-5555-987654321000` with the one created. When creating a webhook using Opsgenie the secret to calculate the sha1 hmac is unnecessary and can be set to any value. An alert can be triggered for any event.  For more information on what types of events are available see the [Getting Started](/architecture/webhooks.md#getting-started) section above.
 
 ***Example: Creating an Alert in Opsgenie When an App Crashes***
 
