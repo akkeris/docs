@@ -9,7 +9,9 @@ While currently only one filter exists, more are on their way.
 
 ## Authentication Filters
 
-JWT Authentication Filters allow asserting the incoming HTTP request has a valid JWT token.
+| Filter Type | Description |
+| :--- | :--- |
+| jwt  | JWT Authentication Filters allow asserting the incoming HTTP request has a valid JWT token. |
 
 ### Creating an Authentication Filter
 
