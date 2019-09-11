@@ -254,9 +254,9 @@ aka hooks:deliveries 2f14f1eb-a614-4917-9bf2-811ee97fd4ff -a testhooks-default
 
 ### ![Microsoft Teams Logo](../assets/msteams-small.png "Microsoft Teams") Microsoft Teams
 
-You can add webhooks to notify a MS Teams channel when specific events happen. This lets you stay in your workflow while being notified of important events.
+You can add webhooks to notify a MS Teams channel when specific events happen. This lets you stay in your workflow while being notified of important events. To be notified of an event via Teams, create a [Office 365 Connector](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/connectors/connectors-using). 
 
-To be notified of an event via Teams, create a [Office 365 Connector](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/connectors/connectors-using). Once created for a channel, the URL should look similar to:
+Once created for a channel, the URL should look similar to:
 
 ```
 https://outlook.office365.com/webhook/01234567-abcd-4444-abcd-1234567890ab@98765432-dddd-5555-8888-777777777777/IncomingWebhook/1234567890abcdefedcba09876544321/ffffffff-3333-4444-5555-bbbbbbbbbbbb
