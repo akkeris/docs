@@ -153,7 +153,7 @@ Webhooks can be removed via the CLI \(`aka hooks:destroy ID`\) or via the Platfo
 
 ## Integrations
 
-Some webhook destinations Akkeris will identify and integrate with.  These is a special use case of webhooks called Third-Party Integrations. To add, remove or manage them use the hooks command as in previous sections but use a URL specific the service you want to integrate with.
+Some webhook destinations Akkeris will identify and integrate with.  This is a special use case of webhooks called Third-Party Integrations. To add, remove or manage them use the hooks command as in previous sections but use a URL specific the service you want to integrate with.
 
 ### ![CircleCI Logo](../assets/circleci-small.png "CircleCI") CircleCI
 
