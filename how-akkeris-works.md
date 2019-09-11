@@ -78,7 +78,7 @@ Every dyno for each application runs in a space. Every application may only be i
 
 #### Discovery Mechanisms
 
-A space is logical grouping of applications that share the same local network or subnet. This allows applications to communicate between one another using ghost protocols based on ARP and other broadcast mechanisms.  In addition, applications may discover each other via config vars automatically added to their application dynos when they start.  Two config vars are added for each application in the same space, they contain the host and port for where the application may be contacted on its network http port. The config vars are named:
+A space is a logical grouping of applications that share the same local network or subnet. This allows applications to communicate between one another using protocols based on ARP and other broadcast mechanisms.  In addition, applications may discover each other via config vars automatically added to their application dynos when they start.  Two config vars are added for each application in the same space, they contain the host and port for where the application may be contacted on its network http port. The config vars are named:
 
 * `APPNAME_SERVICE_HOST`
 * `APPNAME_SERVICE_PORT`
@@ -111,7 +111,7 @@ Pipeline promotions are an important concept, they in affect are simply a deploy
 
 Each pipeline may also contain extra checks or be configured to perform special duties upon promotion. Paranoid or "safe" promote is a feature of Akkeris that prior to promotion will ensure all the config-vars that exist source app exist in all of the apps in the next stage. If it finds irregularities it blocks the promotion. The same checks are also done for addons.  Paranoid or safe promotes can be enabled for any stage as a "status check".
 
-Status checks happen during a promotion before the promotion happens.  All status checks must return a result of "ok" in order for a promotion to occur.  Any application or system can add itself as a status check and use this primitive and subsequently hooks to wire in CI/CD notificatoins and perform automated checks.  Once all systems report back "ok" a pipeline promotion occurs and the app is released.
+Status checks happen during a promotion before the promotion happens.  All status checks must return a result of "ok" in order for a promotion to occur.  Any application or system can add itself as a status check and use this primitive and subsequently hooks to wire in CI/CD notifications and perform automated checks.  Once all systems report back "ok" a pipeline promotion occurs and the app is released.
 
 ### Previewing Apps `beta`
 
@@ -227,7 +227,7 @@ This will route all traffic on `www.siteyouwant.com` to the app `myapp-space`.  
 
 ## Going Global
 
-Each application must be placed within a specific region.  Any site or application must exist in the same region. While apps can be managed from one interface a region does impose some geographic limitations; all applications in a space must be in the same region, all applications in the same site must be in the same region, and finally addons are only available in specific regions, and a addon in a specific region may only be shared with other apps in the same region.
+Each application must be placed within a specific region.  Any site or application must exist in the same region. While apps can be managed from one interface a region does impose some geographic limitations; all applications in a space must be in the same region, all applications in the same site must be in the same region, and finally addons are only available in specific regions, and an addon in a specific region may only be shared with other apps in the same region.
 
 Regions provide boundaries for ensuring performance of applications is maintained, and that regionally considerations such as where data physically lies is clearer, in addition sites must take into consideration how they will geographically distribute themselves with different domains.
 
