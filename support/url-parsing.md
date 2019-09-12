@@ -4,25 +4,31 @@
 
 ## Introduction
 
-Some database drivers want the connection url in a different
-format than what the database-broker returns in the DATABASE_URL 
-environment variable.
+In Akkeris the brokers will return a connection string as a URL, also known as a URI,
+see [RFC3986](https://tools.ietf.org/html/rfc3986?).
+If an application needs a different format most languages have modules or librarys
+that can parse a standard URI. Below are examples, suggestions and references for parsing
+a URI.
 
-EX: DATABASE_URL="postgres://fakeuser:fakepass@dbhost.somewherein.aws.com:5432/fakename?sslmode=disable"
+## Example URI
+
+Postgresql database connection string.
+
+DATABASE_URL="postgres://fakeuser:fakepass@dbhost.somewherein.aws.com:5432/fakedbname?sslmode=disable"
 
 * scheme: postgres
 * username: fakeuser
 * password: fakepass
 * hostname: dbhost.somewherein.aws.com
 * port: 5432
-* database name: fakename
+* database name: fakedbname
 * options: ?sslmode=disable
 
 ## Parsing examples by language
 
 ### Node
 
-Npm Module [connection-string-parser](https://www.npmjs.com/package/connection-string-parser)
+Node has a builtin module for URL Parsing: [URL](https://nodejs.org/dist/latest-v12.x/docs/api/url.html)
 
 ### Javascript
 
@@ -154,3 +160,10 @@ p uri.query
 
 ### Shell (bsh,zsh,sh)
 
+The postgresql cli(psql) and mysql cli(msql) will accept a url.
+
+```shell
+
+$ psql $DATABASE_URL
+fakedbname=>
+```
