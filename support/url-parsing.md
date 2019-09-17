@@ -43,7 +43,6 @@ console.log("port:" + myURL.port)
 console.log("pathname:" + myURL.pathname)
 console.log("search:" + myURL.search)
 console.log("username:" + myURL.username)
-console.log("password:" + myURL.password)
 ```
 
 ### Javascript
@@ -76,7 +75,6 @@ function url2obj(url) {
 
 console.log(url2obj("protocol://user:password@hostname:12345/segment1/segment2?p1=val1&p2=val2"));
 console.log(url2obj("http://hostname"));
-console.log(url2obj(":password@"));
 console.log(url2obj("?p1=val1"));
 console.log(url2obj("ftp://usr:pwd@[FFF::12]:345/testIP6"));
 ```
