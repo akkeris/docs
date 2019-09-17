@@ -6,7 +6,7 @@
 
 In Akkeris the brokers will return a connection string as a URL, also known as a URI,
 see [RFC3986](https://tools.ietf.org/html/rfc3986?).
-If an application needs a different format most languages have modules or librarys
+If an application needs a different format most languages have modules or libraries
 that can parse a standard URI. Below are examples, suggestions and references for parsing
 a URI.
 
