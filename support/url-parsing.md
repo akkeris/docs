@@ -30,6 +30,22 @@ DATABASE_URL="postgres://fakeuser:fakepass@dbhost.somewherein.aws.com:5432/faked
 
 Node has a builtin module for URL Parsing: [URL](https://nodejs.org/dist/latest-v12.x/docs/api/url.html)
 
+```node
+const url = require('url')
+
+const myURL = new URL(process.env['DATABASE_URL'])
+
+
+console.log("protocol:" + myURL.protocol)
+console.log("host:" + myURL.host)
+console.log("hostname:" + myURL.hostname)
+console.log("port:" + myURL.port)
+console.log("pathname:" + myURL.pathname)
+console.log("search:" + myURL.search)
+console.log("username:" + myURL.username)
+console.log("password:" + myURL.password)
+```
+
 ### Javascript
 
 Example from [stackoverflow.com](https://stackoverflow.com/questions/45073320/regex-for-a-url-connection-string)
@@ -163,7 +179,27 @@ p uri.query
 The postgresql cli(psql) and mysql cli(msql) will accept a url.
 
 ```shell
+#!/bin/bash
 
-$ psql $DATABASE_URL
-fakedbname=>
+# extract the protocol
+proto="$(echo $1 | grep :// | sed -e's,^\(.*://\).*,\1,g')"
+# remove the protocol
+url="$(echo ${1/$proto/})"
+# extract the user (if any)
+user="$(echo $url | grep @ | cut -d@ -f1)"
+# extract the host and port
+hostport="$(echo ${url/$user@/} | cut -d/ -f1)"
+# by request host without port
+host="$(echo $hostport | sed -e 's,:.*,,g')"
+# by request - try to extract the port
+port="$(echo $hostport | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')"
+# extract the path (if any)
+path="$(echo $url | grep / | cut -d/ -f2-)"
+
+echo "url: $url"
+echo "  proto: $proto"
+echo "  user: $user"
+echo "  host: $host"
+echo "  port: $port"
+echo "  path: $path"
 ```
