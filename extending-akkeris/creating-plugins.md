@@ -1,115 +1,444 @@
 # Creating Plugins
 
-Creating plugins allows you to add functionality to appkit (our developer toolkit) independently. The CLI is a great way of adding developer workflows to process as it gives your plugin access to the users git repos, applications and existing environments safely. The CLI also provides mechanisms for updating and managing versions seamlessly.
+<!-- toc -->
 
-## Creating your first plugin
+Akkeris CLI Plugins are powerful ways to automate workflows, perform common routines or help increase the productivity of other users of Akkeris. Some great examples and ideas:
 
-1. Create a github repo that is publically accessible (or private if all of the cli users have access to it)
-2. At the root of the repo create an "index.js" file
-3. Within the index.js file paste this:
+* The postgres plugin pulls the username/password from an apps config then analyzes performance, blocks, locks, etc to help assist the user in diagnosing database problems (and performance).
+* A turn key way to create an app and repo for an organization that has its security and compliance needs built in.
+* Custom scripts to pull down data from production databases, scrub it, then store it in QA databases.
 
-```js
-"use strict"
+Plugins can be thought of as a javascript module included into the CLI at runtime. There are a few conventions you must follow for your plugin to work.
 
-function some_action(appkit, args) {
-  console.log("some action ran!");
+## What Makes a Plugin
+
+To begin thinking about how plugins work, we'll use the example template below to help walk through some aspects of plugins. You can skip down to a lower section for more information about each aspect. 
+
+At a basic level each plugin is contained in its own directory. The directory must contain an `index.js` file.  This file is included into the CLI's runtime on start-up. The `index.js` file must export the following:
+
+1. An `init` function which is passed the [akkeris](creating-plugins.md#the-akkeris-object) object, its sole duty is to add commands to the cli using `akkeris.args` yargs object. 
+2. An `update` function which is passed the [akkeris](creating-plugins.md#the-akkeris-object) object and is executed whenever a user runs `aka update` and after any new source code is pulled from git.
+3. A `group` property which defines what high-level group the plugin exists in `apps`, `releases`, `sites`, etc.
+4. A `help` property to provide a high-level description of the plugin on the help screen.
+5. A `primary` property (as a boolean), this indicates whether the plugin is a core service or convenience.
+
+
+```javascript
+function supercool_action(akkeris, args) {
+  console.log("some action ran, with the arguments:", ${JSON.stringify(args, null, 2))
 }
 
-function other_action(appkit, args) {
-  console.log("other action ran!");
+function init(akkeris) {
+  akkeris.args
+    .command('awesome:supercool', 'This does some super cool action!', {}, supercool_action.bind(null, akkeris))
 }
 
-function fee(appkit, args) {
-  console.log("fee ran!");
-}
-
-function update() {
-    // What do you want to do once the plugin has been updated, 
-    // this is executed AFTER the plugin has had the latest set of code
-    // pulled, so its a "post" update operation.
-}
-
-function init(appkit) {
-  // This is fired when the plugin initially loads, 
-  // this should not do blocking operations. Here we will add some commands
-  // for users and supply the function that will execute when they run.
-  appkit.args
-    .command('mypluginname', 'list releases on an app', {}, some_action.bind(null, appkit))
-    .command('mypluginname:foo', 'some description', {}, other_action.bind(null, appkit))
-    .command('mypluginname:fee ID', 'some operation on an id', {'app':{'description':'The app to act on.','string':'true','demand':true}}, fee.bind(null, appkit))
-}
 module.exports = {
   init,
-  update,
-  group:'mypluginname',
-  help:'manage mypluginname (create, list)',
-  primary:true
-};
+  update:() => { /* Do nothing */ },
+  group:'awesome',
+  help:'My awesome plugin!',
+  primary:false,
+}
 ```
 
-## Distributing your plugin 
+The above code would hypothetically be placed in a repository inside an `index.js` file at the root and then could be installed by running `aka plugins:install REPO` (or by publishing it as well). 
 
-All developers have to do to install your plugin is type: ```aka install https://github.com/yourrepo/repo```.  Any time they type ```aka update``` your plugin will be auto-updated as well (to whatever is on master).   You can also publish your plugin to a centralized repo for others to explore using `aka plugins:publish`.
-
-
-## CLI API
-
-Each and every time update or init is run, it comes with an "appkit" object passed in as a parameter with the following properties:
-
-* ```appkit.config``` contains the host, api end points, and plugins directory
-* ```appkit.args``` a yargs object where you can add cli commands (see https://http://yargs.js.org/docs/ for more information.)
-* ```appkit.plugins``` a hash map of all of the currently installed pluggins
-* ```appkit.random_tips``` random tips to display
-
-### Terminal Helpers
-
-Terminal helpers output items in colors using markdown, collect user input or provide common waiting animations to provide a common user interface to users.
-
-* ```appkit.terminal``` a laundry bag of functions to do various terminal stuff (see terminal.js)
-* ```appkit.terminal.markdown(text)``` format ### ###, ## ##, ^^ ^^, ~~ ~~, !! !! to colors (blue, gray, yellow, green, red)
-* ```appkit.terminal.confirm(text, function(answer) {})``` presents the user with a confirmation and the answer is passed in the callback.
-* ```appkit.terminal.input(function(answer) {})``` collects input from the user, once enter is hit the answer is passed in the callback.
-* ```appkit.terminal.format_objects(function(object) {}, 'no results text', err, array)``` takes a collection of objects passes them through the formatting function, then runs them through .markdown and prints out the result, if err is defined forward to .error.
-* ```appkit.terminal.print(err, anything)``` if err exists, forward to .error, if anything is an object forward to .vtable, if anyting is an array forward to .table
-* ```appkit.terminal.vtable(array)``` prints out a vertical table, takes in any object
-* ```appkit.terminal.table(object)``` prints out a table, takes in any array with the same object types in the array (the keys in each object become the columns)
-* ```appkit.terminal.loader('some text')``` returns an object with two methods "start" and "end", this produces a loading effect with a spinning wheel until end is called.
-* ```appkit.terminal.task('some text')``` similar to loader, but end requires either "ok", "warn" or "error" to indicate whether a checkbox, warning symbol or error symbol is produced after the task.
-* ```appkit.terminal.error('some text or exception')``` print out a fatal error.
-
-### API Helpers
-
-These API helpers are http methods provided to you to ease communication with Akkeris based API's, they automatically manage content, version and authentication by adding the headers into requests and managing data returned.
-
-Note, see the [Platform Apps API](/architecture/apps-api.md) and the [Auth API](/architecture/auth-api.md) for more information on API end points that can be used.
-
-* ```appkit.api.get(url, function(err, json_returned_object) {})``` the url can be relative (and if so, it will hit the Platform Apps api), automatically adds credentials
-* ```appkit.api.delete(url, function(err, json_returned_object) {})``` the url can be relative (and if so, it will hit the Platform Apps api), automatically adds credentials
-* ```appkit.api.put(payload_as_string, url, function(err, json_returned_object) {})``` the url can be relative (and if so, it will hit the Platform Apps api), automatically adds credentials
-* ```appkit.api.patch(payload_as_string, url, function(err, json_returned_object) {})``` the url can be relative (and if so, it will hit the Platform Apps api), automatically adds credentials
-* ```appkit.api.post(payload_as_string, url, function(err, json_returned_object) {})``` the url can be relative (and if so, it will hit the Platform Apps api), automatically adds credentials
-
-### Github API Helpers
-
-The Github API helpers are similar to the API helpers above, but work off of api.github.com and the passed in URL is relative, the github credentials are automatically added. (note certain uri's are restricted such as account operations or organization operations in addition to direct commits). For more information on the end points available see the [Github Developer Guide](https://developer.github.com/).
+In addition to the `index.js` file, another optional (but useful) file `install.js` is included and executed the first time the user installs a plugin.  The `install.js` is ran once and not on updates.
 
 
-* ```appkit.github.get(url, function(err, json_returned_object) {})``` the url can be relative (and if so, it will hit the Github api), automatically adds credentials
-* ```appkit.github.delete(url, function(err, json_returned_object) {})``` the url can be relative (and if so, it will hit the Github api), automatically adds credentials
-* ```appkit.github.put(payload_as_string, url, function(err, json_returned_object) {})``` the url can be relative (and if so, it will hit the Github api), automatically adds credentials
-* ```appkit.github.patch(payload_as_string, url, function(err, json_returned_object) {})``` the url can be relative (and if so, it will hit the Github api), automatically adds credentials
-* ```appkit.github.post(payload_as_string, url, function(err, json_returned_object) {})``` the url can be relative (and if so, it will hit the Github api), automatically adds credentials
+## Plugin Lifecycle
 
-## Publishing your plugin
+### Installation
 
-Use the command line to publish a new plugin: `aka plugins:publish -r [ github repo https uri (without .git) ] -o [your name] -e [your email] -d "Description of the plugin"`. You can also publish a plugin through the Platform Apps API.
+During an installation (regardless if installed by name or by a repo path), the plugin is cloned down as a git repo into a temporary folder. Once the plugin is cloned, if the `install.js` exists at the root, it is ran (and not exported). If the installation is successful the `index.js` file is included and the required exports are checked to ensure there are no obvious with the plugin that may cause the CLI to become un-usable. Finally, the plugin is moved into `$HOME/.akkeris/plugins/<plugin name>`. 
 
-## Unpublishing your plugin
+The `install.js` is a great place to install necessary dependencies. If the plugin is built as a npm module the `install.js` could add the npm modules as needed:
 
-You can unpublish your plugin using `aka plugins:unpublish [PLUGIN]`.  Note that unpublishing a plugin will not uninstall it or otherwise make it unavailable to users who have already installed it.  You can also remove plugins through the Platform Apps API.
+```javascript
+const proc = require('child_process')
+proc.spawnSync('npm', ['install'], {cwd:__dirname, env:process.env, stdio:'ignore'})
+```
 
-## Updating your plugin
+If at any time during the install an error occurs the entire process is backed out, and the plugin folder removed from the users machine.
 
-Updating the master branch of your repository will update your plugin.  Note that your updates will not be seen until users run `aka update`.   To update the metadata on your plugin you can use the `aka plugins:revise` command, or see the Platform Apps API.
+* Include and install the minimum necessary to avoid dependency issues
+
+### Initialization
+
+When a user types any `aka` command all of the plugins `index.js` files are immediately included. The `init` function is ran with the `akkeris` object being passed into each one. Plugins are included and initialized in an asyncronous and potentially randomized order. Once initialization is completed, [yargs](https://yargs.org) selects which command to execute and passes in the arguments for the command to the plugin that handles the command.
+
+During initialization:
+
+* Define the commands the plugin provides using the `akkeris.args` object (the [yargs](https://yargs.org) object)
+* Bind the `akkeris` object to any functions so you can use it if the command is executed.
+* Use `pluginname:action` convention to define commands. Traditionally `pluginname` command would list a resource or provide information for the user.
+
+In addition, keep the following in mind during initialization:
+
+* Do not depend on other plugins being initialized during initialization, as the order is random. 
+* Do not make API calls or other blocking syncronous actions during this phase.
+* Do not define or store anything in the global or process objects.
+
+The `akkeris` object passed into the `init` function contains a property called `args`. This is a [yargs](https://yargs.org) object.  Yargs is a CLI helper tool that you can define commands on. When you define the command on yargs you pass it the expected options, required arguments, description, help and finally the syncronous or asyncronous function to execute when the command is called for.
+
+***Example Init Function***
+
+```javascript
+function init(akkeris) {
+  akkeris.args
+    .command('awesome:supercool', 'This does some super cool action!', {}, supercool_action.bind(null, akkeris))
+}
+```
+
+### Running
+
+After initialization, [yargs](https://yargs.org) is called to parse the command. Once parsed the function provided as the callback is executed with the arguments provided by the user as its first parameter. The capabilities of the `akkeris` object may be needed later, if so bind it during the initialization phase to the callback function. 
+
+***Example Binding Callback***
+
+```javascript
+
+function unbound_command(argv) {
+  console.log('we cannot use the akkeris object here.')
+}
+
+function bound_command(akkeris, argv) {
+  console.log('we can use the akkeris object here!', akkeris)
+}
+
+function init(akkeris) {
+  akkeris.args
+    .command('awesome:unbound', 'This calls the unbound functionn!', {}, unbound_command)
+    .command('awesome:bound',   'This calls the bound function!',    {}, bound_command.bind(null, akkeris))
+}
+```
+
+The function called by yargs must fully return and complete its operations. It's free to execute any code as needed, whether asyncronous, syncronous or blocking. Asyncronous functions are supported.
+
+Do:
+
+* Use the helper functions on the akkeris object to print to the terminal, or make api calls.
+* Allow all information to be provided on the CLI and optionally ask for it if unavailable. The command should be able to be put into a shell (bash or sh) file and ran without blocking to ask a question.
+* For options, use the same common conventions Akkeris commands do. For example, use `--app` with alias `-a` for app, or `-s`a nd `--space` for space.
+
+Don't:
+
+* Spawn external processes that are disconnected without the explicitly notifying the user.
+* Modify contents of the files without explicitly notifying (or even better, asking) the user.
+
+### Removal
+
+During a removal the plugin is not called (intentionally) and is removed from the file system. Should the user re-install the plugin, none of the previous plugin is retained.
+
+Don't:
+
+* Store user data, secrets or keys in the plugin's folder. Write to a file in the home directory so that it's available should the user reinstall the plugin.
+
+## The Akkeris Object
+
+The akkeris object is passed in to all plugins `init` function and can help with a variety of common CLI and akkeris tasks.
+
+### Using the Terminal
+
+#### Ask a question
+
+```javascript
+akkeris.terminal.question(prompt, cb);
+```
+
+Ask a question to the user (the prompt argument), and receive the answer as the first argument in the callback function (`cb`).  For example:
+
+```javascript
+akkeris.terminal.question('How old are you?', (answer) => {
+  console.log('oh, you are:', answer);
+});
+```
+
+You can also use promises
+
+```javascript
+let answer = await akkeris.terminal.question('How old are you?')
+console.log('oh, you are:', answer)
+```
+
+#### Ask a sensitive question (like a password)
+
+```javascript
+akkeris.terminal.hidden(prompt, cb);
+```
+
+Ask a sensitive question, like what the users password is. The result the user types is not shown. For example:
+
+```javascript
+akkeris.terminal.hidden('Password:', (passwd) => {
+  // perform login operation
+});
+```
+
+#### Tell the user to be cautious
+
+```javascript
+akkeris.terminal.soft_error(message);
+```
+
+This will print a red exclamation then your message on the terminal. This is a great way of letting a user know they're about to do something dangerous before prompting for confirmation.
+
+#### Confirm an action
+
+```javascript
+akkeris.terminal.confirm(message, cb);
+```
+
+Asks the user a yes or no question and returns the result to the callback (`cb`) function. This is usually done prior to destroying a resource.
+
+#### Show a loading prompt
+
+```javascript
+loader = akkeris.terminal.task(text);
+```
+
+Shows the user `text` then spins a cursor until `loader.end()` is called. This is useful if an operation takes a considerable amount of time as it gives the user the prception the program hasn't crashed. For example:
+
+```javascript
+let loader = akkeris.terminal.task('Creating postgres:standard-0 database');
+loader.start();
+setTimeout(() =>. {
+  loader.end('ok');
+});
+```
+
+Shows the user:
+
+```bash
+Creating postgres:standard-0 database... ⣾
+```
+
+Where the dots at the end rotate. And on success, eventually shows:
+
+```bash
+Creating postgres:standard-0 database... ✓
+```
+
+When the loader is finished, use `loader.end('ok')` if everything is successful, and `loader.end('error')` if not. This will display a blue checkmark (✓) or red crossmark (✕) if the operation is ok or errored, respectively.
+
+#### Display an Error
+
+```javascript
+akkeris.terminal.error(obj);
+```
+
+This displays an error message to the user. The passed in `obj` can be a javascript error or exception or a string.
+
+#### Display a Table
+
+```javascript
+akkeris.terminal.table(array);
+```
+
+Displays an array as a table where each item in the array is an object.  The properties names in the object are used as the column headers.
+
+#### Display an Object
+
+```javascript
+akkeris.terminal.vtable(obj);
+```
+
+Displays a vertical table or object where the property names are used as the labels.
+
+#### Display Anything
+
+```javascript
+akkeris.terminal.print(whatever);
+```
+
+Inspects the passed in value, if its a string it shows that. If its an array of objects, it shows a table, if an error it prints out the error message. The most convenient of convenience functions.
+
+#### Convert Markdown
+
+```javascript
+let stringVal = akkeris.terminal.markdown(input);
+```
+Parses the `input` string for markdown `**` `***` `##` `###` `^^` `!!` and converts them to colored text then returns the new converted string back as `stringVal`.  For example:
+
+```javascript
+console.log(akkeris.terminal.markdownn(`
+## Header ##
+!! Loud Warning !!
+`));
+```
+
+#### Convert a Friendly Date
+
+```javascript
+stringVal = akkeris.terminal.friendly_date(dateObj);
+```
+
+Converts a date object to a friendly string relative to the current date. For example a date passed in from 1/10/2019 on 1/11/2019 would produce `1 day ago`.
+
+### Using the Platform and Apps API
+
+The akkeris object provides convenience methods to retrieve, update or remove resources from the Platform [Apps API](/architecture/apps-api.md). The API allows you to make any REST based calls to this API without having to know the host or token (it automatically finds the host and handles authentication for you).
+
+#### Making HTTP REST API Calls
+
+You can use the `akkeris.api.get` to fetch any relative URI or resource on the platform.  The `get` corresponds to a HTTP VERB, all other verbs are available as well (put, patch, delete, head, options).
+
+```javascript
+akkeris.api.get('/apps', (error, data) => {
+  if(error) {
+    return appkit.terminal.error(error);
+  }
+  appkit.terminal.table(data);
+});
+```
+
+You can also use promises:
+
+
+```javascript
+try {
+  appkit.terminal.table(await akkeris.api.get('/apps');
+} catch {
+  appkit.terminal.error(error);
+}
+```
+
+Creating a resource (or using any http verb that requires a payload) can be done by providing a payload:
+
+```javascript
+  let app = {"name":"mytestapp", "space":"default", "description":"my test app", "org":"test"};
+  let response = akkeris.api.post(JSON.stringify(app), "/apps");
+  console.log("Created our first app via a PLUGIN!", response);
+```
+
+For more information on what API end points you can retrieve see the Platform [Apps API](/architecture/apps-api.md) reference.
+
+### Using Yargs
+
+The akkeris object contains a [yargs](http://yargs.org) object that manages CLI functionality.  This object allows you to register commands, options and CLI help during the initalization phase from the `init` function.  The [yargs](http://yargs.org) object is on `akkeris.args` property.  With this object you can register commands and their corresponding functions that should be executed when a user requests them in the `init` function.  For example:
+
+```javascript
+  async function supercool_action(akkeris, args) {
+    console.log('super cool action called with arguments: ', args)
+  }
+
+  function init(akkeris) {
+    let options = 'app':{
+      'alias':'a',
+      'demand':true,
+      'string':true,
+      'description':'The app to do some awesome:supercool action on!'
+    };
+    akkeris.args
+      .command('awesome:supercool SOME_INFO', 'This does some super cool action!', options, supercool_action.bind(null, akkeris))
+  }
+```
+
+The above example shows how you would register a command `awesome:supercool` on the CLI. If a user runs this command the function `supercool_action` is called. In addition, before it being called, yargs will require they provide one parameter, and it will populate it in `args.SOME_INFO`. It will also require that the app option is provided with a valid value (because `demand` is set to true in the options).  This will appear as the property `args.app` on the passed in `args` object to the function `supercool_action`. 
+
+For more information on creating command and using options see [yargs](http://yargs.org) documentation.
+
+## Debugging and Development Tips
+
+You can debug a CLI command by setting the environment variable `DEBUG=true`. This will print out all of the http requests made through the akkeris API and show more detailed stack trace errors (rather than friendly error message normally shown).
+
+During development it may be tedious to push your changes to a repository then uninstall and re-install a plugin to test it. To make development more convenient install your plugin then link your installed plugin (it does a git clone so you'll already have git conveniently available).  For example, if your plugin was named `myplugin` and you wanted to actively develop on it in a folder `~/Projects/myplugin` you could first install the plugin with `aka plugins:install REPO`. Once installed run
+
+```shell
+ln -s ~/.akkeris/plugins/myplugin ~/Projects/myplugin
+```
+
+Note: On Windows you can browse to your home directory and go to the `.akkeris` folder then `plugins` folder and find your plugin there.
+
+Then work locally on `~/Projects/myplugin` and all of your changes will immediately be available locally. 
+
+## How To: Creating Your First Plugin
+
+Before starting this how to, you should be familiar with the following concepts:
+
+1. Understand node.js development and javascript.
+2. Have aka installed with it connected up and logged in to akkeris.
+3. Understand Git and Git workflows.
+4. Understand basic HTTP REST API concepts.
+5. Have reviewed the [Apps API](/architecture/apps-api.md) reference.
+6. Are comfortable with the CLI or shell.
+
+In this exercise we'll pull a list of applications on akkeris, filter only the spaces `foo` and `bar` and print them out to the terminal. We'll call this plugin 'myapps'.
+
+### Create a Repository
+
+You should name the repository `myapps` or if you chose a different name for the plugin, make sure the repo is similar in name. 
+
+Clone out your empty repo and create the following empty files:
+
+```
+myapps
+ `- index.js
+ `- README.md
+```
+
+### Create a Basic Command
+
+Populate the index.js with the following code:
+
+**index.js**
+```javascript
+async function myapps(akkeris, args) {
+  let apps = await akkeris.api.get('/apps'); // fetch all of the apps
+  apps = apps.filter((app) => app.space.name === 'foo' || app.space.name === 'bar') // filter ours
+  apps.forEach((app) => {
+    console.log(`${app.key} (id: ${app.id})`); // print them out.
+  })
+}
+
+function init(akkeris) {
+  akkeris.args
+    .command('myapps', 'List out apps in foo and bar spaces', {}, myapps.bind(null, akkeris))
+}
+
+module.exports = {
+  init,
+  update:() => { /* Do nothing */ },
+  group:'myapps',
+  help:'Manages my applications',
+  primary:false,
+}
+```
+
+Populate the README.md with the following markdown:
+
+```markdown
+# My Apps Plugin
+
+My apps plugin description
+```
+
+### Setup Your Environment
+
+Once you have the `index.js` code populated, push it up to your repository. You can then setup your environment so that you can iterate on the plugin locally by first installing the plugin, then linking the installed code (with the cloned git repository) to a location more convenient in your workspace. 
+
+Start by installing the plugin:
+
+```shell
+aka plugins:install REPO
+```
+
+Once you're finished pick a location in your workspace (for example `$HOME/Projects/myapps`). Then link the `myapps` plugin to the location in your workspace. For example:
+
+```shell
+ln -s $HOME/.akkeris/myapps $HOME/Projects/myapps
+```
+
+You can now iterate on the plugin and add new functionality in your workspace without needing to uninstall and reinstall the plugin to see new functionality. 
+
+Congratulations! You've created your first plugin. 
+
+
+### Next Steps
+
+* [Publish Your Plugin](/architecture/plugins.md#Publishing-and-Revising-a-Plugin)
+* Read more about the [Apps API](/architecture/apps-api.md).
+* See the [Postgres Plugin](https://github.com/akkeris/cli-pg-plugin) for inspiration.
 
 
