@@ -12,31 +12,35 @@ Managed redis plans for Akkeris provide reliable and fast redis caching.
 
 ### Standard instances
 
-Standard and hobby instances are great for sharing session information with small amounts of data among one to four applications.
+Standard and hobby instances are great for sharing session information with small amounts of data among one to four applications. Only standard-2 and standard-3 instances can store permenant persisted data.
 
-|                  | Hobby-Dev   | Standard-0 | Standard-1   |
-|------------------|-------------|------------|--------------|
-| Price            | $15/mon     | $30/mon    | $50/mon      |
-| Connection Limit | 20          | 100        | 250          |
-| Dedicated        | 1-Instance  | 1-Instance | 1-Instance   |
-| Encrypted        | No          | No         | No           |
-| CPU Cores        | 1           | 1          | 2            |
-| Memory           | 512MB       | 1536MB     | 3GB          |
-| Shards           | 0           | 0          | 0            |
+|                  | Hobby-Dev   | Standard-0 | Standard-1   | Standard-2 | Standard-3   |
+|------------------|-------------|------------|--------------|------------|--------------|
+| Price            | $15/mon     | $30/mon    | $50/mon      | $35/mon    | $55/mon      |
+| Connection Limit | 20          | 100        | 250          | 100        | 250          |
+| Dedicated        | 1-Instance  | 1-Instance | 1-Instance   | 1-Instance | 1-Instance   |
+| Encrypted        | No          | No         | No           | No         | No           |
+| CPU Cores        | 1           | 1          | 2            | 1          | 2            |
+| Memory           | 512MB       | 1536MB     | 3GB          | 1536MB     | 3GB          |
+| Shards           | 0           | 0          | 0            | 0          | 0            |
+| Persistent	   | No          | No         | No           | Yes        | Yes          |
+| Backups          | None        | None       | None         | 7-Days     | 7-Days       |
 
 ### Premium Instances
 
-Premium instances are great for sessions with large amounts of data associated with each key and more than 4 apps that share the data. It's also great for key object storage for temporary data of large JSON objects.
+Premium instances are great for sessions with large amounts of data associated with each key and more than 4 apps that share the data. It's also great for key object storage for temporary data of large JSON objects. Only premium-2 and premium-3 instances can store permenant persisted data.
 
-|                  | Premium-0   | Premium-1   |
-|------------------|-------------|-------------|
-| Price            | $135/mon    | $270/mon    |
-| Connection Limit | 500         | 1000        |
-| Dedicated        | 2-Instances | 2-Instances |
-| Encrypted        | No          | No          |
-| CPU Cores        | 2           | 4           |
-| Memory           | 12GB        | 16GB        |
-| Shards           | 0           | 0           |
+|                  | Premium-0   | Premium-1   | Premium-0   | Premium-1   |
+|------------------|-------------|-------------|-------------|-------------|
+| Price            | $135/mon    | $270/mon    | $135/mon    | $270/mon    |
+| Connection Limit | 500         | 1000        | 500         | 1000        |
+| Dedicated        | 2-Instances | 2-Instances | 2-Instances | 2-Instances |
+| Encrypted        | No          | No          | No          | No          |
+| CPU Cores        | 2           | 4           | 2           | 4           |
+| Memory           | 12GB        | 16GB        | 12GB        | 16GB        |
+| Shards           | 0           | 0           | 0           | 0           |
+| Persistent       | No          | No          | Yes         | Yes         |
+| Backups          | None        | None        | 7-Days      | 7-Days      |
 
 ## Provisioning 
 
