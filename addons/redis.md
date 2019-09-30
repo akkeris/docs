@@ -53,3 +53,45 @@ Once provisioned the redis hostname and port are added as the config var `REDIS_
 ## Upgrading
 
 Redis plans can be upgraded or downgraded on-demand. During the upgrade the redis instance and any attached applications will be placed in maintenace mode. 
+
+## Using the Redis Plugin
+
+The `redis` plugin allows users to perform advanced analysis and admninistration of redis instances. Before starting ensure you have the redis plugin installed by running:
+
+```bash
+aka plugins:install redis
+```
+
+This is not an exhaustive list of commands, but the popular ones, see `aka redis help` for more details.
+
+**Listing Backups**
+
+List available backups (amount depends on your plan). This feature is not available on all plans. If more than one redis is attached to the app specify the ADDON_ID as an argument.
+
+```bash
+aka redis:backups [ADDON_ID] -a app-space
+```
+
+**Creating a Backup**
+
+Immediately capture a backup of a redis instance. If more than one redis is attached to the app specify the ADDON_ID as an argument.
+
+```bash
+aka redis:backups:capture [ADDON_ID] -a app-space
+```
+
+**Restoring a Backup**
+
+Note: You can get the `BACKUP_ID` below from the `aka redis:backups` command. If more than one redis is attached to the app specify the ADDON_ID as an argument.
+
+```bash
+aka redis:backups:restore [ADDON_ID] BACKUP_ID -a app-space
+```
+
+**Getting Statistics**
+
+If a redis instance is not behaving as expected or encountering performance issues pull usage statistics and information using the stats command. If more than one redis is attached to the app specify the ADDON_ID as an argument.
+
+```bash
+aka redis [ADDON_ID] -a app-space
+```
