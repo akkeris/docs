@@ -66,10 +66,58 @@
 	</style>
 	<link rel="stylesheet" href="/assets/css/hljs.css">
 	<link rel="stylesheet" href="/assets/css/hljs-monokai-theme.css">
+	<link href="https://fonts.googleapis.com/css?family=Gugi|Heebo:300,400,500,800&amp;display=swap" rel="stylesheet">
+	<script>
+		function initDropDowns(e) {
+			console.log('loaded')
+		    var triggers = document.querySelectorAll(".gh-drop-trigger");
+		    for(var i=0; i < triggers.length; i++) {
+		    	let trigger = triggers[i];
+			    trigger.addEventListener("click", function(t) {
+			        t.stopPropagation();
+			        let fires = function() {
+			            trigger.parentNode.classList.remove("active")
+			        };
+			        let i = t.target.parentNode;
+			        if(i.classList.contains("active")) {
+			        	i.classList.remove("active")
+			        	document.removeEventListener("click", fires)
+			    	} else {
+			    		trigger.parentNode.classList.add("active");
+			        	i.classList.add("active");
+			       		document.addEventListener("click", fires);
+			       	}
+			    })
+			}
+		}
+		window.addEventListener('load', initDropDowns)
+	</script>
 {% endblock %}
 {% block body %}
-	<!--<nav-bar>
-		<nav-avatar user-api="/user" direction="right" />
-	</nav-bar>-->
+	<header class="gh-head">
+      <nav class="gh-navbar inner">
+        <div class="gh-navbar-left">
+          <a href="https://beta.akkeris.io/" class="gh-nav-logo gh-navbar-item"><img src="/images/akkeris-light.png">akkeris</a>
+          <a href="https://beta.akkeris.io/features.html" class="gh-navbar-item">Features</a>
+          <!--<a href="getting-started.html" class="gh-navbar-item">Get Started</a>
+          <a href="compare.html" class="gh-navbar-item gh-navbar-compare">Compare</a>-->
+          <div class="gh-drop gh-more-drop">
+            <div class="gh-drop-trigger gh-navbar-item">
+              <span> Support <svg viewBox="0 0 26 17" xmlns="http://www.w3.org/2000/svg"><path d="M1.469 2.18l11.5 13.143 11.5-13.143" stroke-width="3" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+            </div>
+            <ul class="gh-dropdown">
+              <li><a href="https://docs.akkeris.io/">Documentation</a></li>
+              <li><a href="https://docs.akkeris.io/how-akkeris-works.html">How Akkeris Works</a></li>
+              <li><a href="https://docs.akkeris.io/architecture/apps-api.html">API Reference</a></li>
+              <!--<li><a href="contribute.html">Contributing <span class="gh-badge">New</span></a></li>
+              <li><a href="faq.html">About &amp; FAQ</a></li>-->
+            </ul>
+          </div>
+        </div>
+        <div class="gh-navbar-right">
+          <a class="gh-navbar-item" href="https://github.com/akkeris">Find us on Github &nbsp; <i class="fa fa-github-alt"></i></a>
+        </div>
+      </nav>
+    </header>
     {{ super() }}
 {% endblock %}
