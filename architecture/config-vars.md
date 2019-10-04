@@ -50,5 +50,34 @@ aka config -a appname-space -s > .env ; source .env
 
 Then start the application as normal.  Note that the config is now stored in the `.env` file, becareful to not commit this into source control as it may contain sensitive information.  Add the `.env` to your `.gitignore` file to ensure this does not happen.
 
+### Injected Runtime Config Vars
 
+`AKKERIS_DEPLOYMENT`
+
+This environment variable contains the name of the application in Akkeris. For example if an application is named `myapp-space` this value would be set to `myapp`.
+
+
+`AKKERIS_APPLICATION`
+
+This environment variable contains the name of the application key in Akkeris. For example if the application is named `myapp-space` this value would be `myapp-space`.
+
+`AKKERIS_SPACE`
+
+This environment variable contains the name of the space the application is in. For exampe if the application is named `myapp-space` this value would be `space`.
+
+### Injected Build Config Vars
+
+Environment variables are added to builds in Akkeris so that usernames and passwords to private repositories or artifact servers can be accessed. Any user defined config-var (e.g., not a config variable added by a database or addon) will be also added and injected into your docker build. In addition the following environment variables are added containing information on what caused the build to occur:
+
+`AKKERIS_GIT_SHA1`
+
+The SHA1 commit hash for the current build.
+
+`AKKERIS_GIT_BRANCH`
+
+The git branch being built.
+
+`AKKERIS_GIT_REPO`
+
+The URL of the git repo being built.
 
