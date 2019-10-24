@@ -13,7 +13,7 @@ Webhooks provide a way for notifications to be delivered to an external system v
 * After a successful new release
 * When an app crashed
 
-Webhooks are sent by Akkeris to a URL of your chosing via https and as a `POST` request. The body of the post request will vary depending on the event that occured. To integrate with webhooks, you need to implement a server endpoint that may receive and handle these requests.
+Webhooks are sent by Akkeris to a URL of your chosing via https and as a `POST` request. The body of the post request will vary depending on the event that occured. To integrate with webhooks, you need to implement a server endpoint that may receive and handle these requests. In addition to being notified of changes in Akkeris, webhook payloads contain a temporary token to make changes or more updates to the Akkeris Apps API.
 
 The use cases for webhooks includes:
 
@@ -59,7 +59,7 @@ aka hooks:create --events "build release released" \
 
 ### Step 3. Secure Your Webhook
 
-In the above example the secret `abc123` is used to calculate the SHA1 HMAC and send it with the request as the `x-appkit-signature` header with the signature prefixed with `sha1=`.  This allows you to confirm that the request coming in did indeed come from Akkeris.
+In the above example the secret `abc123` is used to calculate the SHA1 HMAC and send it with the request as the `x-akkeris-signature` header with the signature prefixed with `sha1=`.  This allows you to confirm that the request coming in did indeed come from Akkeris.
 
 While confirming the the signatures match with the secret provided is optional, it's highly recommended for security.
 
@@ -72,7 +72,7 @@ Below are examples of how you can double check the security of a webhook in node
 
 const crypto = require('crypto')
 let secret = 'abc123'
-let signature = req.headers['x-appkit-signature']
+let signature = req.headers['x-akkeris-signature']
 let payload = req.body
 const hmac = crypto.createHmac('sha1', secret);
 if(signature === ('sha1=' + hmac.update(payload).digest('hex'))) {
@@ -87,7 +87,7 @@ if(signature === ('sha1=' + hmac.update(payload).digest('hex'))) {
 
 require 'openssl'
 secret = 'abc123'
-signature = request.headers['x-appkit-signature']
+signature = request.headers['x-akkeris-signature']
 payload = request.env['RAW_POST_DATA']
 if signature == 'sha1=' + OpenSSL::HMAC.hexdigest('SHA1', secret, payload)
   # the request was valid
@@ -99,12 +99,12 @@ end
 **Confirming an incoming webhook steps**
 
 1. Ensure you have the secret (in this example `abc123`) in the app receiving the hook.
-2. Get the value of `x-appkit-signature` from the headers of the incoming request.
+2. Get the value of `x-akkeris-signature` from the headers of the incoming request.
 3. Get the raw value of the request body from the incoming http request.  Do not modify, deserialize or unencode it.
 4. Create a cryptogrpahic `hmac` with the `sha1` algorithm using the secret as the key (`abc123`) and the incoming body for data.
 5. The result will be either a hexadecimal string or a byte array that should be converted to a hexadecimal string.
 6. Prefix the hexadecimal string from step 5 with 'sha1=', lowercase everything.
-7. Compare `x-appkit-signature` with the value of step 6. They should be equal.
+7. Compare `x-akkeris-signature` with the value of step 6. They should be equal.
 
 ### Step 4. Begin Receiving Webhooks
 
@@ -115,11 +115,12 @@ Depending on your event you will receive a slightly different body \(payload\). 
 ```
 POST /my/hook
 Host: www.example.com
-User-Agent: appkit-hookshot
+User-Agent: akkeris-hookshot
 Content-Type: application/json
-x-appkit-signature: sha1=3abdef9381726493929abcdef2382771
-x-appkit-event: release
-x-appkit-delivery: 7edbac4b-6a5e-09e1-ef3a-08084a904621
+x-akkeris-signature: sha1=3abdef9381726493929abcdef2382771
+x-akkeris-event: release
+x-akkeris-delivery: 7edbac4b-6a5e-09e1-ef3a-08084a904621
+x-akkeris-token: 1edbac43-6251-09e1-ef3a-08084a904655
 ```
 
 ```json
@@ -145,7 +146,7 @@ x-appkit-delivery: 7edbac4b-6a5e-09e1-ef3a-08084a904621
 }
 ```
 
-All web hook HTTP requests include the previously mentioned `x-appkit-signature` header but also include the `x-appkit-event` header that corresponds to the event type of the webhook allowing the destination end point to distinguish different payload types.  In addition the id of the webhook is sent as the `x-appkit-delivery` header. Finally, the user agent is set to `appkit-hookshot` to distinguish it from other webhook providers.
+All web hook HTTP requests include the previously mentioned `x-akkeris-signature` header but also include the `x-akkeris-event` header that corresponds to the event type of the webhook allowing the destination end point to distinguish different payload types.  In addition the id of the webhook is sent as the `x-akkeris-delivery` header.  The header `x-akkeris-token` contains a temporary (short lived) token that can be used to make requests to the Akkeris Apps API (if needed). Finally, the user agent is set to `akkeris-hookshot` to distinguish it from other webhook providers.
 
 ## Removing Webhooks
 
@@ -233,12 +234,12 @@ Once a hook has been triggered, you can view the results by running:
 aka hooks:deliveries 2f14f1eb-a614-4917-9bf2-811ee97fd4ff -a testhooks-default
 ɧ Hook Result: 1ca1d33e-542c-4066-9866-1119dada6790, 0 minutes ago - released
   > POST https://circleci.com/api/v1.1/project/github/org/repo?circle-token=[redacted]
-  > x-appkit-event: released
-  > x-appkit-delivery: 1ca1d33e-542c-4066-9866-1119dada6790
+  > x-akkeris-event: released
+  > x-akkeris-delivery: 1ca1d33e-542c-4066-9866-1119dada6790
   > content-type: application/json
   > content-length: 364
-  > user-agent: appkit-hookshot
-  > x-appkit-signature: sha1=6f5c97ecce63550f213984ac4749d44825f7a1d1
+  > user-agent: akkeris-hookshot
+  > x-akkeris-signature: sha1=6f5c97ecce63550f213984ac4749d44825f7a1d1
   >
   > {
   >   "build_parameters": {
