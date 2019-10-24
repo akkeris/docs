@@ -88,3 +88,8 @@ Features not supported unless your backend app supports HTTP/2:
 * Opportunistic Responses (pushing responses a server expects to be made soon)
 * HTTP/2 "WebSockets"
 
+## HTTP/2 More Information
+
+* [HTTP/2 on Wikipedia](https://en.wikipedia.org/wiki/HTTP/2)
+* [Introduction to HTTP/2 by Google](https://developers.google.com/web/fundamentals/performance/http2/)
+
