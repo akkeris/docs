@@ -70,9 +70,9 @@ Encryption is difficult to get right. From apps enabling weak ciphers, supportin
 
 In addition, the HTTP connection to the backend app is technically already encrypted. Akkeris hands back what is seen as an unencrypted HTTP connection, but behind the scenes (what's commonly referred to as in transit) the traffic is encrypted in a TCP tunnel with mutual TLS authentication. So the connection is already encrypted.
 
-For these reasons (and a few others) Akkeris chooses to handle encryption for apps to ensure it remains in compliance with administative requests and is ubiquitous but transparent to developers. 
+For these reasons (and a few others) Akkeris chooses to handle encryption for apps to ensure it remains in compliance with security needs and is ubiquitous but transparent to developers. 
 
-#### What HTTP/2 features are support (and what aren't) if I don't have HTTP/2 support on my backend app?
+#### What HTTP/2 features are supported (and what aren't) if I don't have HTTP/2 support on a backend app?
 
 The following HTTP/2 features are supported regardless if your app supports HTTP/2 or not:
 
