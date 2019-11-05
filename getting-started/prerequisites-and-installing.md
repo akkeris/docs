@@ -5,35 +5,81 @@
 To fully take advantage of Akkeris ensure you install all the prerequisites:
 
 1. [Node.js 8+](https://nodejs.org)
-2. [Docker CLI](https://docker.com/docker-mac)
+2. [Docker CLI](https://www.docker.com/products/docker-desktop)
 3. [Git CLI](https://git-scm.com/book/en/v2/Getting-Started-The-Command-Line)
 
 You'll also need to ensure you have:
 
-1. An your corporate account Network Account
+1. An account on your corporate network
 2. [Github Account](https://github.com)
 3. [Docker Registry \(Quay\) Account](https://quay.example.io)
 
-### Using Brew
+### Using apt (Debian/Ubuntu)
 
+Ensure package versions are up to date
+```shell
+sudo apt update
+```
+
+Install Docker
+```shell
+sudo apt install -y docker
+```
+
+Install Node.js via [NodeSource](https://github.com/nodesource/distributions/blob/master/README.md):
+```shell
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+
+Install Git
+```shell
+sudo apt install -y git
+```
+
+### Using [Homebrew](https://brew.sh/) (MacOS)
+
+Install Docker
 ```shell
 brew install docker
 ```
+
+Install Node.js
 ```shell
 brew install node
 ```
+
+Install Git
 ```shell
 brew install git
 ```
 
-You can also manually download and install these tools as necessary.
+### Using pacman (ArchLinux)
 
-* [Install Akkeris](#installing)
+Install Docker
+```shell
+pacman -Sy docker
+```
 
+Install Node.js
+```shell
+pacman -Sy nodejs npm
+```
+
+Install Git
+```shell
+pacman -Sy git
+```
+
+### Windows
+
+While basic functionality _should_ be available via versions of [Git](https://gitforwindows.org/), [Docker](https://www.docker.com/products/docker-desktop), and [Node.js](https://nodejs.org/en/) for Windows OS, Akkeris CLI is tested on and designed for Linux and MacOS operating systems. 
+
+The easiest way to get up and running with Akkeris on Windows 10 is to install [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Debian](https://www.microsoft.com/store/apps/9MSVKQC78PK6), and then follow the [apt prerequisite instructions](#using-apt-debianubuntu).
 
 ## Installing
 
-In this step you will install the Akkeris Command Line Interface \(CLI\), or AppKit as its sometimes referred to. You will use the CLI to manage and scale your applications, to provision add-ons, to install plugins from other engineers on your teams, to view the logs of your application as it runs on Akkeris, to pull logs from legacy apps, as well as to help run your application locally.
+In this step you will install the Akkeris Command Line Interface \(CLI\). You can use the CLI to manage and scale your applications, to provision add-ons, to install plugins from other engineers on your teams, to view the logs of your application as it runs on Akkeris, to pull logs from legacy apps, as well as to help run your application locally.
 
 Install Akkeris:
 
@@ -43,7 +89,7 @@ npm -g install akkeris
 
 _Note, if you receive an error about insufficient permissions you may need to run _`sudo npm -g install akkeris`_ instead._
 
-Then type:
+Then type `aka`:
 
 ```shell
 aka
@@ -60,10 +106,7 @@ Password: ******
 Logging you in ...  ✓
 ```
 
-Note that after you login you may see a list of commands available.
-
-* [Setup Your Github Account on the CLI](#setting-up-github-account-on-the-cli)
-
+Note that after you login you may see a list of available commands.
 
 ## Setting Up Github Account on the CLI
 
@@ -112,7 +155,3 @@ You'll need to store your Github Personal access token in your netrc as two fact
 
 
 * [Deploy your first application](//getting-started.md)
-
-
-
-
