@@ -120,14 +120,62 @@ myapp-kim-dev ---
 
 ### Pipeline Status Checks `beta`
 
-Pipeline status checks allow a third party system to report a state of `pending`, `success`, `failure` or `error` through the [Platform Apps API](/architecture/apps-api.md).  
+Pipeline status checks allow a third party system to report a state of `pending`, `success`, `failure` or `error` about a release through the [Platform Apps API](/architecture/apps-api.md). The third party systems check can then be required to be successful before any release is allowed to be promoted to any pipeline stage. A status check can be reported on any release, to create a new status check see the [Release Statuses](/architecture/apps-api.md#release-statuses) section of the Apps API.  
 
-To report a status check an outside system sends a request with the `state`, `target_url` (used for more information), `description`, `context` (a unique identifier for this system in a format of `system_type/unique_name`) and finally `propogate` (a true or false field to specify whether to send the status check to upstream systems such as Github) to the Apps API. A status check can be reported on any pipeline stage before or after the promotion. 
+#### Adding Required Status Checks
 
-For example, a status check with the state of `failure` at step (for example, `stage`) for the `context` of `ci/circle` would indicate that Circle CI integration tests failed.  A `target_url` and `description` can be provided to give users more information on why a failure (or success) occured.
+Specific stages of a pipeline can require that one or more release statuses on a release are in the `success` state to allow the release to be promoted. To add required statuses to a pipeline and stage while adding an app to a pipeline stage run:
 
-Pipeline status checks can be viewed by release or by pipeline step via the CLI (`aka pipelines:status` or Apps API). Once at least one status check is reported it can then be required by administrators or users (via the CLI `aka pipelines:status:set --required=true|false CONTEXT` or Apps API).  
+```bash
+aka pipelines:add -a [appname-space] -c my-status-check -c my-other-check -s staging`
+```
+#### Updating Required Status Checks
 
-Once a status check is required the status must report green for any app within that step to be promoted to the next stage.  A status of `pending` or `failure` will prevent a promotion, and a status of `error` will allow a promotion on via a manual override by a user.
+To update an existing pipeline, use `aka pipelines:info [PIPELINE_NAME]` to get the pipeline coupling id to update, then run:
+
+```bash
+aka pipelines:update PIPELINE_COUPLING_UUID -c my/status-check
+```
+
+#### Removing Required Status Checks
+
+
+To remove pipeline status checks, run the update command without any `-c` option and all status checks will be removed. Removing status checks does require elevated access privileges.
+
+```bash
+aka pipelines:update PIPELINE_COUPLING_UUID
+```
+
+#### Viewing Required Status Checks
+
+To view the pipeline status checks added to couplings, run:
+
+```bash
+aka pipelines:info PIPELINE_NAME
+
+ ᱿ staging
+  Id: eda4a600-fa5b-4595-b378-93733a6a231c
+  App: appa-default (f004d613-86a5-413b-86da-405526e098ec)
+  Status Checks: 
+
+ ᱿ staging
+  Id: 8e754b16-c1c5-4861-bf85-f6bbd5180206
+  App: appb-default (9879a6f8-a7d5-42de-8154-a6cea1824b00)
+  Status Checks: 
+
+ ᱿ production
+  Id: 08f4d458-a492-44c0-9a78-667d8b24644d
+  App: appc-default (60f53f16-e70b-4214-bb50-790b0c7d441c)
+  Status Checks: my-status-check, my-other-check
+```
+
+The name of a status check (e.g., `my-status-check`) is typically referred to as a "context". 
+
+To get a list of status checks available for a pipeline, run:
+
+```bash
+aka pipelines:checks PIPELINE_NAME
+```
+
 
 

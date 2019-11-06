@@ -28,6 +28,7 @@
   * [Creating One-Click Apps](/one-click/creating.md)
   * [Learning The Akkeris Apps API](/extending-akkeris/akkeris-apps-api-tutorial.md)
   * [Creating Addon-Services](/extending-akkeris/building-addons.md)
+  * [Creating Release Statuses](/architecture/apps-api.md#release-statuses)
 * Networking &amp; Websites
   * [Creating a Website](/architecture/sites-and-routes.md)
   * [HTTP/2 Support](/networking-and-websites/http2.md)
