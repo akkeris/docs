@@ -36,6 +36,7 @@
   * [Releases](/architecture/releases.md)
   * [Preview Apps](/architecture/preview-apps.md)
   * [Pipelines](/architecture/pipelines.md)
+  * [Special Config Vars](/architecture/config-vars.md#injected-runtime-config-vars)
   * [Managing Environments](/lifecycle/managing-multiple-environments.md)
   * [Maintenance Mode](/lifecycle/maintenance-mode.md)
 * Troubleshooting &amp; Support

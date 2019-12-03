@@ -15,7 +15,7 @@ The steps below show how HTTP connections are handled:
 3. The HTTP request is received from the client.
 4. The HTTP request may contain an `Upgrade` header to indicate it wants HTTP/2 (even if HTTP/1.1 was requested in the ALPN).
 5. Akkeris selects the app to route to based on host and path.
-6. Akkeris must determine if backend app is running HTTP/2 or HTTP/1.1.
+6. Akkeris must determine if the backend app is running HTTP/2 or HTTP/1.1.
 7. The request is forwarded to destination app unecrypted. If the HTTP versions are different, the requests are converted as needed.
 
 There is a very important aspect to how HTTP connections are handled: Akkeris cannot negotiate with the backend app to see if it supports HTTP/2.
