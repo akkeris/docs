@@ -55,7 +55,7 @@ Akkeris executes applications by running the commands specified in your formatio
 You have control over the formation that's running via the UI, CLI or [Platform Apps API](/architecture/apps-api.md) \(the `PATCH /apps/{app}/formation` end point\). You can start new dynos or change the amount running with the `aka ps:create` and `aka ps:update` command. For example, to change the quantity of web dynos that are automatically created on the first deployment, run:
 
 ```shell
-aka ps:update -q 3 -a appname-space
+aka ps:update web -q 3 -a appname-space
 ```
 
 When any portion of the definition of an application changes \(whether its the config vars, running image, formation or addons\) it triggers a new deployment of the application.  This is done through a rolling process of starting new dynos, checking the health of the dyno, then stopping the older dynos one at a time. This is called a rolling update, it is designed to prevent application downtime, if the new deployment causes the application to crash, or the health checks to fail, then the old version is not shutdown and continues to receive all traffic on all network ports.
@@ -64,7 +64,7 @@ You can see what dynos are running by executing via the CLI:
 
 ```shell
 aka ps -a appname-space
-=== web (constellation-prod): (from docker) (1)
+=== web (constellation-prod): (from docker) (3)
  web.1380490387-gv2r3:	running 4/4/2018, 1:29:40 PM
  web.1380490387-nd1dd:	running 4/4/2018, 1:29:41 PM
  web.1380490387-x2395:	running 4/4/2018, 1:29:42 PM
@@ -109,17 +109,9 @@ One or more applications can be added to any stage, however each stage is a dire
 
 Pipeline promotions are an important concept, they in affect are simply a deployment of the image within one stage to all the apps in the next stage.  This allows for apps which have passed a specific stage to have its exact image deployed to the next stage in the process.
 
-Each pipeline may also contain extra checks or be configured to perform special duties upon promotion. Paranoid or "safe" promote is a feature of Akkeris that prior to promotion will ensure all the config-vars that exist source app exist in all of the apps in the next stage. If it finds irregularities it blocks the promotion. The same checks are also done for addons.  Paranoid or safe promotes can be enabled for any stage as a "status check".
+Each pipeline may also contain extra checks called status checks. Status checks happen before the promotion, all status checks must return a result of "ok" in order for a promotion to occur.  Any application or system can add itself as a status check and use this primitive in conjunction with webhooks to wire in CI/CD notifications and perform automated checks.  Once all systems report back "ok" a pipeline promotion occurs and the app is released.
 
-Status checks happen during a promotion before the promotion happens.  All status checks must return a result of "ok" in order for a promotion to occur.  Any application or system can add itself as a status check and use this primitive and subsequently hooks to wire in CI/CD notifications and perform automated checks.  Once all systems report back "ok" a pipeline promotion occurs and the app is released.
-
-### Previewing Apps `beta`
-
-Finally, two of the stages have special meanings, `review` and `canary`.  Preview apps can be automatically created by enabling the feature on an app. If a pull request in the source repository is created that is destined for the branch that would normally cause a build on the `development` stage of the pipeline a new application forked from the development application is created and placed in the `review` stage.  Note that only the `web` dyno types are re-created with a quantity of 1, and any addons are attached unless they do not support sharing \(such as a log drain addon such as papertrail\).  The new preview app will contain the built image for the new code being reviewed, and if the pull request is updated the code is automatically updated on the preview app as well. Once the pull request is closed the preview app is automatically removed.
-
-When the feature is enabled on a production application, any new release will trigger an entirely new app to be created with the same limitations applied to it as review apps \(only the web dyno, sharing its addons, etc\). This app is placed in the `canary` stage and a small portion of production traffic destined for the current `production` application is routed to the new version prior to being released. If the app begins experiencing a statistically larger amount of server or client error messages \(500/400 status codes\) the release is automatically aborted and the canary app is removed.
-
-This helps ensure app deployments minimize their production impact on release.
+Pipelines play a crucial role in two key features later, preview apps and canary deployments.
 
 ## Storing and injecting configuration
 
@@ -187,6 +179,16 @@ Logshuttle keeps a limited buffer of log entries solely for performance reasons.
 
 Akkeris will also emit into your logs an average of your memory and CPU utilization \(roughly every 15 minutes\).  For more detailed metrics the UI, CLI \(`aka metrics`\) and Platform Apps API provide a mechanism for pulling down to a 1 second average of memory, filesystem I/O and CPU usage.
 
+### Developer Workflow
+
+Akkeris provides two concepts, preview apps and canary apps `alpha` as a convenience to developers. 
+
+Preview apps can be enabled on any app watching a source control system such as Github. If a pull request is created to the branch being watched by the app a new app forked from the source application is created and placed in the `review` stage (if the app is in a pipeline).  Note that only the `web` dyno types are re-created with a quantity of 1, and any addons are attached unless they do not support sharing \(such as a log drain addon such as papertrail\).  The new preview app will contain the built image for the new code being reviewed, and if the pull request is updated the code is automatically updated on the preview app as well. Once the pull request is closed the preview app is automatically removed.
+
+Canaray apps `alpha` can be enabled in production, rather than being triggered by pull requests as preview apps are, they are triggered by a new release. An entirely new app is created \(only the web dyno, sharing its addons\). This app is placed in the `canary` stage and a small portion of production traffic destined for the current `production` application is routed to the new version prior to being released. If the app begins experiencing a statistically larger amount of server or client error messages \(500/400 status codes\) the release is automatically aborted and the canary app is removed. If after time the app is healthy the release completes to the production application and the canary app is removed.
+
+This helps ensure app deployments minimize their production impact on release.
+
 ## Getting Users to Apps
 
 Depending on your formation information and dyno types, you may have a `web` dyno running and may want users to be able to go to a website where a path on that site ties back to the `web` process running.
@@ -222,8 +224,6 @@ aka routes:create -s www.siteyouwant.com -a myapp-space / /
 ```
 
 This will route all traffic on `www.siteyouwant.com` to the app `myapp-space`.  Optionally you can specificy specific sub-paths you want to route and route traffic to specific sub paths on your app.
-
-
 
 ## Going Global
 
