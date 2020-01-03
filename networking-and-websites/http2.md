@@ -36,7 +36,26 @@ If you enable the feature `http2-end-to-end` the app receiving requests cannot n
 
 While using HTTP/2 from your localhost may require a TLS certificate that was generated this isn't the case on Akkeris, and your HTTP/2 requests should still remain unencrypted. 
 
-### Node.js HTTP End-to-End Example
+### ExpressJS Example
+
+```javascript
+const express = require("express");
+const spdy = require("spdy");
+
+const app = express();
+
+app.get("/", (req, res) => res.send("Hello World, from Express!"));
+
+const spdyOptions = { spdy: { plain: true, ssl: false } };
+const server = spdy.createServer(spdyOptions, app);
+
+server.listen(9000);
+```
+
+> **danger** There is currently (as of 12/31/2019) a [bug](https://github.com/spdy-http2/node-spdy/issues/363) in the `spdy` package preventing it from working on Node 12, but it does work with Node 10.  
+> (Please remove this warning once this bug is fixed.)
+
+### Pure Node.js Example
 
 ```javascript
 const http2 = require('http2');
