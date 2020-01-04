@@ -179,7 +179,7 @@ Logshuttle keeps a limited buffer of log entries solely for performance reasons.
 
 Akkeris will also emit into your logs an average of your memory and CPU utilization \(roughly every 15 minutes\).  For more detailed metrics the UI, CLI \(`aka metrics`\) and Platform Apps API provide a mechanism for pulling down to a 1 second average of memory, filesystem I/O and CPU usage.
 
-### Developer Workflow
+## Developer Workflow
 
 Akkeris provides two concepts, preview apps and canary apps `alpha` as a convenience to developers. 
 
