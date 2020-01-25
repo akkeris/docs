@@ -41,8 +41,8 @@ You can extend Akkeris in a variety of ways to add custom functionality you may 
 ## Creating CI/CD Checks
 
 * [About Pipelines](/architecture/pipelines.md)
-* What is a Pipeline Status Check? `beta` 
-* Registering a new Pipeline Status Check `beta`
+* [Permitting and Protecting Pipeline Promotions with Status Checks](/architecture/pipelines.md#pipeline-status-checks-beta)
+* [Creating A Pipeline Status Check](/architecture/apps-api.md#release-statuses)
 
 ## Creating App Features
 
