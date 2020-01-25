@@ -44,6 +44,9 @@ You can extend Akkeris in a variety of ways to add custom functionality you may 
 * [Permitting and Protecting Pipeline Promotions with Status Checks](/architecture/pipelines.md#pipeline-status-checks-beta)
 * [Creating A Pipeline Status Check](/architecture/apps-api.md#release-statuses)
 
+## Vault Integrations
+* Creating Addon Credentials from Vault
+
 ## Creating App Features
 
 * What is an Application Feature? `beta`
