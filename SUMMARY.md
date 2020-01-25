@@ -43,7 +43,7 @@
 * Troubleshooting &amp; Support
   * [Akkeris Error Codes](/support/akkeris-error-codes.md)
     * [R14 - Out of Memory and Java](/support/r14-out-of-memory-and-java.md)
-  * [Offline Applications](/support/offline-applications.md)
+  * [Unresponse Applications](/support/offline-applications.md)
   * [URL Parsing](/support/url-parsing.md)
 
 
