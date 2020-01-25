@@ -31,6 +31,7 @@
   * [Creating Release Statuses](/architecture/apps-api.md#release-statuses)
 * Networking &amp; Websites
   * [Creating a Website](/architecture/sites-and-routes.md)
+  * [HTTP Filters](/architecture/filters.md)
   * [HTTP/2 Support](/networking-and-websites/http2.md)
 * [Application Lifecycle](/lifecycle/application.md)
   * [Releases](/architecture/releases.md)
