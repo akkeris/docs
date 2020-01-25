@@ -154,4 +154,4 @@ You'll need to store your Github Personal access token in your netrc as two fact
 
 ## Next Steps
 
-* [Deploy your first application](/getting-started.md)
+* [Deploy your first application](/)
