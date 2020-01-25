@@ -1,21 +1,26 @@
 # Filters `beta`
 
+### Table of Contents
+
 <!-- toc -->
+
 ## Introduction
 
-Filters intercept requests coming in to an akkeris application and provide additional functionality or checks.  Each filter type provides a unique functionality that can be shared or "attached" to applications. 
+Filters intercept requests coming in to an akkeris application (or site the applicaton is a part of) and provide additional functionality or checks.  Each filter has unique functionalities. A filter is first created then can be shared or "attached" to applications. This allows for central managemennt and reuse of functionality.  Changes to filters are applied when an app is deployed (however apps are automatically deployed if a filter is attached or detached).
 
-While currently only one filter exists, more are on their way.
 
 ## Filter Types
 
 | Filter Type | Description |
-| :--- | :--- |
-| jwt  | JWT Authentication Filters allow asserting the incoming HTTP request has a valid JWT token. |
+| :---------- | :--- |
+| jwt         | JWT Authentication filters allow asserting the incoming HTTP request has a valid JWT token. |
+| cors        | CORS filters respond to `OPTIONS` HTTP requests with the policy set by the CORS Filter. |
+
+Each filter type has different options available to it, for more information see `aka filters:create --help` or Apps API Platform documentation.
 
 ## Creating a Filter
 
-To create a JWT authentication filter you'll need:
+In this example we'll create a JWT filter to protect an app, to do so we'll need the following:
 
 1. The JWKS URI that has the JWKS certificate and authorization configuration.
 2. The JWKS Issuer to validate on the incoming request.
@@ -43,4 +48,4 @@ The command below will attach the filter created in [Creating an Authentication 
 aka filters:attach -a myapp-space my-jwt-filter --excludes "/health-check" --excludes "/debug/"
 ```
 
-Once attached, almost all HTTP requests will require authorization (with the exception of `/health-check` and `/debug`).
+Once attached, almost all HTTP requests will require authorization (with the exception of `/health-check` and `/debug`). In addition to the `--excludes` option an `--includes` option also exists and by default includes everything. More than one path may be included (just as excludes) by specifying the `--includes` option multiple times.

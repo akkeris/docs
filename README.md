@@ -3,10 +3,7 @@ theme: landing-programming-languages
 ---
 
 
-# Akkeris
-
-
-### Learn about building, deploying and managing products, applications on Akkeris.
+## Learn about building, deploying and managing products, applications on Akkeris.
 
 ---
 
@@ -17,7 +14,7 @@ Need help installing Akkeris? See [prerequisites and installing](/getting-starte
 * [Java](/getting-started/java.md)
 * [Go](/getting-started/go.md)
 * [Scala](/getting-started/scala.md)
-* [Other Languages](/getting-started/scala.md)
+* [Other Languages](/getting-started/other-languages.md)
 
 
 

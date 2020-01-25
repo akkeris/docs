@@ -1,6 +1,4 @@
-# Akkeris
-
-### Step-by-step guides for deploying your first app and mastering akkeris.
+## Step-by-step guides for deploying your first app and mastering akkeris.
 
 ---
 
@@ -9,6 +7,6 @@
 * [Java](/getting-started/java.md)
 * [Go](/getting-started/go.md)
 * [Scala](/getting-started/scala.md)
-* [Other Languages](/getting-started/scala.md)
+* [Other Languages](/getting-started/other-languages.md)
 
 Need help installing Akkeris? See [prerequisites and installing](/getting-started/prerequisites-and-installing.md) section

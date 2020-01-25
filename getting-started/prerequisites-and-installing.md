@@ -10,9 +10,8 @@ To fully take advantage of Akkeris ensure you install all the prerequisites:
 
 You'll also need to ensure you have:
 
-1. An account on your corporate network
-2. [Github Account](https://github.com)
-3. [Docker Registry \(Quay\) Account](https://quay.example.io)
+1. An account on Akkeris
+2. [Github Account](https://github.com) (optional)
 
 ### Using apt (Debian/Ubuntu)
 
@@ -153,5 +152,6 @@ You'll need to store your Github Personal access token in your netrc as two fact
 4. Use things as normal, when prompted you'll be asked for your username and password; you may also be asked for your two factor auth token when logging in \(it'll auto magically appear as a pop up when needed\)
 
 
+## Next Steps
 
 * [Deploy your first application](//getting-started.md)

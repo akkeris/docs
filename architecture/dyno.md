@@ -19,7 +19,7 @@ Akkeris executes applications by running the commands specified in your formatio
 You have control over the formation that's running via the UI, CLI or [Platform Apps API](/architecture/apps-api.md) \(the `PATCH /apps/{app}/formation` end point\). You can start new dynos or change the amount running with the `aka ps:create` and `aka ps:update` command. For example, to change the quantity of web dynos that are automatically created on the first deployment, run:
 
 ```shell
-aka scale web=3 -a appname-space
+aka ps:scale web=3 -a appname-space
 ```
 
 When any portion of the definition of an application changes \(whether its the config vars, running image, formation or addons\) it triggers a new deployment of the application.  This is done through a rolling process of starting new dynos, checking the health of the dyno, then stopping the older dynos one at a time. This is called a rolling update, it is designed to prevent application downtime, if the new deployment causes the application to crash, or the health checks to fail, then the old version is not shutdown and continues to receive all traffic on all network ports.

@@ -1,6 +1,6 @@
 # How Akkeris Works
 
-## Table of Contents
+### Table of Contents
 
 <!-- toc -->
 
@@ -209,21 +209,36 @@ Web dyno types can listen to incoming http traffic by attaching their listener t
 
 ### Creating a website
 
-Often its necessary for multiple different apps with different responsibilities to exist under one domain for security, and simplicity reasons.  Akkeris supports the ability to create a website and route traffic on a specific path on the website \(and its subpaths\) to go to a specific app, while other apps receive traffic on a different path. This is called HTTP reverse proxying, or HTTP routing.
+Often it's necessary for multiple apps with different responsibilities to exist under one domain for security, and simplicity.  Akkeris supports the ability to create a website and direct traffic on a path \(and its subpaths\) to a specific app, while other apps receive traffic on a different paths. This is called HTTP reverse proxying.
 
 An app can exist in more than one site.  To create a site run:
 
 ```shell
-aka sites:create www.siteyouwant.com
+aka sites:create www.example.com
 ```
 
 Creating a site does not implicitly begin routing traffic to any app, to route the traffic run:
 
 ```shell
-aka routes:create -s www.siteyouwant.com -a myapp-space / /
+aka routes:create -s www.example.com -a myapp-space / /
 ```
 
-This will route all traffic on `www.siteyouwant.com` to the app `myapp-space`.  Optionally you can specificy specific sub-paths you want to route and route traffic to specific sub paths on your app.
+This will route all traffic on `www.example.com` to the app `myapp-space`.  Optionally you can specificy sub-paths to direct traffic to a portion of your application. For example:
+
+
+```shell
+aka routes:create -s www.example.com -a myv3apiapp-space /v3/api /api
+```
+
+In this example all of the traffic going to https://www.siteyouwant.com/v3/api and all of its sub-paths would be rewritten to go to `/api` on the app `myv3apiapp-space`. This can be useful for managing diffferent versions of an API, hosting a UI and an API on the same domain or creating vanity domains for customers without having to manage separate deployments.
+
+### Protecting your application
+
+Applications may have requirements on who is allowed to access them over https. Akkeris can protect applications based on whether an incoming HTTP request to a site or app has a special token and whether the user is part of a role that is allowed to visit an app. JWT [HTTP filters](/architecture/filters.md) can protect apps and sites by looking for a token that has a "JWT" format. JWT HTTP Filters can be additionally set to include or exclude paths from authorization and to only allow users who are a specific "audience" (as described by the "aud" claim on the JWT token) to make requests.
+
+Some applications may also have more permissive needs, such as permittinng browsers to make requests to their API. CORS [HTTP filters](/architecture/filters.md) allow developers to indicate which apps, methods, headers, and origins are allowed to request their API for cross-origin requests. 
+
+[HTTP filters](/architecture/filters.md) are first created then attached to applications (using `aka filters:create` then `aka filters:attach`) to enforce the a policy across different systems while managing it from a central location. Changes in any filters are applied during deployments. This is especially useful for organizations that have a core team that manages authorization and authentication across all apps.
 
 ## Going Global
 
