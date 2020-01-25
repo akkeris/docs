@@ -14,7 +14,9 @@ with connecting to addons.
 
 Postgresql database connection string.
 
+```shell
 DATABASE_URL="postgres://user:pass@dbhost.example.com:5432/dbname?sslmode=disable"
+```
 
 * scheme: postgres
 * username: user
