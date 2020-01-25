@@ -45,12 +45,12 @@ You can extend Akkeris in a variety of ways to add custom functionality you may 
 * [Creating A Pipeline Status Check](/architecture/apps-api.md#release-statuses)
 
 ## Vault Integrations
-* Creating Addon Credentials from Vault
+* Creating Addon Credentials from Vault `todo`
 
 ## Creating App Features
 
-* What is an Application Feature? `beta`
-* Creating new Application Features `beta`
+* What is an Application Feature? `todo`
+* Creating new Application Features `todo`
 
 ## Contributing Docs
 
