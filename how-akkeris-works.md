@@ -236,7 +236,7 @@ In this example all of the traffic going to https://www.siteyouwant.com/v3/api a
 
 Applications may have requirements on who is allowed to access them over https. Akkeris can protect applications based on whether an incoming HTTP request to a site or app has a special token and whether the user is part of a role that is allowed to visit an app. JWT [HTTP filters](/architecture/filters.md) can protect apps and sites by looking for a token that has a "JWT" format. JWT HTTP Filters can be additionally set to include or exclude paths from authorization and to only allow users who are a specific "audience" (as described by the "aud" claim on the JWT token) to make requests.
 
-Some applications may also have more permissive needs, such as permittinng browsers to make requests to their API. CORS [HTTP filters](/architecture/filters.md) allow developers to indicate which apps, methods, headers, and origins are allowed to request their API for cross-origin requests. 
+Some applications may also have more permissive needs, such as permitting browsers to make requests to their API. CORS [HTTP filters](/architecture/filters.md) allow developers to indicate which apps, methods, headers, and origins are allowed to request their API for cross-origin requests. 
 
 [HTTP filters](/architecture/filters.md) are first created then attached to applications (using `aka filters:create` then `aka filters:attach`) to enforce the a policy across different systems while managing it from a central location. Changes in any filters are applied during deployments. This is especially useful for organizations that have a core team that manages authorization and authentication across all apps.
 
