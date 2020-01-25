@@ -38,7 +38,7 @@ You can extend Akkeris in a variety of ways to add custom functionality you may 
 * [Using the Akkeris Apps API Tutorial](/extending-akkeris/akkeris-apps-api-tutorial.md)
 * [Apps API Reference](/architecture/apps-api.md)
 
-## Creating CI/CD Checks
+## Creating Pipeline and CI/CD Checks
 
 * [About Pipelines](/architecture/pipelines.md)
 * [Permitting and Protecting Pipeline Promotions with Status Checks](/architecture/pipelines.md#pipeline-status-checks-beta)
