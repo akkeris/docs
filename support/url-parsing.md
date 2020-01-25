@@ -1,41 +1,37 @@
 # URL Parsing
 
+### Table of Contents
+
 <!-- toc -->
 
 ## Introduction
 
-In Akkeris the brokers will return a connection string as a URL, also known as a URI,
-see [RFC3986](https://tools.ietf.org/html/rfc3986?).
-If an application needs a different format most languages have modules or libraries
-that can parse a standard URI. Below are examples, suggestions and references for parsing
-a URI.
+Brokers in akkeris return a connection string as a URL, also known as a URI (see [RFC3986](https://tools.ietf.org/html/rfc3986?)).
+All languages have modules or libraries that can parse a standard URI. Below are examples, suggestions and references to assist
+with connecting to addons.
 
 ## Example URI
 
 Postgresql database connection string.
 
-DATABASE_URL="postgres://fakeuser:fakepass@dbhost.somewherein.aws.com:5432/fakedbname?sslmode=disable"
+DATABASE_URL="postgres://user:pass@dbhost.example.com:5432/dbname?sslmode=disable"
 
 * scheme: postgres
-* username: fakeuser
-* password: fakepass
-* hostname: dbhost.somewherein.aws.com
+* username: user
+* password: pass
+* hostname: dbhost.example.com
 * port: 5432
-* database name: fakedbname
+* database name: dbname
 * options: ?sslmode=disable
 
-## Parsing examples by language
+## Parsing Examples by Language
 
-### Node
+### Javascript (with URL class)
 
-Node has a builtin module for URL Parsing: [URL](https://nodejs.org/dist/latest-v12.x/docs/api/url.html)
+Modern browsers and node have a builtin module for URL Parsing: [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL)
 
-```node
-const url = require('url')
-
+```javascript
 const myURL = new URL(process.env['DATABASE_URL'])
-
-
 console.log("protocol:" + myURL.protocol)
 console.log("host:" + myURL.host)
 console.log("hostname:" + myURL.hostname)
@@ -45,7 +41,7 @@ console.log("search:" + myURL.search)
 console.log("username:" + myURL.username)
 ```
 
-### Javascript
+### Javascript (without URL class)
 
 Example from [stackoverflow.com](https://stackoverflow.com/questions/45073320/regex-for-a-url-connection-string)
 
