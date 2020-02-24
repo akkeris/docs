@@ -11,7 +11,7 @@ A pipeline is a group of apps that share the same codebase. Each app in a pipeli
 * Staging
 * Production
 
-A common Heroku continuous delivery workflow has the following steps:
+A common Akkeris continuous delivery workflow has the following steps:
 
 1. A branch is created in a repository and pull request is made.
 2. Akkeris creates apreview app for the pull request, allowing developers to review the change.
