@@ -45,7 +45,12 @@
     * [R14 - Out of Memory and Java](/support/r14-out-of-memory-and-java.md)
   * [Unresponse Applications](/support/offline-applications.md)
   * [URL Parsing](/support/url-parsing.md)
-
+* TaaS
+  * Tutorials
+    * [Testing Akkeris Apps](taas/testing-akkeris-apps-with-taas.md)
+    * [Pipeline Status Checks](/taas/pipeline-status-checks-with-taas.md)
+  * [Test Registration](/taas/registering-tests.md)
+  * [Promoting Apps with TaaS](/taas/promoting-apps-with-taas.md)
 
 ---
 ## Concepts
