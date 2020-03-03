@@ -45,6 +45,7 @@
     * [R14 - Out of Memory and Java](/support/r14-out-of-memory-and-java.md)
   * [Unresponse Applications](/support/offline-applications.md)
   * [URL Parsing](/support/url-parsing.md)
+  * [Unique Metric Limits](/support/unique-metric-limiting.md)
 * TaaS
   * Tutorials
     * [Testing Akkeris Apps](taas/testing-akkeris-apps-with-taas.md)
