@@ -46,11 +46,11 @@ Webhooks are sent whenever a relevant event occurs, first identify which event y
 | released | When a release succeeds and is the active release running this fires. |
 | crashed | If a dyno crashes this will fire.  In addition if an app entirely crashes each dyno will fire as a seperate event.  This will fire as well if an application fails to shutdown gracefully when a new release is deployed. |
 
-See [Webhook API Reference](/architecture/apps-api.md#webhook-event-payloads) for a complete list of events and their HTTP request bodies.
+See [Webhook API Reference](/architecture/apps-api/apps-api.md#webhook-event-payloads) for a complete list of events and their HTTP request bodies.
 
 ### Step 2. Subscribe
 
-Using the [Apps API](/architecture/apps-api.md) or through the CLI \(`aka hooks:create`\) you can subscribe to one or more selected events on an application.  For example, if you wanted to listen to build and release events:
+Using the [Apps API](/architecture/apps-api/apps-api.md) or through the CLI \(`aka hooks:create`\) you can subscribe to one or more selected events on an application.  For example, if you wanted to listen to build and release events:
 
 ```shell
 aka hooks:create --events "build release released" \
@@ -110,7 +110,7 @@ end
 
 When receiving webhooks ensure your server is available and listening to `POST` http requests at the end point specified when you created the webhook.  In this example the URL where notifications and events will be sent is `https://www.example.com/my/hook`.
 
-Depending on your event you will receive a slightly different body \(payload\).  For information on exact structures of different events see the [Webhook API Reference](/architecture/apps-api.md#webhook-event-payloads). The below example is a the payload that is sent on a `release` event.
+Depending on your event you will receive a slightly different body \(payload\).  For information on exact structures of different events see the [Webhook API Reference](/architecture/apps-api/apps-api.md#webhook-event-payloads). The below example is a the payload that is sent on a `release` event.
 
 ```
 POST /my/hook
@@ -190,7 +190,7 @@ The invoked CircleCI job will contain a few extra parameters that are exposed as
 * `AKKERIS_APP` - The app on Akkeris that triggered the event.
 * `AKKERIS_EVENT_PAYLOAD` - A JSON string containing the full webhook payload for the event. 
 
-For more information on event payloads, see the [Webhook API Reference](/architecture/apps-api.md#webhook-event-payloads).
+For more information on event payloads, see the [Webhook API Reference](/architecture/apps-api/apps-api.md#webhook-event-payloads).
 
 ***Example: Kicking off a Test on CircleCI***
 

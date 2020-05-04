@@ -15,13 +15,13 @@ You can extend Akkeris in a variety of ways to add custom functionality you may 
 
 * [About Webhooks](/architecture/webhooks.md)
 * [Webhook Tutorial](/architecture/webhooks.md#getting-started)
-* [App API Webhook Reference](/architecture/apps-api.md#webhooks)
+* [App API Webhook Reference](/architecture/apps-api/apps-api.md#webhooks)
 
 ## Creating a One-click App
 
 * [About One-click Apps](/one-click/creating.md)
 * [Creating a One-click App](/one-click/creating.md)
-* [App-setups Apps API Reference](/architecture/apps-api.md#app-setup)
+* [App-setups Apps API Reference](/architecture/apps-api/apps-api.md#app-setup)
 
 ## Building Add-ons
 
@@ -36,13 +36,13 @@ You can extend Akkeris in a variety of ways to add custom functionality you may 
 ## Apps API
 
 * [Using the Akkeris Apps API Tutorial](/extending-akkeris/akkeris-apps-api-tutorial.md)
-* [Apps API Reference](/architecture/apps-api.md)
+* [Apps API Reference](/architecture/apps-api/apps-api.md)
 
 ## Creating Pipeline and CI/CD Checks
 
 * [About Pipelines](/architecture/pipelines.md)
 * [Permitting and Protecting Pipeline Promotions with Status Checks](/architecture/pipelines.md#pipeline-status-checks-beta)
-* [Creating A Pipeline Status Check](/architecture/apps-api.md#release-statuses)
+* [Creating A Pipeline Status Check](/architecture/apps-api/apps-api.md#release-statuses)
 
 ## Vault Integrations
 * Creating Addon Credentials from Vault `todo`

@@ -295,7 +295,7 @@ Converts a date object to a friendly string relative to the current date. For ex
 
 ### Using the Platform and Apps API
 
-The `akkeris` object provides convenience methods to retrieve, update or remove resources from the Platform [Apps API](/architecture/apps-api.md). The API allows you to make any REST based calls to this API without having to know the host or token (it automatically finds the host and handles authentication for you).
+The `akkeris` object provides convenience methods to retrieve, update or remove resources from the Platform [Apps API](/architecture/apps-api/apps-api.md). The API allows you to make any REST based calls to this API without having to know the host or token (it automatically finds the host and handles authentication for you).
 
 #### Making HTTP REST API Calls
 
@@ -329,7 +329,7 @@ Creating a resource (or using any http verb that requires a payload) can be done
   console.log("Created our first app via a PLUGIN!", response);
 ```
 
-For more information on what API end points you can retrieve, see the Platform [Apps API](/architecture/apps-api.md) reference.
+For more information on what API end points you can retrieve, see the Platform [Apps API](/architecture/apps-api/apps-api.md) reference.
 
 ### Using Yargs
 
@@ -378,7 +378,7 @@ Before starting this how to, you should be familiar with the following concepts:
 2. Have aka installed with it connected up and logged in to Akkeris.
 3. Understand Git and Git workflows.
 4. Understand basic HTTP REST API concepts.
-5. Have reviewed the [Apps API](/architecture/apps-api.md) reference.
+5. Have reviewed the [Apps API](/architecture/apps-api/apps-api.md) reference.
 6. Are comfortable with the CLI or shell.
 
 In this exercise, we'll pull a list of applications on Akkeris, filter only the spaces `foo` and `bar`, and print them out to the terminal. We'll call this plugin 'myapps'.
@@ -454,7 +454,7 @@ Congratulations! You've created your first plugin.
 ### Next Steps
 
 * [Publish Your Plugin](/architecture/plugins.md#Publishing-and-Revising-a-Plugin)
-* Read more about the [Apps API](/architecture/apps-api.md).
+* Read more about the [Apps API](/architecture/apps-api/apps-api.md).
 * See the [Postgres Plugin](https://github.com/akkeris/cli-pg-plugin) for inspiration.
 
 

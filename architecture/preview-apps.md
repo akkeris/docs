@@ -49,7 +49,7 @@ When the preview app is removed the sites and routes created along side it are a
 
 ## Disabling Preview Apps
 
-You may disable preview apps at any time using the CLI or [Platform Apps API](/architecture/apps-api.md):
+You may disable preview apps at any time using the CLI or [Platform Apps API](/architecture/apps-api/apps-api.md):
 
 ```
 aka features:disable preview -a [appname-space]

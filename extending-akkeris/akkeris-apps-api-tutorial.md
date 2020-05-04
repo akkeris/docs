@@ -1,12 +1,12 @@
 # Learning to use Akkeris Apps API
 
-The [Apps API](/architecture/apps-api.md) allows you to extend Akkeris and provide functionality beyond what is provided out of the box.  In this tutorial, we'll use a popular CLI tool `curl` to explore the Apps API. Every popular language has the ability to make these same calls programmatically, see your language to find out how to make http and https calls.
+The [Apps API](/architecture/apps-api/apps-api.md) allows you to extend Akkeris and provide functionality beyond what is provided out of the box.  In this tutorial, we'll use a popular CLI tool `curl` to explore the Apps API. Every popular language has the ability to make these same calls programmatically, see your language to find out how to make http and https calls.
 
 By the end of this tutorial you should be able to:
 
 1. Make requests to the API.
 2. Authenticate with the API.
-2. Explore the [Apps API](/architecture/apps-api.md) reference.
+2. Explore the [Apps API](/architecture/apps-api/apps-api.md) reference.
 
 ## Prerequisites
 
@@ -270,7 +270,7 @@ You should see the response:
 }
 ```
 
-You'll notice a few new options we added to curl- `-X POST` tells curl to make send a http method `POST` or to create. The `-d` followed by the JSON contents are the optional (additional) information we send to Akkeris to complete the request. The new header we added with `-H 'content-type: application/json'` tells Akkeris the additional information is encoded with JSON. The key and values inside this JSON content are documented in the [Apps API](/architecture/apps-api.md) and vary depending on the request. 
+You'll notice a few new options we added to curl- `-X POST` tells curl to make send a http method `POST` or to create. The `-d` followed by the JSON contents are the optional (additional) information we send to Akkeris to complete the request. The new header we added with `-H 'content-type: application/json'` tells Akkeris the additional information is encoded with JSON. The key and values inside this JSON content are documented in the [Apps API](/architecture/apps-api/apps-api.md) and vary depending on the request. 
 
 ***Congratulations!***
 
@@ -286,7 +286,7 @@ curl https://$AKKERIS_HOST/apps/monty-nice -X DELETE -H "Authorization: Bearer $
 
 ### Next Steps
 
-* Read through the [Apps API Reference](/architecture/apps-api.md) for other commands you can call.
+* Read through the [Apps API Reference](/architecture/apps-api/apps-api.md) for other commands you can call.
 * Learn about [Plugins](/architecture/plugins.md), which allows you to add functionality to the `aka` CLI.
 * Learn about [Webhooks](/architecture/webhooks.md), this lets you listen to changes and events in Akkeris (such as releases).
 

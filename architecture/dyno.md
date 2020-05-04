@@ -16,7 +16,7 @@ Every dyno type \(and dyno\) in an application receives the exact same configura
 
 Akkeris executes applications by running the commands specified in your formation, on a dyno that's prepared and loaded with the slug \(or image\) and with all the config vars from addons or specified by the user.  Think of a dyno as a light weight virtualized unix container that contains your application running in its file system.
 
-You have control over the formation that's running via the UI, CLI or [Platform Apps API](/architecture/apps-api.md) \(the `PATCH /apps/{app}/formation` end point\). You can start new dynos or change the amount running with the `aka ps:create` and `aka ps:update` command. For example, to change the quantity of web dynos that are automatically created on the first deployment, run:
+You have control over the formation that's running via the UI, CLI or [Platform Apps API](/architecture/apps-api/apps-api.md) \(the `PATCH /apps/{app}/formation` end point\). You can start new dynos or change the amount running with the `aka ps:create` and `aka ps:update` command. For example, to change the quantity of web dynos that are automatically created on the first deployment, run:
 
 ```shell
 aka ps:scale web=3 -a appname-space
@@ -30,5 +30,5 @@ You can see what dynos are running by executing via the CLI:
 aka ps -a appname-space
 ```
 
-Or by fetching the [Platform Apps API](/architecture/apps-api.md) end point for dynos \(`GET /apps/{app}/dynos`\).
+Or by fetching the [Platform Apps API](/architecture/apps-api/apps-api.md) end point for dynos \(`GET /apps/{app}/dynos`\).
 

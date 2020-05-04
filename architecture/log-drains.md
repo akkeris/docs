@@ -27,7 +27,7 @@ You can listen to logs coming off of the log stream through the Platform Apps AP
 
 ### Adding a Log Drain
 
-A log drain can be added to an application using `aka drains:create` via the CLI or from the [Platform Apps API](/architecture/apps-api.md) \(`POST /apps/{app}/log-drains`\).  A log drain should be formatted as a URL where the following schemas are supported:
+A log drain can be added to an application using `aka drains:create` via the CLI or from the [Platform Apps API](/architecture/apps-api/apps-api.md) \(`POST /apps/{app}/log-drains`\).  A log drain should be formatted as a URL where the following schemas are supported:
 
 * https://
 * syslog://

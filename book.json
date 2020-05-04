@@ -4,7 +4,8 @@
     "styled-blockquotes",
     "simple-page-toc",
     "anchorjs",
-    "-highlight"
+    "-highlight",
+    "chapter-fold"
   ],
   "pluginsConfig": {
     "term": {

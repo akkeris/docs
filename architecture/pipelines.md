@@ -120,7 +120,7 @@ myapp-kim-dev ---
 
 ### Pipeline Status Checks `beta`
 
-Pipeline status checks allow a third party system to report a state of `pending`, `success`, `failure` or `error` about a release through the [Platform Apps API](/architecture/apps-api.md). The third party systems check can then be required to be successful before any release is allowed to be promoted to any pipeline stage. A status check can be reported on any release, to create a new status check see the [Release Statuses](/architecture/apps-api.md#release-statuses) section of the Apps API.  
+Pipeline status checks allow a third party system to report a state of `pending`, `success`, `failure` or `error` about a release through the [Platform Apps API](/architecture/apps-api/apps-api.md). The third party systems check can then be required to be successful before any release is allowed to be promoted to any pipeline stage. A status check can be reported on any release, to create a new status check see the [Release Statuses](/architecture/apps-api/apps-api.md#release-statuses) section of the Apps API.  
 
 #### Adding Required Status Checks
 
