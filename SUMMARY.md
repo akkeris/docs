@@ -28,7 +28,7 @@
   * [Creating One-Click Apps](/one-click/creating.md)
   * [Learning The Akkeris Apps API](/extending-akkeris/akkeris-apps-api-tutorial.md)
   * [Creating Addon-Services](/extending-akkeris/building-addons.md)
-  * [Creating Release Statuses](/architecture/apps-api.md#release-statuses)
+  * [Creating Release Statuses](/architecture/apps-api/apps-api.md#release-statuses)
 * Networking &amp; Websites
   * [Creating a Website](/architecture/sites-and-routes.md)
   * [HTTP Filters](/architecture/filters.md)
@@ -72,7 +72,35 @@
 ----
 ## Reference
 
-* [Apps API](/architecture/apps-api.md)]
+* [Apps API](/architecture/apps-api/apps-api.md)]
+  * [Apps](/architecture/apps-api/Apps.md)
+  * [App Setups](/architecture/apps-api/App-Setups.md)
+  * [Audits](/architecture/apps-api/Audits.md)
+  * [Authentication](/architecture/apps-api/Authentication.md)
+  * [Builds](/architecture/apps-api/Builds.md)
+  * [Config](/architecture/apps-api/Config.md)
+  * [Dynos](/architecture/apps-api/Dynos.md)
+  * [Features](/architecture/apps-api/Features.md)
+  * [Filters](/architecture/apps-api/Filters.md)
+  * [Formations](/architecture/apps-api/Formations.md)
+  * [Invoices](/architecture/apps-api/Invoices.md)
+  * [Log-Drains](/architecture/apps-api/Log-Drains.md)
+  * [Log-Sessions](/architecture/apps-api/Log-Sessions.md)
+  * [Organizations](/architecture/apps-api/Organizations.md)
+  * [Pipelines](/architecture/apps-api/Pipelines.md)
+  * [Plugins](/architecture/apps-api/Plugins.md)
+  * [Regions](/architecture/apps-api/Regions.md)
+  * [Releases](/architecture/apps-api/Releases.md)
+  * [Release Statuses](/architecture/apps-api/Release-Statuses.md)
+  * [Routes](/architecture/apps-api/Routes.md)
+  * [Services, Addons, & Attachments](/architecture/apps-api/Services-Addons-Attachments.md)
+  * [Sites](/architecture/apps-api/Sites.md)
+  * [Source Control Hooks](/architecture/apps-api/Source-Control-Hooks.md)
+  * [Spaces](/architecture/apps-api/Spaces.md)
+  * [SSL & TLS Certificates](/architecture/apps-api/SSL-TLS-Certificates.md)
+  * [Stacks](/architecture/apps-api/Stacks.md)
+  * [Webhooks](/architecture/apps-api/Webhooks.md)
+  * [Webhook Event Payloads](/architecture/apps-api/Webhook-Event-Payloads.md)
 
 ---
 ## Addons
@@ -93,5 +121,5 @@
 ## For Contributors
 
 * [Best Practices and Guidelines](best-practices-and-guidelines.md)
-* [Apps API](/architecture/apps-api.md)]
+* [Apps API](/architecture/apps-api/apps-api.md)]
 * [Creating Addons](/extending-akkeris/building-addons.md)

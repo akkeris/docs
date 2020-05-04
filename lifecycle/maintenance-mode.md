@@ -18,7 +18,7 @@ Visitors arriving to your app will be shown:
 
 ## Usage
 
-You can turn maintenance mode on or off using the CLI or [Platform Apps API](/architecture/apps-api.md).  To enable maintenance mode, run:
+You can turn maintenance mode on or off using the CLI or [Platform Apps API](/architecture/apps-api/apps-api.md).  To enable maintenance mode, run:
 
 ```shell
 aka maintenance:on -a [appname-space]
