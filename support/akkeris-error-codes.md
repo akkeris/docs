@@ -67,11 +67,22 @@ This occures when the platform encoutnered an error and due to the infrastructur
 
 ## R14 - Memory quota exceeded
 
-A dyno requires memory in excess of its quota. If this error occurs, the dyno will page to swap space to continue running, which may cause degraded process performance. The R14 error is calculated by total memory swap, rss and cache.  This may cause an application failure, a warning is emitted first.
+A dyno requires memory in excess of its quota. If this error occurs, the dyno will page to swap space to continue running, which may cause degraded process performance. If swap is unavailable the application will begin to exhibit unpredictable behavior or out of memory errors. The R14 error is calculated by total memory swap, rss and cache.  This may cause an application failure, a warning (as an R15 error) is emitted first.
 
 
 ```
 2018-04-09T16:21:58Z app-space app[web.2453604099-0lcnh]/error: R14 - Application is out of memory and exceeded its quota.
 ```
+
+
+## R15 - Memory quota critical
+
+A dyno requires more memory and is quickly approaching its memory limit. If this occurs, the dyno will page to swap space and will continue to run. If the memory quota continues in this critical state an R14 error will be emitted and the dyno may crash or exhibit unpredictable behaviour. An R15 is emitted as a warning.
+
+```
+2018-04-09T16:21:58Z app-space app[web.2453604099-0lcnh]/error: R15 - Error R15 (Memory limit critical) 350MB/256MB
+```
+
+
 
 
