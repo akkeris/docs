@@ -4,7 +4,7 @@
 ## Getting Started
 
   * [Installing](/getting-started/prerequisites-and-installing.md)
-  * By Language
+  * [By Language](/getting-started/languages.md)
     * [Node.js](/getting-started/nodejs.md)
     * [Java](/getting-started/java.md)
     * [Go](/getting-started/go.md)
@@ -29,7 +29,7 @@
   * [Learning The Akkeris Apps API](/extending-akkeris/akkeris-apps-api-tutorial.md)
   * [Creating Addon-Services](/extending-akkeris/building-addons.md)
   * [Creating Release Statuses](/architecture/apps-api/apps-api.md#release-statuses)
-* Networking &amp; Websites
+* [Networking &amp; Websites](/networking-and-websites/networking-and-websites.md)
   * [Creating a Website](/architecture/sites-and-routes.md)
   * [HTTP Filters](/architecture/filters.md)
   * [HTTP/2 Support](/networking-and-websites/http2.md)
@@ -40,18 +40,17 @@
   * [Special Config Vars](/architecture/config-vars.md#injected-runtime-config-vars)
   * [Managing Environments](/lifecycle/managing-multiple-environments.md)
   * [Maintenance Mode](/lifecycle/maintenance-mode.md)
-* Troubleshooting &amp; Support
+* [Troubleshooting &amp; Support](/support/support.md)
   * [Akkeris Error Codes](/support/akkeris-error-codes.md)
     * [R14 - Out of Memory and Java](/support/r14-out-of-memory-and-java.md)
   * [Unresponse Applications](/support/offline-applications.md)
   * [URL Parsing](/support/url-parsing.md)
   * [Unique Metric Limits](/support/unique-metric-limiting.md)
-* TaaS
-  * Tutorials
-    * [Testing Akkeris Apps](taas/testing-akkeris-apps-with-taas.md)
-    * [Pipeline Status Checks](/taas/pipeline-status-checks-with-taas.md)
+* [TaaS](/taas/taas.md)
   * [Test Registration](/taas/registering-tests.md)
   * [Promoting Apps with TaaS](/taas/promoting-apps-with-taas.md)
+  * [Tutorial - Testing Akkeris Apps](/taas/testing-akkeris-apps-with-taas.md)
+  * [Tutorial - Pipeline Status Checks](/taas/pipeline-status-checks-with-taas.md)
 
 ---
 ## Concepts
