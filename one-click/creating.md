@@ -17,7 +17,7 @@ You can create one click apps by first creating a blueprint.  Generally the best
 ```shell
 aka apps:blueprint -a [appname-space] > blueprint.json
 ```
-You can then modify the blueprint.json file and change any of the parameters as needed.  A reference for the app setups blue print can be found in the [App Setups](/architecture/apps-api/apps-api.md#app-setup) section of the Platform Apps API.
+You can then modify the blueprint.json file and change any of the parameters as needed.  A reference for the app setups blue print can be found in the [App Setups](/architecture/apps-api/App-Setups.md) section of the Platform Apps API.
 
 Once your blueprint is to your liking you can optionally add the "name", "description" and "icon" field off the the root of the JSON object (all as strings) to provide more meta information that a user would see when setting up the app.  
 

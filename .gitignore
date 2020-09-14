@@ -30,3 +30,5 @@ _book/
 book.pdf
 book.epub
 book.mobi
+
+.DS_Store
