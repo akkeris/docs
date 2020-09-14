@@ -25,7 +25,7 @@ Add-ons are associated with an application, much like config vars - and so the e
 
 Add-ons may be sharable, meaning they can be attached to other apps and used there as well.  These types of addons typically are databases and other external resources.  An example of non-sharable add-on's may include a papertrail log drain service due to the nature of the service it does not make reasonable sense to share it between apps.
 
-An addon may be shared by using attachments. Addons can be attached to other applications through the CLI \(`aka addons:attach addon-name -a destappname-space`\) or through the [Platform Apps API](/architecture/apps-api/apps-api.md) \(`POST /apps/{app}/addon-attachments`\). Add-ons may be attached across spaces so long as they have the same set of compliances on the spaces.
+An addon may be shared by using attachments. Addons can be attached to other applications through the CLI \(`aka addons:attach addon-name -a destappname-space`\) or through the [Platform Apps API](/architecture/apps-api/Services-Addons-Attachments.md) \(`POST /apps/{app}/addon-attachments`\). Add-ons may be attached across spaces so long as they have the same set of compliances on the spaces.
 
 The original app which created the addon is considered the owner of the addon.  The owner of the addon is only allowed to delete the application.  If any app which has the addon attached is destroyed the attached addon is preserved.  If the owner app removes the addon it is detached from all subsequent attached applications then destroyed.
 

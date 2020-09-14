@@ -26,13 +26,13 @@ While a slug \(or an image\) can be deployed via akkeris, a set of source code c
 
 An application is explicitly created and then may receive a set of source code to build, an existing image to deploy or a repository to watch for changes and subsequently build.   This information can sometimes be all that Akkeris may need to know to create and run an application.  To build from sources without watching a repository a URL with the source code \(in a ZIP or tar.gz format\) must be provided to it.
 
-Applications can explicitly be created via the management UI, via the CLI \(`aka apps:create`\) or through an API end point on the [Platform Apps API](/architecture/apps-api/apps-api.md) \(`POST /apps`\).
+Applications can explicitly be created via the management UI, via the CLI \(`aka apps:create`\) or through an API end point on the [Platform Apps API](/architecture/apps-api/Apps.md) \(`POST /apps`\).
 
 ### Knowing how to build it
 
 Once a set of sources are received for an application \(either from a source control system it's watching or from a zipped/tar.gz URL\), Akkeris inspects the source code for a file at the root \(e.g., very top level directory\) called a `Dockerfile.` A Dockerfile is an open source standard description of how to build and run an image.  You can learn more about docker files [here](https://docs.docker.com/engine/reference/builder/).  This file also provides a description of what the operating system should have installed, its dependent software and what system level characteristics the image will have to ensure a near bit-by-bit replication of the underlying operating system.
 
-Builds can be created through the CLI \(`aka releases:create` and in previous Akkeris versions `aka builds:create`\) or through the API end point `POST /apps/{app}/builds`\) on the [Platform Apps API](/architecture/apps-api/apps-api.md).
+Builds can be created through the CLI \(`aka releases:create` and in previous Akkeris versions `aka builds:create`\) or through the API end point `POST /apps/{app}/builds`\) on the [Platform Apps API](/architecture/apps-api/Builds.md).
 
 The generated slug \(or image, also known as a docker image\) is stored on a registry so that both Akkeris and users can inspect the exact bit-by-bit image running on systems.
 
@@ -52,7 +52,7 @@ Every dyno type \(and dyno\) in an application receives the exact same configura
 
 Akkeris executes applications by running the commands specified in your formation, on a dyno that's prepared and loaded with the slug \(or image\) and with all the config vars from addons or specified by the user.  Think of a dyno as a light weight virtualized unix container that contains your application running in its file system.  The actual underlying mechanism that runs applications is [Docker](https://www.docker.com) and [Kubernetes](https://kubernetes.io), however the intent of Akkeris is to not necessarily bind itself to anyone backing technology, so that it may be replaced if necessary.
 
-You have control over the formation that's running via the UI, CLI or [Platform Apps API](/architecture/apps-api/apps-api.md) \(the `PATCH /apps/{app}/formation` end point\). You can start new dynos or change the amount running with the `aka ps:create` and `aka ps:update` command. For example, to change the quantity of web dynos that are automatically created on the first deployment, run:
+You have control over the formation that's running via the UI, CLI or [Platform Apps API](/architecture/apps-api/Formations.md) \(the `PATCH /apps/{app}/formation` end point\). You can start new dynos or change the amount running with the `aka ps:create` and `aka ps:update` command. For example, to change the quantity of web dynos that are automatically created on the first deployment, run:
 
 ```shell
 aka ps:update web -q 3 -a appname-space
@@ -70,7 +70,7 @@ aka ps -a appname-space
  web.1380490387-x2395:	running 4/4/2018, 1:29:42 PM
 ```
 
-Or by fetching the [Platform Apps API](/architecture/apps-api/apps-api.md) end point for dynos \(`GET /apps/{app}/dynos`\).
+Or by fetching the [Platform Apps API](/architecture/apps-api/Dynos.md) end point for dynos \(`GET /apps/{app}/dynos`\).
 
 ### Providing Safe Spaces for Applications
 
