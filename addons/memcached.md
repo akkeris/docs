@@ -44,6 +44,10 @@ aka addons:create akkeris-memcached:[hobby-dev|standard-0|standard-1||premium-0|
 
 Once provisioned the memcached hostname and port are added as the config var `MEMCACHED_URL`.
 
+## In-Cluster vs. Out-of-Cluster
+
+Standard memcached plans run in an isolated network next to your application.  These instances end with the domain `.local`, memcached instances running isolated cannot be connected to outside of the applications attached to them. To administrate these (flushing cache or dumping statistics) see the `memcached` plugin below. When developing locally instead of connecting to the `MEMCACHED_URL` in an apps configuration, run memcached locally through docker by executing `docker run -p 11211:11211 memcached:latest` then set `MEMCACHED_URL=localhost:11211`.
+
 ## Upgrading
 
 Memcached plans can be upgraded or downgraded on-demand. During the upgrade the memcached instance and any attached applications will be placed in maintenace mode. 
