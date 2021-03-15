@@ -97,7 +97,7 @@ The following compliances can be set:
 
 #### Logical Groupings
 
-Finally spaces provide a way of grouping applications for a product + environment. All applications in a space will receive a domain name that conatins the space.  Generally, `[appname]-[spacename].[stack].yourdomain.io` or a slight varient of it. Applications can access each one another through these public or \(if internal compliance is set, private\) domain names through https.  The https end point for this domain is automatically routed to the web dyno type on the application through its network as http traffic \(Akkeris at the load balancer level handles encryption and TLS for the app\).  Note that public or private http end points are never provided to anything other than dynos running inside Akkeris.
+Finally spaces provide a way of grouping applications for a product + environment. All applications in a space will receive a domain name that conatins the space.  Generally, `[appname]-[spacename].[stack].yourdomain.io` or a slight variant of it. Applications can access each one another through these public or \(if internal compliance is set, private\) domain names through https.  The https end point for this domain is automatically routed to the web dyno type on the application through its network as http traffic \(Akkeris at the load balancer level handles encryption and TLS for the app\).  Note that public or private http end points are never provided to anything other than dynos running inside Akkeris.
 
 ### Defining pipelines and environments
 
