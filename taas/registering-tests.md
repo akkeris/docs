@@ -45,13 +45,13 @@ During test registration, you will be prompted for a few details:
   - Specify any environment variables that the test should have
 
 Once you have decided on the details of your new test, go ahead and run the test registration command. The CLI will prompt you for the required information.
-`$ aka taas:tests:register`
+`$ aka taas:register`
 
 ## Verifying Test Information
 
 Once your test is created, you can verify that your test was registered and all of the details are correct:
-`$ aka taas:tests`
-`$ aka taas:tests:info testname`
+`$ aka taas`
+`$ aka taas:info testname`
 
 If you need to add additional variables:
 `$ aka taas:config:set testname KEY=value`
@@ -68,7 +68,7 @@ You can also see a list of all possible taas commands:
 ## Triggering a Test
 
 To start running a test:
-`$ aka taas:tests:trigger testname`
+`$ aka taas:trigger testname`
 
 To view logs for a test:
 `$ aka taas:logs testname`
