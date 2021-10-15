@@ -6,7 +6,7 @@
 
 If you're deploying a large migration or need to disable access to your application for some length of time, you can use Akkeris' built in maintenance mode.  
 
-When maintenance is turned on, a static maintenance page translated in multiple languages will be displayed to all visitors, without shutting down any of the existing dynos or addons (incase they are necessary to be running during the maintenace).
+When maintenance is turned on, a static maintenance page translated in multiple languages will be displayed to all visitors, without shutting down any of the existing dynos or addons (in case they are necessary to be running during the maintenance).
 
 Visitors arriving to your app will be shown:
 
@@ -18,7 +18,7 @@ Visitors arriving to your app will be shown:
 
 ## Usage
 
-You can turn maintenance mode on or off using the CLI or [Platform Apps API](/architecture/apps-api/Apps.md).  To enable maintenance mode, run:
+You can turn maintenance mode on or off using the CLI or [Platform Apps API](/architecture/apps-api/Apps.md). To enable maintenance mode, run:
 
 ```shell
 aka maintenance:on -a [appname-space]
