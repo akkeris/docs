@@ -217,7 +217,7 @@ If it does not appear give it a few seconds to start up.
 
 ## Scale the app
 
-Right now, your app is running on a single [dyno](//architecture/dyno.md). Think of a dyno as a lightweight container \(in fact in the docker world is it a container\) that runs the specified command in your [Dockerfile](https://docs.docker.com/engine/reference/builder/).
+Right now, your app is running on a single [dyno](/architecture/dyno.md). Think of a dyno as a lightweight container \(in fact in the docker world is it a container\) that runs the specified command in your [Dockerfile](https://docs.docker.com/engine/reference/builder/).
 
 You can now check how many dynos are running us the`ps`command:
 
