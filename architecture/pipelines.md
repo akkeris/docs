@@ -14,22 +14,22 @@ A pipeline is a group of apps that share the same codebase. Each app in a pipeli
 A common Akkeris continuous delivery workflow has the following steps:
 
 1. A branch is created in a repository and pull request is made.
-2. Akkeris creates apreview app for the pull request, allowing developers to review the change.
+2. Akkeris creates a preview app for the pull request, allowing developers to review the change.
 3. When the change is ready, it’s merged.
 4. The master or central branch automatically deploys to the apps in the development stage.
 5. When it’s ready, the application is promoted to staging apps, and then production.
 
 ## Maintaining Environments
 
-Regardless if you maintain an environment thats named differently than the pipeline stages, Akkeris can still help with CI/CD tasks and managing environments. Any set of applications (one or more) can be placed into any stage, and during a promotion the image from the previous stage is pushed to all apps downstream. 
+Regardless if you maintain an environment that’s named differently than the pipeline stages, Akkeris can still help with CI/CD tasks and managing environments. Any set of applications (one or more) can be placed into any stage, and during a promotion the image from the previous stage is pushed to all apps downstream. 
 
-If for example you have a `dev`, `qa`, `stage`, and `prod` environment, you can seperately add your `dev` app to the `development` environment and the `qa` and `stage` apps to the `staging` pipeline step.  When the `dev` app is promoted its bit-by-bit image (seperate from its configuration or resources) is moved forward to both the `qa` and `stage` apps as they are both in the `staging` step. 
+If for example you have a `dev`, `qa`, `stage`, and `prod` environment, you can seperately add your `dev` app to the `development` environment and the `qa` and `stage` apps to the `staging` pipeline step. When the `dev` app is promoted its bit-by-bit image (seperate from its configuration or resources) is moved forward to both the `qa` and `stage` apps as they are both in the `staging` step. 
 
 ## Simplifying CI/CD
 
 Once you’ve defined a pipeline, you and your team no longer have to worry about building and releasing outside of the apps in your `development` environment. Instead, `aka pipelines:promote` will copy your app’s build artifact (i.e. slug) to the downstream app(s) as a new release. In addition pipelines allow for additional functionality such as preview apps and automated CI/CD.
 
-In addition the pipeline workflow tool can be quite useful when managing multiple region deploys.  Consider if you had tweleve different regions your production app may run in. All twelve apps can be simultaneously deployed to with a promotion of a `stage` app to `prod` by adding all twelve apps to the `production` step.
+In addition the pipeline workflow tool can be quite useful when managing multiple region deploys. Consider if you had tweleve different regions your production app may run in. All twelve apps can be simultaneously deployed to with a promotion of a `stage` app to `prod` by adding all twelve apps to the `production` step.
 
 ## Creating a pipeline
 
@@ -73,7 +73,7 @@ pipeline                             id=13a3e3c3-a375-4623-bc6c-2a1405910733, na
 
 ### Promoting an app
 
-Now that we have both apps in our pipeline we can promote the code on myapp-space-dev to myapp-space-qa and myapp-space-stg.
+Now that we have both apps in our pipeline we can promote the code on `myapp-space-dev` to `myapp-space-qa` and `myapp-space-stg`.
 
 ```shell
 aka pipelines:promote -a myapp-space-dev
@@ -100,7 +100,7 @@ aka releases -a myapp-space-qa
 
 ## Advanced Pipelines
 
-Multiple apps can be at any one stage in a pipeline, the first app found will be promoted, however when promoting you may specify a specific app to promote and the release id on that app to promote (in addition to explicitly specifying a target app).  This allows you to establish more complicated workflows/pipelines.
+Multiple apps can be at any one stage in a pipeline, the first app found will be promoted, however when promoting you may specify a specific app to promote and the release id on that app to promote (in addition to explicitly specifying a target app). This allows you to establish more complicated workflows/pipelines.
 
 A simple staging to production pipeline:
 
@@ -127,7 +127,7 @@ Pipeline status checks allow a third party system to report a state of `pending`
 Specific stages of a pipeline can require that one or more release statuses on a release are in the `success` state to allow the release to be promoted. To add required statuses to a pipeline and stage while adding an app to a pipeline stage run:
 
 ```bash
-aka pipelines:add -a [appname-space] -c my-status-check -c my-other-check -s staging`
+aka pipelines:add -a [appname-space] -c my-status-check -c my-other-check -s staging
 ```
 #### Updating Required Status Checks
 
@@ -138,7 +138,6 @@ aka pipelines:update PIPELINE_COUPLING_UUID -c my/status-check
 ```
 
 #### Removing Required Status Checks
-
 
 To remove pipeline status checks, run the update command without any `-c` option and all status checks will be removed. Removing status checks does require elevated access privileges.
 
@@ -169,13 +168,10 @@ aka pipelines:info PIPELINE_NAME
   Status Checks: my-status-check, my-other-check
 ```
 
-The name of a status check (e.g., `my-status-check`) is typically referred to as a "context". 
+The name of a status check (_e.g._, `my-status-check`) is typically referred to as a "context". 
 
 To get a list of status checks available for a pipeline, run:
 
 ```bash
 aka pipelines:checks PIPELINE_NAME
 ```
-
-
-
