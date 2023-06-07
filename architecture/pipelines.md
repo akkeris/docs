@@ -168,7 +168,7 @@ aka pipelines:info PIPELINE_NAME
   Status Checks: my-status-check, my-other-check
 ```
 
-The name of a status check (e.g. `my-status-check`) is typically referred to as a "context". 
+The name of a status check (_e.g._, `my-status-check`) is typically referred to as a "context". 
 
 To get a list of status checks available for a pipeline, run:
 
